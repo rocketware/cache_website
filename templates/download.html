@@ -1,0 +1,68 @@
+{% extends "base.html" %} {% block title %}{{ section.title }} - {{ config.title
+}}{% endblock %} {% block description %}{{ section.description }}{% endblock %}
+{% block content %} {% set downloads = load_data(path="data/downloads.toml") %}
+{% set grouped = downloads.downloads | group_by(attribute="group") %}
+
+<section class="download-section">
+    <div class="download-container">
+        <h1 class="download-title">Download Cache</h1>
+        <p class="download-subtitle">
+            Cache is coming soon to all platforms. Join the waitlist to be
+            notified when it's available.
+        </p>
+
+        {% for group_name, items in grouped %}
+        <div class="download-group" id="{{ group_name | lower | replace(from=" ", to="-") }}">
+            <h2 class="download-group-title">{{ group_name }}</h2>
+            <table class="download-table">
+                <thead>
+                    <tr>
+                        <th>Platform</th>
+                        <th>Source</th>
+                        <th>Version</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dl in items %}
+                    <tr
+                        class="{% if dl.enabled %}download-row-available{% else %}download-row-coming-soon{% endif %}"
+                    >
+                        <td>{{ dl.platform }}</td>
+                        <td>
+                            {% if dl.enabled %}
+                            <a href="{{ dl.url }}" class="download-link"
+                                >{{ dl.name }}</a
+                            >
+                            {% else %} {{ dl.name }} {% endif %}
+                        </td>
+                        <td>{{ dl.version | default(value="-") }}</td>
+                        <td>
+                            {% if dl.enabled %}
+                            <span class="status-badge status-available"
+                                >Available</span
+                            >
+                            {% else %}
+                            <span class="status-badge status-coming-soon"
+                                >Coming Soon</span
+                            >
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endfor %}
+
+        <div class="download-cta">
+            <p>
+                Want to stay updated?
+                <a href="{{ config.extra.github_url }}"
+                    >Watch the project on GitHub</a
+                >
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

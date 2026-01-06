@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - {{ config.title }} Docs{% endblock %}
+{% block description %}{{ page.description | default(value=config.description) }}{% endblock %}
+
+{% block body_class %} class="docs"{% endblock %}
+
+{% block content %}
+<div class="docs-layout">
+  <!-- Sidebar Navigation -->
+  <nav class="docs-sidebar">
+    <h3>Documentation</h3>
+    <ul>
+      {% set docs_section = get_section(path="docs/_index.md") %}
+      <li>
+        <a href="{{ docs_section.permalink }}"{% if current_path == docs_section.path %} class="active"{% endif %}>
+          Overview
+        </a>
+      </li>
+      {% for doc in docs_section.pages %}
+      <li>
+        <a href="{{ doc.permalink }}"{% if current_path == doc.path %} class="active"{% endif %}>
+          {{ doc.title }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <article class="docs-content">
+    {{ page.content | safe }}
+  </article>
+
+  <!-- Table of Contents -->
+  <aside class="docs-toc">
+    {% if page.toc %}
+    <h3>On this page</h3>
+    <ul>
+      {% for h2 in page.toc %}
+      <li>
+        <a href="#{{ h2.id }}">{{ h2.title }}</a>
+        {% if h2.children %}
+        <ul>
+          {% for h3 in h2.children %}
+          <li><a href="#{{ h3.id }}">{{ h3.title }}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </aside>
+</div>
+{% endblock %}

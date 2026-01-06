@@ -1,0 +1,84 @@
+{% import "macros/icons.html" as icons %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ config.title }}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{{ config.description }}{% endblock %}">
+
+  <!-- OpenGraph -->
+  <meta property="og:title" content="{% block og_title %}{{ config.title }}{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{{ config.description }}{% endblock %}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ config.base_url }}{% block og_url %}{% endblock %}">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Theme initialization (prevent flash) -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body{% block body_class %}{% endblock %}>
+  <!-- SVG Icon Sprite -->
+  {{ icons::sprite() }}
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="/" class="header-brand">
+        <img src="/images/logo.svg" alt="Cache logo" class="header-logo">
+        <span class="header-title">Cache</span>
+        <span class="badge badge-alpha">ALPHA</span>
+      </a>
+      <nav class="header-nav">
+        <a href="/download/" class="header-link">Download</a>
+        <a href="/pricing/" class="header-link">Pricing</a>
+        <a href="/docs/" class="header-link">Docs</a>
+      </nav>
+      <div class="header-actions">
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+          <span class="theme-icon theme-icon-light">{{ icons::icon(name="light") }}</span>
+          <span class="theme-icon theme-icon-dark">{{ icons::icon(name="asleep") }}</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <p class="footer-text">&copy; {{ now() | date(format="%Y") }} {{ config.extra.author }}</p>
+      <nav class="footer-links">
+        <a href="/docs/" class="footer-link">Documentation</a>
+        <a href="{{ config.extra.github_url }}" class="footer-link" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Theme toggle script -->
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+  </script>
+</body>
+</html>

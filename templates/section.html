@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} - {{ config.title }}{% endblock %}
+{% block description %}{{ section.description | default(value=config.description) }}{% endblock %}
+
+{% block body_class %} class="docs"{% endblock %}
+
+{% block content %}
+<div class="docs-layout">
+  <!-- Sidebar Navigation -->
+  <nav class="docs-sidebar">
+    <h3>Documentation</h3>
+    <ul>
+      <li>
+        <a href="{{ section.permalink }}" class="active">Overview</a>
+      </li>
+      {% for page in section.pages %}
+      <li>
+        <a href="{{ page.permalink }}">{{ page.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <article class="docs-content">
+    {{ section.content | safe }}
+  </article>
+
+  <!-- Table of Contents -->
+  <aside class="docs-toc">
+    {% if section.toc %}
+    <h3>On this page</h3>
+    <ul>
+      {% for h2 in section.toc %}
+      <li>
+        <a href="#{{ h2.id }}">{{ h2.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </aside>
+</div>
+{% endblock %}

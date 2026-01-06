@@ -1,0 +1,30 @@
+# Cache Website Configuration
+base_url = "https://getcache.app"
+title = "Cache"
+description = "Your personal store of knowledge. Privacy-first note-taking with Git sync."
+default_language = "en"
+
+# Build options
+compile_sass = true
+minify_html = true
+build_search_index = false
+generate_feeds = false
+
+# Syntax highlighting (for docs code blocks)
+[markdown]
+highlight_code = true
+highlight_theme = "base16-ocean-dark"
+
+[extra]
+# Site metadata
+tagline = "Your personal store of knowledge"
+author = "Rocketware"
+
+# Social/links
+github_url = "https://github.com/rocketware/cache"
+
+# SVG icons for sprite system
+icons = ["light", "asleep"]
+icon_path = "static/icons/"
+
+# Download links are managed in data/downloads.toml

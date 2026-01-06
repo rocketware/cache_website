@@ -1,0 +1,72 @@
+# Cache Download Sources
+# Single source of truth for all download buttons and tables
+
+[[downloads]]
+id = "app_store"
+name = "App Store"
+platform = "iOS + macOS"
+group = "Apple"
+url = "#"
+icon = "apple"
+enabled = false
+version = ""
+
+[[downloads]]
+id = "play_store"
+name = "Google Play"
+platform = "Android"
+group = "Android"
+url = "#"
+icon = "android"
+enabled = false
+version = ""
+
+[[downloads]]
+id = "accrescent"
+name = "Accrescent"
+platform = "Android"
+group = "Android"
+url = "#"
+icon = "android"
+enabled = false
+version = ""
+
+[[downloads]]
+id = "apk"
+name = "APK"
+platform = "Android"
+group = "Android"
+url = "#"
+icon = "android"
+enabled = false
+version = ""
+
+[[downloads]]
+id = "nix"
+name = "Nix"
+platform = "Linux"
+group = "Linux"
+url = "#"
+icon = "linux"
+enabled = false
+version = ""
+
+[[downloads]]
+id = "flathub"
+name = "Flathub"
+platform = "Linux"
+group = "Linux"
+url = "#"
+icon = "linux"
+enabled = false
+version = ""
+
+[[downloads]]
+id = "github"
+name = "Microsoft Store"
+platform = "Windows"
+group = "Microsoft"
+url = "#"
+icon = "windows"
+enabled = false
+version = ""

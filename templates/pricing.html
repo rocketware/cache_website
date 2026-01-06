@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} - {{ config.title }}{% endblock %}
+{% block description %}{{ section.description }}{% endblock %}
+
+{% block content %}
+<section class="pricing-section">
+  <div class="pricing-container">
+    <h1 class="pricing-title">Pricing</h1>
+    <p class="pricing-subtitle">Simple, transparent pricing. Every feature included.</p>
+
+    <div class="pricing-cards">
+      <div class="pricing-card">
+        <h2 class="pricing-card-title">Free</h2>
+        <div class="pricing-card-price">$0</div>
+        <p class="pricing-card-description">Try Cache with all features</p>
+        <ul class="pricing-card-features">
+          <li>All features included</li>
+          <li>Limited to 50 notes</li>
+        </ul>
+      </div>
+
+      <div class="pricing-card pricing-card-featured">
+        <h2 class="pricing-card-title">Personal</h2>
+        <div class="pricing-card-price">$3<span class="pricing-card-period">/month</span></div>
+        <p class="pricing-card-description">For individuals</p>
+        <ul class="pricing-card-features">
+          <li>All features included</li>
+          <li>Unlimited notes</li>
+        </ul>
+      </div>
+
+      <div class="pricing-card">
+        <h2 class="pricing-card-title">Commercial</h2>
+        <div class="pricing-card-price">$5<span class="pricing-card-period">/month/user</span></div>
+        <p class="pricing-card-description">For business use</p>
+        <ul class="pricing-card-features">
+          <li>All features included</li>
+          <li>Unlimited notes</li>
+          <li>Commercial license</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="pricing-note">* Billed annually. Prices may vary slightly by app store and currency.</p>
+
+    <div class="pricing-faq">
+      <h2 class="pricing-faq-title">FAQ</h2>
+
+      <div class="pricing-faq-item">
+        <h3 class="pricing-faq-question">Why isn't Cache free?</h3>
+        <p class="pricing-faq-answer">
+          Cache is built by an independent developer with no other funding sources.
+          Unlike mainstream alternatives, I don't harvest your data, sell to data brokers,
+          or show advertisements. I collect zero information about you or your notes.
+          By upgrading, you directly support continued development and improvements to the app.
+        </p>
+      </div>
+
+      <div class="pricing-faq-item">
+        <h3 class="pricing-faq-question">Are payments cross-platform?</h3>
+        <p class="pricing-faq-answer">
+          Yes. Your license is stored in your notes repository and synced via git.
+          Upgrade once, and all your devices receive it automatically. If you change
+          git providers, Cache will reassign your license. No accounts required.
+        </p>
+      </div>
+
+      <div class="pricing-faq-item">
+        <h3 class="pricing-faq-question">What information is captured during payment?</h3>
+        <p class="pricing-faq-answer">
+          Cache only stores a hash of your repository's git remote URL to verify your subscription.
+          (This hash is irreversible, it identifies your subscription without revealing any information.)
+          No other identifiable information is captured by us. Your payment provider (App Store,
+          Google Play, etc.) will collect the information required to process your payment according
+          to their privacy policies.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
