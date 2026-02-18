@@ -14,7 +14,7 @@
   <meta property="og:url" content="{{ config.base_url }}{% block og_url %}{% endblock %}">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/webp" href="/images/icon.webp">
 
   <!-- Styles -->
   <link rel="stylesheet" href="/style.css">
@@ -36,7 +36,7 @@
   <header class="header">
     <div class="header-container">
       <a href="/" class="header-brand">
-        <img src="/images/logo.svg" alt="Cache logo" class="header-logo">
+        <img src="/images/icon.svg" alt="Cache logo" class="header-logo">
         <span class="header-title">Cache</span>
         <span class="badge badge-alpha">ALPHA</span>
       </a>
@@ -65,6 +65,7 @@
       <p class="footer-text">&copy; {{ now() | date(format="%Y") }} {{ config.extra.author }}</p>
       <nav class="footer-links">
         <a href="/docs/" class="footer-link">Documentation</a>
+        <a href="/docs/privacy-policy/" class="footer-link">Privacy</a>
         <a href="{{ config.extra.github_url }}" class="footer-link" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>

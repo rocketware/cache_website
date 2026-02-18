@@ -1,238 +1,327 @@
-{% extends "base.html" %}
-
-{% block title %}{{ config.title }} - {{ config.extra.tagline }}{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}{{ config.title }} - {{
+config.extra.tagline }}{% endblock %} {% block content %}
 <!-- Hero Section -->
 <section class="hero-section">
-  <div class="hero-container">
-    <div class="hero-branding">
-      <img src="/images/logo.svg" alt="Cache logo" class="hero-logo">
-      <h1 class="hero-title">Cache</h1>
-      <p class="hero-tagline">{{ config.extra.tagline }}</p>
-    </div>
-    <div class="hero-media">
-      <div class="video-container">
-        {% if page.extra.youtube_id %}
-        <iframe
-          src="https://www.youtube-nocookie.com/embed/{{ page.extra.youtube_id }}"
-          title="Cache demo video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-        {% else %}
-        <div class="video-placeholder">
-          <span class="video-placeholder-icon">&#9658;</span>
-          <span>Video coming soon</span>
+    <div class="hero-container">
+        <div class="hero-branding">
+            <img src="/images/icon.svg" alt="Cache logo" class="hero-logo" />
+            <h1 class="hero-title">Cache</h1>
+            <p class="hero-tagline">{{ config.extra.tagline }}</p>
         </div>
-        {% endif %}
-      </div>
-      <p class="hero-video-subtitle">See Cache in action</p>
+        <div class="hero-media">
+            <div class="video-container">
+                {% if page.extra.youtube_id %}
+                <iframe
+                    src="https://www.youtube-nocookie.com/embed/{{ page.extra.youtube_id }}"
+                    title="Cache demo video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                >
+                </iframe>
+                {% else %}
+                <div class="video-placeholder">
+                    <span class="video-placeholder-icon">&#9658;</span>
+                    <span>Video coming soon</span>
+                </div>
+                {% endif %}
+            </div>
+            <p class="hero-video-subtitle">See Cache in action</p>
+        </div>
     </div>
-  </div>
 </section>
 
 <!-- Features Section -->
 <section class="features-section">
-  <div class="features-container">
-    <h2 class="features-title">Why Cache?</h2>
-    <p class="value-proposition">
-      For users who value complete control over their knowledge. Powerful personal
-      knowledge management with no vendor lock-in, no privacy compromises—just fast,
-      portable notes synced through git.
-    </p>
+    <div class="features-container">
+        <h2 class="features-title">Why Cache?</h2>
+        <p class="value-proposition">
+            For users who value complete control over their knowledge. Powerful
+            personal knowledge management with no vendor lock-in, no privacy
+            compromises—just fast, portable notes synced through git.
+        </p>
 
-    <div class="features-grid">
-      <!-- Group A: Core Differentiators -->
-      <article class="feature-card">
-        <div class="feature-media">
-          <div class="feature-placeholder" data-demo="privacy-demo">
-            <span class="feature-placeholder-icon">&#128247;</span>
-            <span>Privacy demo</span>
-          </div>
-        </div>
-        <div class="feature-content">
-          <h3 class="feature-title">Your Notes, Your Data</h3>
-          <p class="feature-description">You are in total control of your notes and privacy. Cache has zero backend - everything stays on your devices, synced through your own git server. Complete privacy. No tracking. No exceptions.</p>
-        </div>
-      </article>
+        <div class="features-grid">
+            <!-- Group A: Core Differentiators -->
+            <article class="feature-card">
+                <div class="feature-media">
+                    <video
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        src="/videos/your-data.mp4"
+                    ></video>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Your Notes, Your Data</h3>
+                    <p class="feature-description">
+                        You are in total control of your notes and privacy.
+                        Cache has zero backend - everything stays on your
+                        devices, synced through your own git server. Complete
+                        privacy. No tracking. No exceptions.
+                    </p>
+                </div>
+            </article>
 
-      <article class="feature-card">
-        <div class="feature-media">
-          <div class="feature-placeholder" data-demo="markdown-demo">
-            <span class="feature-placeholder-icon">&#128247;</span>
-            <span>Markdown demo</span>
-          </div>
-        </div>
-        <div class="feature-content">
-          <h3 class="feature-title">Beautiful Markdown</h3>
-          <p class="feature-description">Your notes are stored, viewed and edited as clean portable markdown. No proprietary formats, no lock-in. Your knowledge remains accessible forever in files you own, readable in any text editor.</p>
-        </div>
-      </article>
+            <article class="feature-card">
+                <div class="feature-media">
+                    <div class="feature-placeholder" data-demo="markdown-demo">
+                        <span class="feature-placeholder-icon">&#128247;</span>
+                        <span>Markdown demo</span>
+                    </div>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Beautiful Markdown</h3>
+                    <p class="feature-description">
+                        Your notes are stored, viewed and edited as clean
+                        portable markdown. No proprietary formats, no lock-in.
+                        Your knowledge remains accessible forever in files you
+                        own, readable in any text editor.
+                    </p>
+                </div>
+            </article>
 
-      <article class="feature-card">
-        <div class="feature-media">
-          <div class="feature-placeholder" data-demo="git-demo">
-            <span class="feature-placeholder-icon">&#128247;</span>
-            <span>Git sync demo</span>
-          </div>
-        </div>
-        <div class="feature-content">
-          <h3 class="feature-title">Git Sync</h3>
-          <p class="feature-description">Cache is a Git client - use GitHub, GitLab, Gitea, your own server, or any Git service. Version control built-in means you never lose your work and you control who has access.</p>
-        </div>
-      </article>
+            <article class="feature-card">
+                <div class="feature-media">
+                    <video
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        src="/videos/git.mp4"
+                    ></video>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Git Sync</h3>
+                    <p class="feature-description">
+                        Cache is a Git client - use GitHub, GitLab, Gitea, your
+                        own server, or any Git service. Version control built-in
+                        means you never lose your work and you control who has
+                        access.
+                    </p>
+                </div>
+            </article>
 
-      <article class="feature-card">
-        <div class="feature-media">
-          <div class="feature-placeholder" data-demo="opensource-demo">
-            <span class="feature-placeholder-icon">&#128247;</span>
-            <span>Open source demo</span>
-          </div>
-        </div>
-        <div class="feature-content">
-          <h3 class="feature-title">Open Ecosystem</h3>
-          <p class="feature-description">We've open-sourced cache_core—the engine that manages notes and search. Build your own compatible apps, audit the code, or contribute improvements.</p>
-        </div>
-      </article>
+            <article class="feature-card">
+                <div class="feature-media">
+                    <div
+                        class="feature-placeholder"
+                        data-demo="opensource-demo"
+                    >
+                        <span class="feature-placeholder-icon">&#128247;</span>
+                        <span>Open source demo</span>
+                    </div>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Task Management</h3>
+                    <p class="feature-description">
+                        Every task individually tracked with powerful tools to
+                        find them. Set due dates and Cache surfaces what's
+                        overdue, due today, or coming soon.
+                    </p>
+                </div>
+            </article>
 
-      <!-- Group B: Daily Experience -->
-      <article class="feature-card">
-        <div class="feature-media">
-          <div class="feature-placeholder" data-demo="fast-demo">
-            <span class="feature-placeholder-icon">&#128247;</span>
-            <span>Speed demo</span>
-          </div>
-        </div>
-        <div class="feature-content">
-          <h3 class="feature-title">Lightning Fast</h3>
-          <p class="feature-description">Built around speed to get ideas out of your head quickly. Fluid touch gestures or comprehensive keyboard shortcuts, minimal interface, instant search - nothing slows you down on any device.</p>
-        </div>
-      </article>
+            <!-- Group B: Daily Experience -->
+            <article class="feature-card">
+                <div class="feature-media">
+                    <video
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        src="/videos/startup.mp4"
+                    ></video>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Lightning Fast</h3>
+                    <p class="feature-description">
+                        Built around speed to get ideas out of your head
+                        quickly. Fluid touch gestures or comprehensive keyboard
+                        shortcuts, minimal interface, instant search - nothing
+                        slows you down on any device.
+                    </p>
+                </div>
+            </article>
 
-      <article class="feature-card">
-        <div class="feature-media">
-          <div class="feature-placeholder" data-demo="linking-demo">
-            <span class="feature-placeholder-icon">&#128247;</span>
-            <span>Linking demo</span>
-          </div>
-        </div>
-        <div class="feature-content">
-          <h3 class="feature-title">Powerful Linking</h3>
-          <p class="feature-description">Build a connected knowledge base your way. Add explicit links or define smart patterns that connect notes automatically—without cluttering your source files.</p>
-        </div>
-      </article>
+            <article class="feature-card">
+                <div class="feature-media">
+                    <div class="feature-placeholder" data-demo="linking-demo">
+                        <span class="feature-placeholder-icon">&#128247;</span>
+                        <span>Linking demo</span>
+                    </div>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Powerful Linking</h3>
+                    <p class="feature-description">
+                        Build a connected knowledge base your way. Add explicit
+                        links or define smart patterns that connect notes
+                        automatically—without cluttering your source files.
+                    </p>
+                </div>
+            </article>
 
-      <article class="feature-card">
-        <div class="feature-media">
-          <div class="feature-placeholder" data-demo="search-demo">
-            <span class="feature-placeholder-icon">&#128247;</span>
-            <span>Search demo</span>
-          </div>
-        </div>
-        <div class="feature-content">
-          <h3 class="feature-title">Blazing Fast Search</h3>
-          <p class="feature-description">Find anything instantly across your entire knowledge base. Line-level results show context immediately—no waiting, no indexing delays, just results.</p>
-        </div>
-      </article>
+            <article class="feature-card">
+                <div class="feature-media">
+                    <video
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        src="/videos/search.mp4"
+                    ></video>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Blazing Fast Search</h3>
+                    <p class="feature-description">
+                        Find anything instantly across your entire knowledge
+                        base. Line-level results show context immediately and
+                        feel magical. No waiting, no indexing delays, no network
+                        requests, just results.
+                    </p>
+                </div>
+            </article>
 
-      <article class="feature-card">
-        <div class="feature-media">
-          <div class="feature-placeholder" data-demo="journal-demo">
-            <span class="feature-placeholder-icon">&#128247;</span>
-            <span>Journal demo</span>
-          </div>
-        </div>
-        <div class="feature-content">
-          <h3 class="feature-title">First-Class Journaling</h3>
-          <p class="feature-description">Date-based notes with first-class support for effortless journaling. Browse, search, and edit your daily entries seamlessly. Journals and reference notes coexist with fully configurable categories.</p>
-        </div>
-      </article>
+            <article class="feature-card">
+                <div class="feature-media">
+                    <div class="feature-placeholder" data-demo="journal-demo">
+                        <span class="feature-placeholder-icon">&#128247;</span>
+                        <span>Journal demo</span>
+                    </div>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">First-Class Journaling</h3>
+                    <p class="feature-description">
+                        Date-based notes with first-class support for effortless
+                        journaling. Browse, search, and edit your daily entries
+                        seamlessly. Journals and reference notes coexist with
+                        fully configurable categories.
+                    </p>
+                </div>
+            </article>
 
-      <!-- Group C: Technical/Platform -->
-      <article class="feature-card">
-        <div class="feature-media">
-          <div class="feature-placeholder" data-demo="modal-demo">
-            <span class="feature-placeholder-icon">&#128247;</span>
-            <span>Modal editing demo</span>
-          </div>
-        </div>
-        <div class="feature-content">
-          <h3 class="feature-title">Modal Editing</h3>
-          <p class="feature-description">Optionally use powerful modal editing with Vim and Helix motions. For power users who want maximum efficiency, or stick with simple mode for traditional editing.</p>
-        </div>
-      </article>
+            <!-- Group C: Technical/Platform -->
+            <article class="feature-card">
+                <div class="feature-media">
+                    <video
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        src="/videos/modal.mp4"
+                    ></video>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Modal Editing</h3>
+                    <p class="feature-description">
+                        Optionally use powerful modal editing with Vim and Helix
+                        motions. For power users who want maximum efficiency, or
+                        stick with simple mode for traditional editing.
+                    </p>
+                </div>
+            </article>
 
-      <article class="feature-card">
-        <div class="feature-media">
-          <div class="feature-placeholder" data-demo="offline-demo">
-            <span class="feature-placeholder-icon">&#128247;</span>
-            <span>Offline demo</span>
-          </div>
-        </div>
-        <div class="feature-content">
-          <h3 class="feature-title">Offline First</h3>
-          <p class="feature-description">Carry your notes with you. Your devices always have your full notes repository. Work anywhere, anytime, without depending on internet connectivity.</p>
-        </div>
-      </article>
+            <article class="feature-card">
+                <div class="feature-media">
+                    <div class="feature-placeholder" data-demo="offline-demo">
+                        <span class="feature-placeholder-icon">&#128247;</span>
+                        <span>Offline demo</span>
+                    </div>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Offline First</h3>
+                    <p class="feature-description">
+                        Carry your notes with you. Your devices always have your
+                        full notes repository. Work anywhere, anytime, without
+                        depending on internet connectivity.
+                    </p>
+                </div>
+            </article>
 
-      <article class="feature-card">
-        <div class="feature-media">
-          <div class="feature-placeholder" data-demo="crossplatform-demo">
-            <span class="feature-placeholder-icon">&#128247;</span>
-            <span>Platform demo</span>
-          </div>
-        </div>
-        <div class="feature-content">
-          <h3 class="feature-title">Cross-Platform</h3>
-          <p class="feature-description">Built for every platform - open-source Linux and privacy-focused GrapheneOS, plus macOS, Windows, iOS, and Android. Optimized for any screen size. One powerful experience, everywhere.</p>
-        </div>
-      </article>
+            <article class="feature-card">
+                <div class="feature-media">
+                    <video
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        src="/videos/gesture.mp4"
+                        class="align-bottom"
+                    ></video>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Cross-Platform</h3>
+                    <p class="feature-description">
+                        Built for every platform - open-source Linux and
+                        privacy-focused GrapheneOS, plus macOS, Windows, iOS,
+                        and Android. Optimized for any screen size. One powerful
+                        experience, everywhere.
+                    </p>
+                </div>
+            </article>
 
-      <article class="feature-card">
-        <div class="feature-media">
-          <div class="feature-placeholder" data-demo="simplicity-demo">
-            <span class="feature-placeholder-icon">&#128247;</span>
-            <span>Simplicity demo</span>
-          </div>
+            <article class="feature-card">
+                <div class="feature-media">
+                    <div
+                        class="feature-placeholder"
+                        data-demo="simplicity-demo"
+                    >
+                        <span class="feature-placeholder-icon">&#128247;</span>
+                        <span>Simplicity demo</span>
+                    </div>
+                </div>
+                <div class="feature-content">
+                    <h3 class="feature-title">Opinionated Minimalism</h3>
+                    <p class="feature-description">
+                        Every feature serves one purpose: managing your markdown
+                        notes faster and better. No plugins means no bloat, no
+                        distractions, no performance compromises. Just powerful
+                        note-taking, nothing more.
+                    </p>
+                </div>
+            </article>
         </div>
-        <div class="feature-content">
-          <h3 class="feature-title">Opinionated Minimalism</h3>
-          <p class="feature-description">Every feature serves one purpose: managing your markdown notes faster and better. No plugins means no bloat, no distractions, no performance compromises. Just powerful note-taking, nothing more.</p>
-        </div>
-      </article>
     </div>
-  </div>
 </section>
 
 <!-- CTA Section -->
-{% set downloads = load_data(path="data/downloads.toml") %}
-{% set groups = downloads.downloads | group_by(attribute="group") %}
+{% set downloads = load_data(path="data/downloads.toml") %} {% set groups =
+downloads.downloads | group_by(attribute="group") %}
 <section class="cta-section">
-  <div class="cta-container">
-    <h2 class="cta-title">Ready to take control?</h2>
-    <p class="cta-subtitle">Download Cache and start building your personal knowledge base.</p>
+    <div class="cta-container">
+        <h2 class="cta-title">Ready to take control?</h2>
+        <p class="cta-subtitle">
+            Download Cache and start building your personal knowledge base.
+        </p>
 
-    <div class="cta-buttons">
-      {% for group_name, items in groups %}
-      <a href="/download/#{{ group_name | lower | replace(from=' ', to='-') }}" class="cta-button cta-button-primary">
-        <span class="button-store-name">{{ group_name }}</span>
-      </a>
-      {% endfor %}
-    </div>
+        <div class="cta-buttons">
+            {% for group_name, items in groups %}
+            <a
+                href="/download/#{{ group_name | lower | replace(from=' ', to='-') }}"
+                class="cta-button cta-button-primary"
+            >
+                <span class="button-store-name">{{ group_name }}</span>
+            </a>
+            {% endfor %}
+        </div>
 
-    <div class="cta-buttons">
-      <a href="/docs/" class="cta-button cta-button-secondary">
-        <span class="button-store-name">Documentation</span>
-      </a>
-      <a href="{{ config.extra.github_url }}" class="cta-button cta-button-secondary" target="_blank" rel="noopener">
-        <span class="button-store-name">View Source</span>
-      </a>
-    </div>
+        <div class="cta-buttons">
+            <a href="/docs/" class="cta-button cta-button-secondary">
+                <span class="button-store-name">Documentation</span>
+            </a>
+            <a
+                href="{{ config.extra.github_url }}"
+                class="cta-button cta-button-secondary"
+                target="_blank"
+                rel="noopener"
+            >
+                <span class="button-store-name">View Source</span>
+            </a>
+        </div>
 
-    <div class="cta-info">
-      <p>Coming soon to all platforms</p>
+        <div class="cta-info">
+            <p>Coming soon to all platforms</p>
+        </div>
     </div>
-  </div>
 </section>
 {% endblock %}

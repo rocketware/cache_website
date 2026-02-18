@@ -1,0 +1,44 @@
+{% macro sidebar(docs_section, current_path) %}
+<nav class="docs-sidebar">
+  <h3>Guides</h3>
+  <ul>
+    <li>
+      <a href="{{ docs_section.permalink }}"{% if current_path == docs_section.path %} class="active"{% endif %}>
+        Getting Started
+      </a>
+    </li>
+    {% for doc in docs_section.pages %}
+    {% if doc.extra.sidebar_group is defined and doc.extra.sidebar_group == "Guides" %}
+    <li>
+      <a href="{{ doc.permalink }}"{% if current_path == doc.path %} class="active"{% endif %}>
+        {{ doc.title }}
+      </a>
+    </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+
+  <h3>About</h3>
+  <ul>
+    {% for doc in docs_section.pages %}
+    {% if doc.extra.sidebar_group is defined and doc.extra.sidebar_group == "About" %}
+    <li>
+      <a href="{{ doc.permalink }}"{% if current_path == doc.path %} class="active"{% endif %}>
+        {{ doc.title }}
+      </a>
+    </li>
+    {% endif %}
+    {% endfor %}
+
+    {% for doc in docs_section.pages %}
+    {% if doc.extra.sidebar_group is defined and doc.extra.sidebar_group == "Legal" %}
+    <li>
+      <a href="{{ doc.permalink }}"{% if current_path == doc.path %} class="active"{% endif %}>
+        {{ doc.title }}
+      </a>
+    </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</nav>
+{% endmacro sidebar %}

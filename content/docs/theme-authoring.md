@@ -1,7 +1,11 @@
 +++
 title = "Theme Authoring"
 description = "Create custom themes for Cache using TOML format"
-weight = 3
+weight = 13
+draft = true
+
+[extra]
+sidebar_group = "Guides"
 +++
 
 # Theme Authoring
@@ -63,6 +67,8 @@ fg-dim = "#808080"
 selection = "#264f78"
 ```
 
+---
+
 ## Color Formats
 
 Blink supports multiple color formats:
@@ -119,6 +125,8 @@ Syntax scopes control code highlighting. All must start with `syntax.`:
 | `syntax.markup.link`          | [Links](url)             |
 | `syntax.diagnostic.error`     | Error highlights         |
 | `syntax.diagnostic.warning`   | Warning highlights       |
+
+---
 
 ## UI Scopes
 
@@ -220,6 +228,8 @@ These can be combined with states for fine-grained control:
 "ui.chrome.navbar.item.secondary.text:inactive" = { fg = "$gray" }
 ```
 
+---
+
 ## Text Modifiers
 
 Add visual emphasis to text:
@@ -259,6 +269,8 @@ Add custom underlines to text:
 ```
 
 Underline styles: `line`, `curl`, `dashed`, `dotted`
+
+---
 
 ## Complete Example Theme
 
@@ -339,6 +351,8 @@ blue = "#5ccfe6"
 purple = "#d4bfff"
 ```
 
+---
+
 ## Testing Your Theme
 
 After creating your theme:
@@ -363,6 +377,6 @@ After creating your theme:
 
 ## Getting Help
 
-- **Browse bundled themes** - `shared/blink_theme_assets/dark.toml` and `light.toml`
+- **Browse bundled themes** - `shared/blink_theme_assets/storm-amethyst.toml` and `mist-amethyst.toml`
 - **Read the spec** - `packages/blink_theme/THEME_SCOPE_SYSTEM.md` for technical details
 - **Ask questions** - Check the documentation or ask for help

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros/docs.html" as docs_macros %}
 
 {% block title %}{{ page.title }} - {{ config.title }} Docs{% endblock %}
 {% block description %}{{ page.description | default(value=config.description) }}{% endblock %}
@@ -7,25 +8,8 @@
 
 {% block content %}
 <div class="docs-layout">
-  <!-- Sidebar Navigation -->
-  <nav class="docs-sidebar">
-    <h3>Documentation</h3>
-    <ul>
-      {% set docs_section = get_section(path="docs/_index.md") %}
-      <li>
-        <a href="{{ docs_section.permalink }}"{% if current_path == docs_section.path %} class="active"{% endif %}>
-          Overview
-        </a>
-      </li>
-      {% for doc in docs_section.pages %}
-      <li>
-        <a href="{{ doc.permalink }}"{% if current_path == doc.path %} class="active"{% endif %}>
-          {{ doc.title }}
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
-  </nav>
+  {% set docs_section = get_section(path="docs/_index.md") %}
+  {{ docs_macros::sidebar(docs_section=docs_section, current_path=current_path) }}
 
   <!-- Main Content -->
   <article class="docs-content">

@@ -16,9 +16,9 @@ id = "play_store"
 name = "Google Play"
 platform = "Android"
 group = "Android"
-url = "#"
+url = "https://play.google.com/store/apps/details?id=io.rocketware.cache.googleplay"
 icon = "android"
-enabled = false
+enabled = true
 version = ""
 
 [[downloads]]
