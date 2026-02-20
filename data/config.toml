@@ -1,0 +1,88 @@
+# Cache Website Configuration Data
+# Product IDs, pricing, and server URLs for license management pages.
+
+[domains]
+website = "https://getcache.app"
+license_server = "https://license.getcache.app"
+
+# Currencies
+[currencies]
+default = "usd"
+supported = ["usd", "gbp", "eur"]
+
+[currencies.usd]
+symbol = "$"
+label = "USD"
+position = "prefix"
+
+[currencies.gbp]
+symbol = "£"
+label = "GBP"
+position = "prefix"
+
+[currencies.eur]
+symbol = "€"
+label = "EUR"
+position = "prefix"
+
+# Personal plan — volume pricing by repository count
+[plans.personal]
+display_name = "Personal"
+tagline = "For individuals and families"
+product_id = "prod_U0UhEwEmWvVOUh"
+monthly_id = "price_1T2TiZHBjuEfyzFqUIizdtqw"
+annual_id = "price_1T2TiZHBjuEfyzFqluNL5AOo"
+unit = "repository"
+units = "repositories"
+min = 1
+max = 20
+
+[[plans.personal.tiers]]
+up_to = 1
+monthly = { gbp = 2.00, usd = 2.50, eur = 2.25 }
+annual = { gbp = 20, usd = 25, eur = 22.50 }
+
+[[plans.personal.tiers]]
+up_to = 2
+monthly = { gbp = 1.50, usd = 2.00, eur = 1.75 }
+annual = { gbp = 15, usd = 20, eur = 17.50 }
+
+[[plans.personal.tiers]]
+up_to = 3
+monthly = { gbp = 1.25, usd = 1.75, eur = 1.50 }
+annual = { gbp = 12.50, usd = 17.50, eur = 15 }
+
+[[plans.personal.tiers]]
+up_to = 4
+monthly = { gbp = 1.10, usd = 1.50, eur = 1.25 }
+annual = { gbp = 11, usd = 15, eur = 12.50 }
+
+[[plans.personal.tiers]]
+monthly = { gbp = 1.00, usd = 1.25, eur = 1.25 }
+annual = { gbp = 10, usd = 12.50, eur = 12.50 }
+
+# Business plan — volume pricing by seat count
+[plans.business]
+display_name = "Business"
+tagline = "For organisations"
+product_id = "prod_U0UyX2cX4kl5gD"
+monthly_id = "price_1T2TykHBjuEfyzFqA2RVNIvu"
+annual_id = "price_xxx"
+unit = "seat"
+units = "seats"
+min = 1
+max = 100
+
+[[plans.business.tiers]]
+up_to = 24
+monthly = { gbp = 5.00, usd = 6.25, eur = 5.75 }
+annual = { gbp = 50, usd = 62.50, eur = 57.50 }
+
+[[plans.business.tiers]]
+up_to = 99
+monthly = { gbp = 4.50, usd = 5.75, eur = 5.25 }
+annual = { gbp = 45, usd = 57.50, eur = 52.50 }
+
+[[plans.business.tiers]]
+monthly = { gbp = 4.00, usd = 5.00, eur = 4.75 }
+annual = { gbp = 40, usd = 50, eur = 47.50 }

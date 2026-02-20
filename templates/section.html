@@ -10,6 +10,8 @@
 <div class="docs-layout">
   {{ docs_macros::sidebar(docs_section=section, current_path=current_path) }}
 
+  <button class="docs-menu-toggle" onclick="let s=document.querySelector('.docs-sidebar');s.classList.toggle('open');this.textContent=s.classList.contains('open')?'Close':'Pages';">Pages</button>
+
   <!-- Main Content -->
   <article class="docs-content">
     {{ section.content | safe }}

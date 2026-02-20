@@ -1,0 +1,346 @@
+{% extends "base.html" %}
+
+{% block title %}Purchase - {{ config.title }}{% endblock %}
+{% block description %}Purchase a Cache license{% endblock %}
+
+{% block content %}
+{% set data = load_data(path="data/config.toml") %}
+
+<section class="license-section">
+  <div class="license-container">
+    <h1 class="license-title">Purchase a License</h1>
+    <p class="license-subtitle">Choose a plan, configure it, and complete your purchase via Stripe.</p>
+
+    <div class="currency-picker">
+      <select id="currency-select" aria-label="Currency"></select>
+    </div>
+
+    <div id="cancelled-banner" class="license-error" style="display: none;">
+      Payment was cancelled. You can try again below.
+    </div>
+
+    <div class="license-purchase-form">
+      <!-- Step 1: Plan selection -->
+      <div class="purchase-step">
+        <h2>1. Choose a plan</h2>
+        <div class="plan-options">
+          <label class="plan-option">
+            <input type="radio" name="plan" value="personal" checked>
+            <div class="plan-option-content">
+              <strong>{{ data.plans.personal.display_name }}</strong>
+              <span class="plan-tagline">{{ data.plans.personal.tagline }}</span>
+              <span class="plan-price" id="plan-price-personal"></span>
+            </div>
+          </label>
+          <label class="plan-option">
+            <input type="radio" name="plan" value="business">
+            <div class="plan-option-content">
+              <strong>{{ data.plans.business.display_name }}</strong>
+              <span class="plan-tagline">{{ data.plans.business.tagline }}</span>
+              <span class="plan-price" id="plan-price-business"></span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Step 2: Configuration -->
+      <div class="purchase-step" id="config-step">
+        <h2>2. Configure</h2>
+        <div id="quantity-config">
+          <label id="quantity-label" for="quantity-input"></label>
+          <input type="number" id="quantity-input" min="1" max="20" value="1" class="quantity-input">
+        </div>
+      </div>
+
+      <!-- Step 3: Billing period -->
+      <div class="purchase-step">
+        <h2>3. Billing period</h2>
+        <div class="billing-options">
+          <label class="billing-option">
+            <input type="radio" name="billing" value="monthly">
+            <span>Monthly</span>
+          </label>
+          <label class="billing-option">
+            <input type="radio" name="billing" value="annual" checked>
+            <span>Annual</span>
+            <span class="annual-savings" id="annual-savings-badge"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Price summary -->
+      <div class="purchase-step">
+        <div id="price-summary" class="price-summary"></div>
+      </div>
+
+      <!-- Purchase button -->
+      <div class="purchase-step" style="text-align: center;">
+        <button id="purchase-btn" class="btn btn-primary btn-large" onclick="handlePurchase()">
+          Purchase
+        </button>
+        <div id="purchase-error" class="license-error" style="display: none;"></div>
+        <div id="purchase-loading" class="license-loading" style="display: none;">
+          Redirecting to checkout...
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const CONFIG = {{ data | json_encode() | safe }};
+  const API_BASE = CONFIG.domains.license_server;
+  const WEBSITE = CONFIG.domains.website;
+  const SUPPORTED = CONFIG.currencies.supported;
+  const DEFAULT_CURRENCY = CONFIG.currencies.default;
+
+  // -- Currency detection & formatting ----------------------------------------
+
+  function detectCurrency(supported, fallback) {
+    const saved = localStorage.getItem('cache_currency');
+    if (saved && supported.includes(saved)) return saved;
+
+    const langs = navigator.languages || [navigator.language || ''];
+    const lang = langs.find(l => l.includes('-')) || langs[0] || '';
+    const region = lang.split('-')[1]?.toUpperCase();
+
+    const map = {
+      US: 'usd', GB: 'gbp', UK: 'gbp',
+      IE: 'eur', FR: 'eur', DE: 'eur', ES: 'eur', IT: 'eur',
+      NL: 'eur', BE: 'eur', AT: 'eur', PT: 'eur', FI: 'eur', GR: 'eur',
+      LU: 'eur', SK: 'eur', SI: 'eur', EE: 'eur', LV: 'eur', LT: 'eur',
+      CY: 'eur', MT: 'eur', HR: 'eur',
+    };
+    const detected = map[region];
+    if (detected && supported.includes(detected)) return detected;
+    return fallback;
+  }
+
+  function formatPrice(amount, currency) {
+    return new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: currency.toUpperCase(),
+      currencyDisplay: 'narrowSymbol',
+      minimumFractionDigits: amount % 1 === 0 ? 0 : 2,
+    }).format(amount);
+  }
+
+  // -- Volume tier calculation ------------------------------------------------
+
+  function calculateTotal(tiers, quantity, currency, billing) {
+    // Volume: all units charged at the rate of the matching tier
+    let unitPrice = tiers[tiers.length - 1][billing][currency];
+    for (const tier of tiers) {
+      if (tier.up_to === undefined || quantity <= tier.up_to) {
+        unitPrice = tier[billing][currency];
+        break;
+      }
+    }
+    return { total: quantity * unitPrice, unitPrice };
+  }
+
+  // -- State ------------------------------------------------------------------
+
+  let activeCurrency;
+
+  function getActivePlan() {
+    return document.querySelector('input[name="plan"]:checked').value;
+  }
+
+  function getPlanConfig(planName) {
+    return CONFIG.plans[planName];
+  }
+
+  function getQuantity() {
+    return Math.max(1, parseInt(document.getElementById('quantity-input').value) || 1);
+  }
+
+  function getBilling() {
+    return document.querySelector('input[name="billing"]:checked').value;
+  }
+
+  // -- UI updates -------------------------------------------------------------
+
+  function updatePlanUI() {
+    const plan = getActivePlan();
+    const cfg = getPlanConfig(plan);
+    const input = document.getElementById('quantity-input');
+    const label = document.getElementById('quantity-label');
+
+    label.textContent = 'Number of ' + cfg.units;
+    input.min = cfg.min;
+    input.max = cfg.max;
+    // Reset to min if current value is out of range
+    const current = parseInt(input.value) || 1;
+    if (current < cfg.min || current > cfg.max) {
+      input.value = cfg.min;
+    }
+  }
+
+  function updatePlanPrices() {
+    const c = activeCurrency;
+    const pTier1 = CONFIG.plans.personal.tiers[0];
+    document.getElementById('plan-price-personal').textContent =
+      'from ' + formatPrice(pTier1.monthly[c], c) + '/month';
+
+    const bTier1 = CONFIG.plans.business.tiers[0];
+    document.getElementById('plan-price-business').textContent =
+      'from ' + formatPrice(bTier1.monthly[c], c) + '/month/user';
+  }
+
+  function updateAnnualSavings() {
+    const plan = getActivePlan();
+    const cfg = getPlanConfig(plan);
+    const quantity = getQuantity();
+    const c = activeCurrency;
+
+    const monthly = calculateTotal(cfg.tiers, quantity, c, 'monthly');
+    const annual = calculateTotal(cfg.tiers, quantity, c, 'annual');
+    const saving = Math.round((1 - annual.total / (monthly.total * 12)) * 100);
+
+    const badge = document.getElementById('annual-savings-badge');
+    badge.textContent = saving > 0 ? 'Save ' + saving + '%' : '';
+  }
+
+  function updatePriceSummary() {
+    const plan = getActivePlan();
+    const cfg = getPlanConfig(plan);
+    const billing = getBilling();
+    const quantity = getQuantity();
+    const c = activeCurrency;
+
+    const { total } = calculateTotal(cfg.tiers, quantity, c, billing);
+    const el = document.getElementById('price-summary');
+    const unitsLabel = quantity === 1 ? cfg.unit : cfg.units;
+    let html = '';
+
+    if (billing === 'monthly') {
+      html = '<span class="price-amount">' + formatPrice(total, c) + '/month</span>';
+      if (quantity > 1) {
+        html += '<div class="price-detail">' + quantity + ' ' + unitsLabel + '</div>';
+      }
+    } else {
+      const perMonth = total / 12;
+      html = '<span class="price-amount">' + formatPrice(perMonth, c) + '/month</span>';
+      let detail = formatPrice(total, c) + '/year';
+      if (quantity > 1) {
+        detail += ' &middot; ' + quantity + ' ' + unitsLabel;
+      }
+      html += '<div class="price-detail">' + detail + '</div>';
+    }
+
+    el.innerHTML = html;
+  }
+
+  function updateAll() {
+    updatePlanPrices();
+    updateAnnualSavings();
+    updatePriceSummary();
+  }
+
+  // -- Currency picker --------------------------------------------------------
+
+  const select = document.getElementById('currency-select');
+  SUPPORTED.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = CONFIG.currencies[c].label;
+    select.appendChild(opt);
+  });
+
+  // Resolve initial currency: query param > localStorage > auto-detect
+  const params = new URLSearchParams(window.location.search);
+  const paramCurrency = params.get('currency');
+  if (paramCurrency && SUPPORTED.includes(paramCurrency)) {
+    activeCurrency = paramCurrency;
+    localStorage.setItem('cache_currency', paramCurrency);
+  } else {
+    activeCurrency = detectCurrency(SUPPORTED, DEFAULT_CURRENCY);
+  }
+  select.value = activeCurrency;
+
+  select.addEventListener('change', () => {
+    activeCurrency = select.value;
+    localStorage.setItem('cache_currency', activeCurrency);
+    updateAll();
+  });
+
+  // -- Pre-select plan from query param ---------------------------------------
+
+  const paramPlan = params.get('plan');
+  if (paramPlan === 'business' || paramPlan === 'personal') {
+    const radio = document.querySelector('input[name="plan"][value="' + paramPlan + '"]');
+    if (radio) radio.checked = true;
+  }
+  if (params.get('cancelled') === 'true') {
+    document.getElementById('cancelled-banner').style.display = 'block';
+  }
+
+  // -- Event listeners --------------------------------------------------------
+
+  document.querySelectorAll('input[name="plan"]').forEach(radio => {
+    radio.addEventListener('change', () => { updatePlanUI(); updateAll(); });
+  });
+  document.querySelectorAll('input[name="billing"]').forEach(radio => {
+    radio.addEventListener('change', () => { updateAnnualSavings(); updatePriceSummary(); });
+  });
+  document.getElementById('quantity-input').addEventListener('input', () => {
+    updateAnnualSavings();
+    updatePriceSummary();
+  });
+
+  // -- Init -------------------------------------------------------------------
+
+  updatePlanUI();
+  updateAll();
+
+  // -- Checkout ---------------------------------------------------------------
+
+  function resolveProductId() {
+    const plan = getActivePlan();
+    const cfg = getPlanConfig(plan);
+    const billing = getBilling();
+    return billing === 'monthly' ? cfg.monthly_id : cfg.annual_id;
+  }
+
+  async function handlePurchase() {
+    const btn = document.getElementById('purchase-btn');
+    const errorEl = document.getElementById('purchase-error');
+    const loadingEl = document.getElementById('purchase-loading');
+
+    btn.disabled = true;
+    errorEl.style.display = 'none';
+    loadingEl.style.display = 'block';
+
+    const productId = resolveProductId();
+    const quantity = getQuantity();
+
+    try {
+      const res = await fetch(API_BASE + '/checkout/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          product_id: productId,
+          quantity: quantity,
+          currency: activeCurrency,
+          success_url: WEBSITE + '/license/manage/?session_id={CHECKOUT_SESSION_ID}',
+          cancel_url: WEBSITE + '/license/purchase/?cancelled=true',
+        }),
+      });
+
+      const json = await res.json();
+      if (!res.ok) {
+        throw new Error(json.error?.message || 'Checkout failed');
+      }
+
+      localStorage.setItem('cache_license_id', json.data.license_id);
+      window.location.href = json.data.checkout_url;
+    } catch (err) {
+      errorEl.textContent = err.message;
+      errorEl.style.display = 'block';
+      loadingEl.style.display = 'none';
+      btn.disabled = false;
+    }
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}License - {{ config.title }}{% endblock %}
+{% block description %}Manage your Cache license{% endblock %}
+
+{% block content %}
+<section class="license-section">
+  <div class="license-container">
+    <h1 class="license-title">License Management</h1>
+    <p class="license-subtitle">
+      Cache licenses work without accounts or personal data. Just your License ID — no email, no sign-up, no tracking.
+      Download your license file, manage your subscription, and configure repository assignments.
+    </p>
+
+    <div class="license-entry-card">
+      <div id="error-banner" class="license-error" style="display: none;"></div>
+
+      <form class="license-form" onsubmit="handleLicenseSubmit(event)">
+        <label for="license-id-input">Enter your License ID</label>
+        <div class="license-form-row">
+          <input
+            type="text"
+            id="license-id-input"
+            name="license_id"
+            placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            autocomplete="off"
+            spellcheck="false"
+            required
+          >
+          <button type="submit" class="btn btn-primary">Manage</button>
+        </div>
+      </form>
+    </div>
+
+    <p class="license-cta">Need a license? <a href="/license/purchase/">View plans and purchase</a>.</p>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    const errorId = params.get('id');
+    const error = params.get('error');
+
+    // Pre-fill from query param (error redirect) or localStorage
+    if (errorId) {
+      document.getElementById('license-id-input').value = errorId;
+    } else {
+      const savedId = localStorage.getItem('cache_license_id');
+      if (savedId) {
+        document.getElementById('license-id-input').value = savedId;
+      }
+    }
+
+    // Show error banner
+    if (error === 'lookup') {
+      const banner = document.getElementById('error-banner');
+      banner.textContent = 'License not found. Check your License ID and try again.';
+      banner.style.display = 'block';
+    }
+  })();
+
+  function handleLicenseSubmit(e) {
+    e.preventDefault();
+    const id = document.getElementById('license-id-input').value.trim();
+    if (id) {
+      window.location.href = '/license/manage/?id=' + encodeURIComponent(id);
+    }
+  }
+</script>
+{% endblock %}

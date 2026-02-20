@@ -4,45 +4,63 @@
 {% block description %}{{ section.description }}{% endblock %}
 
 {% block content %}
+{% set data = load_data(path="data/config.toml") %}
+
 <section class="pricing-section">
   <div class="pricing-container">
     <h1 class="pricing-title">Pricing</h1>
     <p class="pricing-subtitle">Simple, transparent pricing. Every feature included.</p>
 
+    <div class="currency-picker">
+      <select id="currency-select" aria-label="Currency"></select>
+    </div>
+
     <div class="pricing-cards">
       <div class="pricing-card">
         <h2 class="pricing-card-title">Free</h2>
-        <div class="pricing-card-price">$0</div>
+        <div class="pricing-card-price"><span id="price-free"></span></div>
         <p class="pricing-card-description">Try Cache with all features</p>
         <ul class="pricing-card-features">
           <li>All features included</li>
           <li>Limited to 50 notes</li>
         </ul>
+        <a href="/download/" class="btn btn-secondary pricing-card-btn">Download</a>
       </div>
 
       <div class="pricing-card pricing-card-featured">
-        <h2 class="pricing-card-title">Personal</h2>
-        <div class="pricing-card-price">$3<span class="pricing-card-period">/month</span></div>
-        <p class="pricing-card-description">For individuals</p>
+        <h2 class="pricing-card-title">{{ data.plans.personal.display_name }}</h2>
+        <div class="pricing-card-price">
+          <span id="price-personal"></span><span class="pricing-card-period">/month</span>
+        </div>
+        <p class="pricing-card-description">{{ data.plans.personal.tagline }}</p>
         <ul class="pricing-card-features">
           <li>All features included</li>
           <li>Unlimited notes</li>
         </ul>
+        <a id="link-personal" href="/license/purchase/?plan=personal" class="btn btn-primary pricing-card-btn">Buy now</a>
       </div>
 
       <div class="pricing-card">
-        <h2 class="pricing-card-title">Commercial</h2>
-        <div class="pricing-card-price">$5<span class="pricing-card-period">/month/user</span></div>
-        <p class="pricing-card-description">For business use</p>
+        <h2 class="pricing-card-title">{{ data.plans.business.display_name }}</h2>
+        <div class="pricing-card-price">
+          <span id="price-business"></span><span class="pricing-card-period">/month/user</span>
+        </div>
+        <p class="pricing-card-description">{{ data.plans.business.tagline }}</p>
         <ul class="pricing-card-features">
           <li>All features included</li>
           <li>Unlimited notes</li>
           <li>Commercial license</li>
         </ul>
+        <a id="link-business" href="/license/purchase/?plan=business" class="btn btn-secondary pricing-card-btn">Buy now</a>
       </div>
     </div>
 
-    <p class="pricing-note">* Billed annually. Prices may vary slightly by app store and currency.</p>
+    <p class="pricing-note">
+      <span id="annual-savings-note"></span>.
+      Prices may vary slightly by app store and currency.
+      <br /> <br />
+      Already purchased? <a href="/license/">Manage your license</a>.
+    </p>
 
     <div class="pricing-faq">
       <h2 class="pricing-faq-title">FAQ</h2>
@@ -71,12 +89,93 @@
         <p class="pricing-faq-answer">
           Cache only stores a hash of your repository's git remote URL to verify your subscription.
           (This hash is irreversible, it identifies your subscription without revealing any information.)
-          No other identifiable information is captured by us. Your payment provider (App Store,
-          Google Play, etc.) will collect the information required to process your payment according
-          to their privacy policies.
+          No other identifiable information is captured by us. The payment provider (Stripe, Apple App Store,
+          Google Play) will collect the information required to process your payment according
+          to their privacy policies. For more information see our <a href="/docs/privacy-policy/">Privacy Policy</a>.
         </p>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  const CONFIG = {{ data | json_encode() | safe }};
+  const SUPPORTED = CONFIG.currencies.supported;
+  const DEFAULT_CURRENCY = CONFIG.currencies.default;
+
+  function detectCurrency(supported, fallback) {
+    const saved = localStorage.getItem('cache_currency');
+    if (saved && supported.includes(saved)) return saved;
+
+    const langs = navigator.languages || [navigator.language || ''];
+    const lang = langs.find(l => l.includes('-')) || langs[0] || '';
+    const region = lang.split('-')[1]?.toUpperCase();
+
+    const map = {
+      US: 'usd', GB: 'gbp', UK: 'gbp',
+      IE: 'eur', FR: 'eur', DE: 'eur', ES: 'eur', IT: 'eur',
+      NL: 'eur', BE: 'eur', AT: 'eur', PT: 'eur', FI: 'eur', GR: 'eur',
+      LU: 'eur', SK: 'eur', SI: 'eur', EE: 'eur', LV: 'eur', LT: 'eur',
+      CY: 'eur', MT: 'eur', HR: 'eur',
+    };
+    const detected = map[region];
+    if (detected && supported.includes(detected)) return detected;
+    return fallback;
+  }
+
+  function formatPrice(amount, currency) {
+    return new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: currency.toUpperCase(),
+      currencyDisplay: 'narrowSymbol',
+      minimumFractionDigits: amount % 1 === 0 ? 0 : 2,
+    }).format(amount);
+  }
+
+  // Build currency picker
+  const select = document.getElementById('currency-select');
+  SUPPORTED.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = CONFIG.currencies[c].label;
+    select.appendChild(opt);
+  });
+
+  function updatePrices(currency) {
+    // Free
+    document.getElementById('price-free').textContent = formatPrice(0, currency);
+
+    // Personal: "from {tier1 monthly price}"
+    const pTier1 = CONFIG.plans.personal.tiers[0];
+    document.getElementById('price-personal').innerHTML =
+      '<span class="price-from">from </span>' + formatPrice(pTier1.monthly[currency], currency);
+
+    // Business: "from {tier1 monthly price}"
+    const bTier1 = CONFIG.plans.business.tiers[0];
+    document.getElementById('price-business').innerHTML =
+      '<span class="price-from">from </span>' + formatPrice(bTier1.monthly[currency], currency);
+
+    // Annual savings (from tier 1 prices)
+    const pSaving = Math.round((1 - pTier1.annual[currency] / (pTier1.monthly[currency] * 12)) * 100);
+    document.getElementById('annual-savings-note').textContent =
+      'Save ' + pSaving + '% with annual billing';
+
+    // Update buy links with currency
+    document.getElementById('link-personal').href =
+      '/license/purchase/?plan=personal&currency=' + currency;
+    document.getElementById('link-business').href =
+      '/license/purchase/?plan=business&currency=' + currency;
+  }
+
+  // Init
+  const activeCurrency = detectCurrency(SUPPORTED, DEFAULT_CURRENCY);
+  select.value = activeCurrency;
+  updatePrices(activeCurrency);
+
+  select.addEventListener('change', () => {
+    const c = select.value;
+    localStorage.setItem('cache_currency', c);
+    updatePrices(c);
+  });
+</script>
 {% endblock %}

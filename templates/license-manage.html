@@ -1,0 +1,421 @@
+{% extends "base.html" %}
+
+{% block title %}Manage License - {{ config.title }}{% endblock %}
+{% block description %}Manage your Cache license{% endblock %}
+
+{% block content %}
+{% set data = load_data(path="data/config.toml") %}
+
+<section class="license-section">
+  <div class="license-container">
+    <h1 class="license-title">Manage License</h1>
+
+    <!-- Loading state -->
+    <div id="loading-state" class="license-loading">Loading license...</div>
+
+    <!-- Error state -->
+    <div id="error-state" class="license-error" style="display: none;"></div>
+
+    <!-- Password gate -->
+    <div id="password-gate" style="display: none;">
+      <div class="license-entry-card">
+        <p>This license is password-protected. Enter your password or a recovery code to continue.</p>
+        <form class="license-form" onsubmit="submitPassword(event)">
+          <div class="license-form-row">
+            <input type="password" id="password-input" placeholder="Password or recovery code" required>
+            <button type="submit" class="btn btn-primary">Unlock</button>
+          </div>
+        </form>
+        <div id="password-error" class="license-error" style="display: none;"></div>
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" style="display: none;">
+
+      <!-- License details -->
+      <div class="license-details">
+        <div class="detail-row">
+          <span class="detail-label">License ID</span>
+          <span class="detail-value">
+            <code id="detail-id"></code>
+            <button class="btn-icon" onclick="copyText('detail-id')" title="Copy">&#x2398;</button>
+          </span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Tier</span>
+          <span class="detail-value"><span id="detail-tier" class="tier-badge"></span></span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Status</span>
+          <span class="detail-value" id="detail-status"></span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Created</span>
+          <span class="detail-value" id="detail-created"></span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Expires</span>
+          <span class="detail-value" id="detail-expires"></span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Auto-renew</span>
+          <span class="detail-value" id="detail-autorenew"></span>
+        </div>
+      </div>
+
+      <!-- Repository slots -->
+      <div class="license-slots">
+        <h2>Repository Slots</h2>
+        <div id="repo-slots"></div>
+      </div>
+
+      <!-- License file -->
+      <div class="license-toml">
+        <h2>License File</h2>
+        <p>Place <code>cache_license.toml</code> in your repository root. Cache will detect it automatically.</p>
+        <div class="toml-actions">
+          <button class="btn btn-primary" onclick="downloadToml()">Download cache_license.toml</button>
+          <button class="btn btn-secondary" onclick="copyToml()">Copy to clipboard</button>
+        </div>
+      </div>
+
+      <!-- Founder section -->
+      <div id="founder-section" class="license-founder" style="display: none;">
+        <h2>Founder</h2>
+        <div id="founder-display" style="display: none;">
+          <p>Thank you, <strong id="founder-name"></strong>!</p>
+        </div>
+        <div id="founder-form-container" style="display: none;">
+          <p>As a founder, you can set a display name that appears on our founders page. This is permanent and cannot be changed.</p>
+          <form class="license-form" onsubmit="setFounderName(event)">
+            <div class="license-form-row">
+              <input type="text" id="founder-name-input" placeholder="Display name" maxlength="50" required>
+              <button type="submit" class="btn btn-primary">Set Name</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Secure license (business, not yet locked) -->
+      <div id="lock-section" class="license-secure" style="display: none;">
+        <h2>Secure Your License</h2>
+        <p>Set a password to protect your business license. This prevents unauthorized modifications.</p>
+        <form class="license-form" onsubmit="lockLicense(event)">
+          <div class="license-form-row">
+            <input type="password" id="lock-password" placeholder="Choose a password" minlength="8" required>
+            <button type="submit" class="btn btn-primary">Set Password</button>
+          </div>
+        </form>
+        <div id="lock-error" class="license-error" style="display: none;"></div>
+      </div>
+
+      <!-- Recovery codes (shown once after lock) -->
+      <div id="recovery-section" style="display: none;">
+        <div class="license-secure">
+          <h2>Recovery Codes</h2>
+          <p><strong>Save these recovery codes now.</strong> They will not be shown again. Each code can be used once to access your license if you forget your password.</p>
+          <div id="recovery-codes" class="recovery-codes"></div>
+          <div class="toml-actions">
+            <button class="btn btn-secondary" onclick="copyRecoveryCodes()">Copy codes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const API_BASE = '{{ data.domains.license_server }}';
+  let licenseData = null;
+  let licensePassword = null;
+
+  // Entry detection
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('session_id');
+    const licenseId = params.get('id');
+
+    if (sessionId) {
+      pollCheckoutComplete(sessionId);
+    } else if (licenseId) {
+      loadLicense(licenseId);
+    } else {
+      const savedId = localStorage.getItem('cache_license_id');
+      if (savedId) {
+        loadLicense(savedId);
+      } else {
+        window.location.href = '/license/';
+      }
+    }
+  })();
+
+  async function pollCheckoutComplete(sessionId) {
+    showLoading('Completing purchase...');
+    const maxAttempts = 30;
+    for (let i = 0; i < maxAttempts; i++) {
+      try {
+        const res = await fetch(`${API_BASE}/checkout/complete`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session_id: sessionId }),
+        });
+        const json = await res.json();
+        if (json.data?.status === 'complete') {
+          localStorage.setItem('cache_license_id', json.data.license_id);
+          // Clean URL
+          history.replaceState(null, '', `/license/manage/?id=${json.data.license_id}`);
+          loadLicense(json.data.license_id);
+          return;
+        }
+      } catch (_) {}
+      await new Promise(r => setTimeout(r, 2000));
+    }
+    showError('Purchase is still processing. Please try again shortly.');
+  }
+
+  async function loadLicense(licenseId) {
+    showLoading('Loading license...');
+    try {
+      const res = await fetch(`${API_BASE}/license?license_id=${encodeURIComponent(licenseId)}`);
+      const json = await res.json();
+      if (!res.ok) {
+        window.location.href = `/license/?id=${encodeURIComponent(licenseId)}&error=lookup`;
+        return;
+      }
+      licenseData = json.data;
+      localStorage.setItem('cache_license_id', licenseId);
+
+      if (licenseData.locked && !licensePassword) {
+        showPasswordGate();
+      } else {
+        renderDashboard();
+      }
+    } catch (err) {
+      window.location.href = `/license/?id=${encodeURIComponent(licenseId)}&error=lookup`;
+    }
+  }
+
+  function showLoading(msg) {
+    document.getElementById('loading-state').textContent = msg;
+    document.getElementById('loading-state').style.display = 'block';
+    document.getElementById('error-state').style.display = 'none';
+    document.getElementById('password-gate').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'none';
+  }
+
+  function showError(msg) {
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('error-state').textContent = msg;
+    document.getElementById('error-state').style.display = 'block';
+  }
+
+  function showPasswordGate() {
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('password-gate').style.display = 'block';
+  }
+
+  function submitPassword(e) {
+    e.preventDefault();
+    licensePassword = document.getElementById('password-input').value;
+    document.getElementById('password-gate').style.display = 'none';
+    renderDashboard();
+  }
+
+  function renderDashboard() {
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+
+    const d = licenseData;
+
+    // Details
+    document.getElementById('detail-id').textContent = d.license_id;
+    document.getElementById('detail-tier').textContent = d.tier.charAt(0).toUpperCase() + d.tier.slice(1);
+    document.getElementById('detail-tier').className = `tier-badge tier-${d.tier}`;
+    document.getElementById('detail-status').textContent = d.status;
+    document.getElementById('detail-created').textContent = d.created ? new Date(d.created).toLocaleDateString() : '-';
+    document.getElementById('detail-expires').textContent = d.lifetime ? 'Never (lifetime)' : (d.expires ? new Date(d.expires).toLocaleDateString() : '-');
+    document.getElementById('detail-autorenew').textContent = d.lifetime ? '-' : (d.auto_renew ? 'Yes' : 'No');
+
+    // Repo slots
+    renderRepoSlots();
+
+    // Founder section
+    if (d.tier === 'founder') {
+      document.getElementById('founder-section').style.display = 'block';
+      if (d.founder_display_name) {
+        document.getElementById('founder-display').style.display = 'block';
+        document.getElementById('founder-name').textContent = d.founder_display_name;
+      } else {
+        document.getElementById('founder-form-container').style.display = 'block';
+      }
+    }
+
+    // Lock section (business, not yet locked)
+    if (d.business && !d.locked) {
+      document.getElementById('lock-section').style.display = 'block';
+    }
+  }
+
+  function renderRepoSlots() {
+    const container = document.getElementById('repo-slots');
+    container.innerHTML = '';
+    const maxRepos = licenseData.max_repositories;
+    const repos = licenseData.repositories || [];
+
+    for (let i = 0; i < maxRepos; i++) {
+      const slot = document.createElement('div');
+      slot.className = 'repo-slot';
+
+      if (i < repos.length) {
+        const repo = repos[i];
+        const isReassignable = new Date(repo.reassignable_after) <= new Date();
+        slot.classList.add('repo-slot-filled');
+        slot.innerHTML = `
+          <div class="repo-slot-info">
+            <code class="repo-hash">${repo.repo_hash.substring(0, 16)}...</code>
+            <span class="repo-date">Assigned ${new Date(repo.assigned_at).toLocaleDateString()}</span>
+          </div>
+          <button class="btn btn-small ${isReassignable ? '' : 'btn-disabled'}"
+                  onclick="removeRepo('${repo.repo_hash}')"
+                  ${isReassignable ? '' : `disabled title="Available ${new Date(repo.reassignable_after).toLocaleDateString()}"`}>
+            Remove
+          </button>
+        `;
+      } else {
+        slot.classList.add('repo-slot-empty');
+        slot.innerHTML = `
+          <form onsubmit="addRepo(event, this)" class="repo-add-form">
+            <input type="text" placeholder="Repository hash (SHA-256)" class="repo-hash-input" required>
+            <button type="submit" class="btn btn-small">Add</button>
+          </form>
+        `;
+      }
+      container.appendChild(slot);
+    }
+  }
+
+  async function manageAction(body) {
+    const payload = { license_id: licenseData.license_id, ...body };
+    if (licensePassword) payload.password = licensePassword;
+
+    const res = await fetch(`${API_BASE}/license/manage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const json = await res.json();
+    if (!res.ok) {
+      if (json.error?.code === 'INVALID_PASSWORD') {
+        licensePassword = null;
+        showPasswordGate();
+        document.getElementById('password-error').textContent = 'Invalid password';
+        document.getElementById('password-error').style.display = 'block';
+        return null;
+      }
+      throw new Error(json.error?.message || 'Action failed');
+    }
+    return json.data;
+  }
+
+  async function addRepo(e, form) {
+    e.preventDefault();
+    const hash = form.querySelector('.repo-hash-input').value.trim();
+    try {
+      await manageAction({ action: 'add_repo', repo_hash: hash });
+      await loadLicense(licenseData.license_id);
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  async function removeRepo(hash) {
+    if (!confirm('Remove this repository assignment?')) return;
+    try {
+      await manageAction({ action: 'remove_repo', repo_hash: hash });
+      await loadLicense(licenseData.license_id);
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  async function setFounderName(e) {
+    e.preventDefault();
+    const name = document.getElementById('founder-name-input').value.trim();
+    if (!confirm(`Set your founder name to "${name}"? This cannot be changed.`)) return;
+    try {
+      await manageAction({ action: 'set_founder_name', display_name: name });
+      await loadLicense(licenseData.license_id);
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  async function lockLicense(e) {
+    e.preventDefault();
+    const password = document.getElementById('lock-password').value;
+    const errorEl = document.getElementById('lock-error');
+
+    try {
+      const res = await fetch(`${API_BASE}/license/lock`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          license_id: licenseData.license_id,
+          password: password,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error?.message || 'Lock failed');
+
+      // Store password for session
+      licensePassword = password;
+
+      // Show recovery codes
+      document.getElementById('lock-section').style.display = 'none';
+      document.getElementById('recovery-section').style.display = 'block';
+      const codesEl = document.getElementById('recovery-codes');
+      codesEl.innerHTML = json.data.recovery_codes
+        .map(c => `<code class="recovery-code">${c}</code>`)
+        .join('');
+    } catch (err) {
+      errorEl.textContent = err.message;
+      errorEl.style.display = 'block';
+    }
+  }
+
+  function downloadToml() {
+    if (!licenseData?.signed_toml) {
+      alert('License file not available');
+      return;
+    }
+    const blob = new Blob([licenseData.signed_toml], { type: 'application/toml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'cache_license.toml';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function copyToml() {
+    if (!licenseData?.signed_toml) {
+      alert('License file not available');
+      return;
+    }
+    navigator.clipboard.writeText(licenseData.signed_toml);
+  }
+
+  function copyText(elementId) {
+    const text = document.getElementById(elementId).textContent;
+    navigator.clipboard.writeText(text);
+  }
+
+  function copyRecoveryCodes() {
+    const codes = Array.from(document.querySelectorAll('.recovery-code'))
+      .map(el => el.textContent)
+      .join('\n');
+    navigator.clipboard.writeText(codes);
+  }
+</script>
+{% endblock %}
