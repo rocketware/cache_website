@@ -8,12 +8,12 @@
   --brand-filled: oklch(0.45 0.25 292);
   --brand-outlined: oklch(0.45 0.25 292);
   --brand-link: oklch(0.45 0.25 292);
-  --badge-alpha: oklch(0.55 0 0);
+  --badge-alpha: oklch(0.55 0.07 266.42);
 
   /* SURFACE COLORS */
   --bg-primary: #ffffff;
-  --bg-secondary: oklch(0.98 0.01 284.64 / 1);
-  --bg-tertiary: oklch(0.96 0.01 274.86);
+  --bg-secondary: oklch(0.975 0.025 288);
+  --bg-tertiary: oklch(0.98 0.015 280);
 
   /* TEXT COLORS */
   --text-headings: #0f172a;
@@ -22,7 +22,7 @@
   --text-tertiary: oklch(0.72 0.03 256.86);
 
   /* BORDER */
-  --border-color: oklch(0.87 0.02 278.34);
+  --border-color: oklch(0.93 0.02 285.96);
 
   color-scheme: light;
 }
@@ -32,7 +32,7 @@
   --brand-filled: oklch(0.45 0.25 292);
   --brand-outlined: oklch(0.7 0.17 292);
   --brand-link: oklch(0.78 0.12 289);
-  --badge-alpha: oklch(0.38 0 0);
+  --badge-alpha: oklch(0.33 0.06 282.89);
 
   /* SURFACE COLORS */
   --bg-primary: #000000;
@@ -46,7 +46,7 @@
   --text-tertiary: oklch(0.5 0.06 281.83);
 
   /* BORDER */
-  --border-color: oklch(0.27 0.03 284.01);
+  --border-color: oklch(0.3 0.05 284.01);
 
   color-scheme: dark;
 }
@@ -84,7 +84,7 @@ h1, h2, h3, h4, h5, h6 {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: var(--bg-primary);
+  background-color: var(--bg-tertiary);
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -212,7 +212,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .badge-alpha {
   background-color: var(--badge-alpha);
-  color: white;
+  color: #ffffffaa;
   letter-spacing: -0.01rem;
 }
 
@@ -319,6 +319,8 @@ main {
 .features-section {
   padding: 4rem 1rem;
   background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   text-align: center;
 }
 
@@ -405,8 +407,8 @@ main {
 .feature-content {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem
-  padding-bottom:1rem;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
 }
 
 .feature-title {
@@ -1342,7 +1344,7 @@ main {
 /* Footer */
 .footer {
   padding: 2rem 1rem;
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-tertiary);
   text-align: center;
   border-top: 1px solid var(--border-color);
 }
