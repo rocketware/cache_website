@@ -276,6 +276,7 @@ main {
   width: 100%;
   padding-bottom: 56.25%; /* 16:9 aspect ratio */
   background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -300,7 +301,7 @@ main {
   align-items: center;
   justify-content: center;
   color: var(--text-tertiary);
-}
+   }
 
 .video-placeholder-icon {
   font-size: 3rem;
