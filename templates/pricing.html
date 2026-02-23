@@ -33,6 +33,7 @@
           <span id="price-personal"></span><span class="pricing-card-period">/month</span>
         </div>
         <p class="pricing-card-description">{{ data.plans.personal.tagline }}</p>
+        <p class="pricing-card-description">Billed annually</p>
         <ul class="pricing-card-features">
           <li>All features included</li>
           <li>Unlimited notes</li>
@@ -46,6 +47,7 @@
           <span id="price-business"></span><span class="pricing-card-period">/month/user</span>
         </div>
         <p class="pricing-card-description">{{ data.plans.business.tagline }}</p>
+        <p class="pricing-card-description">Billed annually</p>
         <ul class="pricing-card-features">
           <li>All features included</li>
           <li>Unlimited notes</li>
@@ -56,7 +58,7 @@
     </div>
 
     <p class="pricing-note">
-      <span id="annual-savings-note"></span>.
+      Annual pricing shown — monthly billing also available.
       Prices may vary slightly by app store and currency.
       <br /> <br />
       Already purchased? <a href="/license/">Manage your license</a>.
@@ -145,20 +147,15 @@
     // Free
     document.getElementById('price-free').textContent = formatPrice(0, currency);
 
-    // Personal: "from {tier1 monthly price}"
+    // Personal: "from {tier1 annual price per month}"
     const pTier1 = CONFIG.plans.personal.tiers[0];
     document.getElementById('price-personal').innerHTML =
-      '<span class="price-from">from </span>' + formatPrice(pTier1.monthly[currency], currency);
+      '<span class="price-from">from </span>' + formatPrice(pTier1.annual[currency] / 12, currency);
 
-    // Business: "from {tier1 monthly price}"
+    // Business: "from {tier1 annual price per month}"
     const bTier1 = CONFIG.plans.business.tiers[0];
     document.getElementById('price-business').innerHTML =
-      '<span class="price-from">from </span>' + formatPrice(bTier1.monthly[currency], currency);
-
-    // Annual savings (from tier 1 prices)
-    const pSaving = Math.round((1 - pTier1.annual[currency] / (pTier1.monthly[currency] * 12)) * 100);
-    document.getElementById('annual-savings-note').textContent =
-      'Save ' + pSaving + '% with annual billing';
+      '<span class="price-from">from </span>' + formatPrice(bTier1.annual[currency] / 12, currency);
 
     // Update buy links with currency
     document.getElementById('link-personal').href =

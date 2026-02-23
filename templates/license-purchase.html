@@ -125,9 +125,24 @@
     }).format(amount);
   }
 
-  // -- Volume tier calculation ------------------------------------------------
+  // -- Tier calculation -------------------------------------------------------
 
-  function calculateTotal(tiers, quantity, currency, billing) {
+  function calculateTotal(tiers, quantity, currency, billing, pricingModel) {
+    if (pricingModel === 'graduated') {
+      // Graduated: each tier's rate applies only to units within that range
+      let total = 0;
+      let remaining = quantity;
+      let prevUp = 0;
+      for (const tier of tiers) {
+        const tierEnd = tier.up_to !== undefined ? tier.up_to : Infinity;
+        const count = Math.min(remaining, tierEnd - prevUp);
+        total += count * tier[billing][currency];
+        remaining -= count;
+        prevUp = tierEnd;
+        if (remaining <= 0) break;
+      }
+      return { total, unitPrice: total / quantity };
+    }
     // Volume: all units charged at the rate of the matching tier
     let unitPrice = tiers[tiers.length - 1][billing][currency];
     for (const tier of tiers) {
@@ -194,8 +209,8 @@
     const quantity = getQuantity();
     const c = activeCurrency;
 
-    const monthly = calculateTotal(cfg.tiers, quantity, c, 'monthly');
-    const annual = calculateTotal(cfg.tiers, quantity, c, 'annual');
+    const monthly = calculateTotal(cfg.tiers, quantity, c, 'monthly', cfg.pricing_model);
+    const annual = calculateTotal(cfg.tiers, quantity, c, 'annual', cfg.pricing_model);
     const saving = Math.round((1 - annual.total / (monthly.total * 12)) * 100);
 
     const badge = document.getElementById('annual-savings-badge');
@@ -209,7 +224,7 @@
     const quantity = getQuantity();
     const c = activeCurrency;
 
-    const { total } = calculateTotal(cfg.tiers, quantity, c, billing);
+    const { total } = calculateTotal(cfg.tiers, quantity, c, billing, cfg.pricing_model);
     const el = document.getElementById('price-summary');
     const unitsLabel = quantity === 1 ? cfg.unit : cfg.units;
     let html = '';

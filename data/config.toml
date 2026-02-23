@@ -2,8 +2,8 @@
 # Product IDs, pricing, and server URLs for license management pages.
 
 [domains]
-website = "https://getcache.app"
-license_server = "https://license.getcache.app"
+website = "https://cachenotes.app"
+license_server = "https://api.cachenotes.app"
 
 # Currencies
 [currencies]
@@ -25,64 +25,50 @@ symbol = "€"
 label = "EUR"
 position = "prefix"
 
-# Personal plan — volume pricing by repository count
+# Personal plan — graduated pricing by repository count
+# First repo at full price, each additional at a flat discount rate
 [plans.personal]
 display_name = "Personal"
 tagline = "For individuals and families"
+pricing_model = "graduated"
 product_id = "prod_U0UhEwEmWvVOUh"
-monthly_id = "price_1T2TiZHBjuEfyzFqUIizdtqw"
-annual_id = "price_1T2TiZHBjuEfyzFqluNL5AOo"
+monthly_id = "price_1T2WuWHBjuEfyzFqERbpfJ23"
+annual_id = "price_1T3GqyHBjuEfyzFqAjSSC3jU"
 unit = "repository"
 units = "repositories"
 min = 1
-max = 20
+max = 5
 
 [[plans.personal.tiers]]
 up_to = 1
-monthly = { gbp = 2.00, usd = 2.50, eur = 2.25 }
-annual = { gbp = 20, usd = 25, eur = 22.50 }
+monthly = { gbp = 2.50, usd = 3.00, eur = 2.75 }
+annual = { gbp = 24, usd = 30, eur = 27 }
 
 [[plans.personal.tiers]]
-up_to = 2
-monthly = { gbp = 1.50, usd = 2.00, eur = 1.75 }
-annual = { gbp = 15, usd = 20, eur = 17.50 }
+monthly = { gbp = 0.50, usd = 0.75, eur = 0.50 }
+annual = { gbp = 6, usd = 9, eur = 6 }
 
-[[plans.personal.tiers]]
-up_to = 3
-monthly = { gbp = 1.25, usd = 1.75, eur = 1.50 }
-annual = { gbp = 12.50, usd = 17.50, eur = 15 }
-
-[[plans.personal.tiers]]
-up_to = 4
-monthly = { gbp = 1.10, usd = 1.50, eur = 1.25 }
-annual = { gbp = 11, usd = 15, eur = 12.50 }
-
-[[plans.personal.tiers]]
-monthly = { gbp = 1.00, usd = 1.25, eur = 1.25 }
-annual = { gbp = 10, usd = 12.50, eur = 12.50 }
-
-# Business plan — volume pricing by seat count
+# Business plan — graduated pricing by seat count
+# Single shared repository per subscription. First 10 seats at full price,
+# each additional at a flat discount rate.
+# NOTE: Stripe prices need reconfiguring from volume to graduated model
 [plans.business]
+pricing_model = "graduated"
 display_name = "Business"
 tagline = "For organisations"
 product_id = "prod_U0UyX2cX4kl5gD"
 monthly_id = "price_1T2TykHBjuEfyzFqA2RVNIvu"
-annual_id = "price_xxx"
+annual_id = "price_1T3GvtHBjuEfyzFqnZXattf4"
 unit = "seat"
 units = "seats"
 min = 1
 max = 100
 
 [[plans.business.tiers]]
-up_to = 24
-monthly = { gbp = 5.00, usd = 6.25, eur = 5.75 }
-annual = { gbp = 50, usd = 62.50, eur = 57.50 }
+up_to = 10
+monthly = { gbp = 3.75, usd = 4.50, eur = 4.00 }
+annual = { gbp = 36, usd = 45, eur = 40 }
 
 [[plans.business.tiers]]
-up_to = 99
-monthly = { gbp = 4.50, usd = 5.75, eur = 5.25 }
-annual = { gbp = 45, usd = 57.50, eur = 52.50 }
-
-[[plans.business.tiers]]
-monthly = { gbp = 4.00, usd = 5.00, eur = 4.75 }
-annual = { gbp = 40, usd = 50, eur = 47.50 }
+monthly = { gbp = 2.50, usd = 3.00, eur = 2.75 }
+annual = { gbp = 24, usd = 30, eur = 27 }

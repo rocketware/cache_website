@@ -5,15 +5,15 @@
    ======================================== */
 :root {
   /* BRAND COLORS */
-  --brand-filled: oklch(0.45 0.25 292);
-  --brand-outlined: oklch(0.45 0.25 292);
-  --brand-link: oklch(0.45 0.25 292);
+  --brand-filled: oklch(0.63 0.1 69.44);
+  --brand-outlined: oklch(0.63 0.13 67.93);
+  --brand-link: oklch(0.57 0.12 67.28);
   --badge-alpha: oklch(0.55 0.07 266.42);
 
   /* SURFACE COLORS */
   --bg-primary: #ffffff;
-  --bg-secondary: oklch(0.975 0.025 288);
-  --bg-tertiary: oklch(0.98 0.015 280);
+  --bg-secondary: oklch(0.99 0.01 288 / 1);
+  --bg-tertiary: oklch(0.98 0.03 280 / 1);
 
   /* TEXT COLORS */
   --text-headings: #0f172a;
@@ -22,16 +22,16 @@
   --text-tertiary: oklch(0.72 0.03 256.86);
 
   /* BORDER */
-  --border-color: oklch(0.93 0.02 285.96);
+  --border-color: oklch(0.915 0.05 285.96);
 
   color-scheme: light;
 }
 
 :root[data-theme="dark"] {
   /* BRAND COLORS */
-  --brand-filled: oklch(0.45 0.25 292);
-  --brand-outlined: oklch(0.7 0.17 292);
-  --brand-link: oklch(0.78 0.12 289);
+  --brand-filled: oklch(0.62 0.1 69.35);
+  --brand-outlined: oklch(0.71 0.11 69.4);
+  --brand-link: oklch(0.71 0.11 69.4);
   --badge-alpha: oklch(0.33 0.06 282.89);
 
   /* SURFACE COLORS */
@@ -161,7 +161,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .header-link:hover {
   color: var(--brand-link);
-  background-color: var(--bg-secondary);
   text-decoration: underline;
 }
 
@@ -180,7 +179,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .theme-toggle:hover {
-  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
 }
 
 .theme-toggle svg {
@@ -485,11 +484,13 @@ main {
 .cta-button-primary {
   background-color: var(--brand-filled);
   color: white;
+  border: 2px solid var(--brand-filled);
 }
 
 .cta-button-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-color: var(--brand-filled);
 }
 
 .cta-button-disabled {
@@ -507,6 +508,7 @@ main {
 .cta-button-secondary:hover {
   background: var(--brand-filled);
   color: white;
+  border-color: var(--brand-filled);
 }
 
 .cta-info {
@@ -790,6 +792,15 @@ main {
   color: var(--text-tertiary);
   font-size: 0.875rem;
   margin-bottom: 3rem;
+
+  a {
+    color: var(--brand-link);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .pricing-faq {
@@ -844,6 +855,7 @@ main {
 .btn-primary {
   background-color: var(--brand-filled);
   color: white;
+  border: 1px solid var(--brand-filled);
 }
 
 .btn-primary:hover {
@@ -859,6 +871,7 @@ main {
 .btn-secondary:hover {
   background: var(--brand-filled);
   color: white;
+  border-color: var(--brand-filled);
 }
 
 .btn-large {
@@ -1304,7 +1317,7 @@ main {
   width: 80px;
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--brand-outlined);
   border-radius: 6px;
   background: var(--bg-primary);
   color: var(--text-primary);
