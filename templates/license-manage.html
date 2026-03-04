@@ -126,7 +126,7 @@
 </section>
 
 <script>
-  const API_BASE = '{{ data.domains.license_server }}';
+  const API_BASE = '{{ data.domains.license_server | safe }}';
   let licenseData = null;
   let licensePassword = null;
 
@@ -178,16 +178,15 @@
     showLoading('Loading license...');
     try {
       const res = await fetch(`${API_BASE}/license?license_id=${encodeURIComponent(licenseId)}`);
-      const json = await res.json();
-      if (!res.ok) {
-        const code = json.error?.code || 'UNKNOWN';
-        if (code === 'LICENSE_NOT_FOUND') {
-          window.location.href = `/license/?id=${encodeURIComponent(licenseId)}&error=not_found`;
-        } else {
-          window.location.href = `/license/?id=${encodeURIComponent(licenseId)}&error=server`;
-        }
+      if (res.status === 404) {
+        window.location.href = `/license/?id=${encodeURIComponent(licenseId)}&error=not_found`;
         return;
       }
+      if (!res.ok) {
+        window.location.href = `/license/?id=${encodeURIComponent(licenseId)}&error=server`;
+        return;
+      }
+      const json = await res.json();
       licenseData = json.data;
       localStorage.setItem('cache_license_id', licenseId);
 
