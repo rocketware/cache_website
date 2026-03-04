@@ -79,6 +79,15 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-headings);
 }
 
+a {
+  color: var(--brand-link);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 /* Header */
 .header {
   position: sticky;
@@ -1721,6 +1730,17 @@ body.docs {
   background-color: var(--bg-tertiary);
   border-radius: 6px;
   overflow-x: auto;
+}
+
+/* Override Giallo's inline styles to follow the site's theme toggle */
+.giallo {
+  color-scheme: light !important;
+  background-color: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color);
+}
+
+:root[data-theme="dark"] .giallo {
+  color-scheme: dark !important;
 }
 
 .docs-content pre code {

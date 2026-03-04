@@ -53,9 +53,15 @@
     }
 
     // Show error banner
-    if (error === 'lookup') {
+    const errorMessages = {
+      'not_found': 'License not found. Check your License ID and try again.',
+      'server': 'The license server encountered an error. Please try again later.',
+      'network': 'Could not connect to the license server. Check your connection and try again.',
+    };
+    const msg = errorMessages[error];
+    if (msg) {
       const banner = document.getElementById('error-banner');
-      banner.textContent = 'License not found. Check your License ID and try again.';
+      banner.textContent = msg;
       banner.style.display = 'block';
     }
   })();

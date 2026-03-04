@@ -180,7 +180,12 @@
       const res = await fetch(`${API_BASE}/license?license_id=${encodeURIComponent(licenseId)}`);
       const json = await res.json();
       if (!res.ok) {
-        window.location.href = `/license/?id=${encodeURIComponent(licenseId)}&error=lookup`;
+        const code = json.error?.code || 'UNKNOWN';
+        if (code === 'LICENSE_NOT_FOUND') {
+          window.location.href = `/license/?id=${encodeURIComponent(licenseId)}&error=not_found`;
+        } else {
+          window.location.href = `/license/?id=${encodeURIComponent(licenseId)}&error=server`;
+        }
         return;
       }
       licenseData = json.data;
@@ -192,7 +197,7 @@
         renderDashboard();
       }
     } catch (err) {
-      window.location.href = `/license/?id=${encodeURIComponent(licenseId)}&error=lookup`;
+      window.location.href = `/license/?id=${encodeURIComponent(licenseId)}&error=network`;
     }
   }
 

@@ -8,9 +8,9 @@ sidebar_group = "Legal"
 
 # Privacy Policy
 
-*Last updated: January 2025*
+*Last updated: March 2025*
 
-**Your notes never touch our servers. The *only* information the app collects is if you choose to upgrade the app sends a non-identifiable identifier which enables us to provide you with a license key.**
+> **Your notes never touch our servers. We collect zero data about you. Upgrading requires only a non-identifiable hash to generate your license key.**
 
 ---
 
@@ -39,11 +39,7 @@ Payments are processed through platform app stores, please refer to the Privacy 
 
 - [Google Play](https://policies.google.com/privacy)
 - [Apple App Store](https://www.apple.com/legal/privacy/)
-- [Stripe](https://stripe.com/privacy) (web purchases)
-
-We use RevenueCat to process the payment from the above providers however we **do not** use RevenueCat in the app itself as their privacy practices don't meet our standards and offered us no way to opt out.
-
-Cryptocurrency payments are an option but generating the license must be (currently) processed manually, send me a message on [Matrix](https://matrix.to/#/#cache-app:matrix.org) to organise.
+- [Stripe](https://stripe.com/privacy)
 
 ---
 

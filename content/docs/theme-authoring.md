@@ -377,6 +377,6 @@ After creating your theme:
 
 ## Getting Help
 
-- **Browse bundled themes** - `shared/blink_theme_assets/storm-amethyst.toml` and `mist-amethyst.toml`
+- **Browse bundled themes** - `shared/blink_theme_assets/twilight-sandstone.toml` and `hoarfrost-sandstone.toml`
 - **Read the spec** - `packages/blink_theme/THEME_SCOPE_SYSTEM.md` for technical details
 - **Ask questions** - Check the documentation or ask for help

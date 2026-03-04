@@ -50,6 +50,8 @@ The frontmatter defines how the directory behaves and how notes are created.
 | `type` | No | `'daily'` or `'reference'` (default: `'reference'`) | `'daily'` |
 | `filename` | No | Filename pattern (supports variables) | `'${date.iso}'` |
 | `date` | No | Date field for timed notes | `'${date.iso}'` |
+| `sort` | No | Sort order for directory listings: `'modified'`, `'proximity'`, or `'filename'` | `'proximity'` |
+| `directories` | No | How subdirectories display: `'separate'` (grouped at top) or `'mixed'` (interleaved with notes). Default: `'separate'` | `'mixed'` |
 | `icon` | No | Icon name from Carbon icons | `'calendar'` |
 
 ### Note Types
@@ -201,6 +203,7 @@ Reference notes can also use date variables (based on creation date):
 name = 'Reports'
 singular = 'Weekly Report'
 type = 'reference'
+sort = 'proximity'
 filename = '${date.year}-week-${date.week_number}'
 +++
 

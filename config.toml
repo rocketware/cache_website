@@ -11,9 +11,9 @@ build_search_index = false
 generate_feeds = false
 
 # Syntax highlighting (for docs code blocks)
-[markdown]
-highlight_code = true
-highlight_theme = "base16-ocean-dark"
+[markdown.highlighting]
+light_theme = "github-light"
+dark_theme = "github-dark"
 
 [extra]
 # Site metadata

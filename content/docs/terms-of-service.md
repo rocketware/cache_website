@@ -8,9 +8,9 @@ sidebar_group = "Legal"
 
 # Terms of Service
 
-*Last updated: January 2025*
+*Last updated: March 2025*
 
-**You own your notes. We provide the software. Don't abuse it.**
+> **You own your notes. No lock-in, no accounts. We provide the software — you bring your own Git provider.**
 
 ---
 
@@ -24,7 +24,7 @@ Cache is note-taking software. You get:
 - An app for creating and managing notes
 - Local storage on your device
 - Git sync to your chosen provider
-- Optional paid subscriptions for unlimited notes
+- Optional paid subscription
 
 We don't provide hosting, cloud storage, or access to your notes.
 
@@ -47,7 +47,7 @@ We don't provide hosting, cloud storage, or access to your notes.
 
 **Free tier**: No cost, no account, all features, limited to 50 notes.
 
-**Paid subscriptions**: Billed monthly via Apple App Store, Google Play, or Stripe.
+**Paid subscriptions**: Billed via Apple App Store, Google Play, or Stripe.
 - Cancel anytime—access continues until your billing period ends
 - Refunds are handled by your payment provider per their policies
 
@@ -55,7 +55,7 @@ We don't provide hosting, cloud storage, or access to your notes.
 
 ## The Legal Bits
 
-*These sections are standard legal protections. We're being upfront: this is boilerplate, but it's necessary.*
+*Standard legal protections.*
 
 ### No Warranties
 
