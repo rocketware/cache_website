@@ -1,5 +1,5 @@
 # Cache Website Configuration
-base_url = "https://cachenotes.app"
+base_url = "https://www.cachenotes.app"
 title = "Cache"
 description = "Your personal store of knowledge. Privacy-first note-taking with Git sync."
 default_language = "en"

@@ -2,7 +2,7 @@
 # Product IDs, pricing, and server URLs for license management pages.
 
 [domains]
-website = "https://cachenotes.app"
+website = "https://www.cachenotes.app"
 license_server = "https://api.cachenotes.app"
 
 # Currencies

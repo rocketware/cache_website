@@ -8,9 +8,9 @@ sidebar_group = "About"
 
 # Why Cache
 
-Hey, I'm Jimmy, the creator of Cache. After years of bouncing between note-taking apps - and none of them solving the problems I actually had - I set out to build the app I always wanted. That was five years ago.
+After years of bouncing between note-taking apps - and none of them solving the problems I actually had - I set out to build the app I always wanted. That was five years ago.
 
-I'm an indie developer juggling several projects and platforms, and I also have ADHD, my brain tends to be pretty good at storing deep project knowledge but generally pretty terrible at everything else! I needed a tool that stays out of my way - a cache for my mind, somewhere to offload the minutiae and general life stuff before it falls out of my limited short-term RAM.
+Hey, I'm Jimmy, an indie developer juggling several projects and platforms. My brain tends to be pretty good at storing intricate project, tech or obscure 'interesting-to-me' knowledge but generally pretty terrible at everything else; classic ADHD brain. I needed a tool I could rely on - a cache for my mind - somewhere to capture the minutiae and offload general life stuff before it falls out of my limited short-term RAM.
 
 ## What I needed from a note-taking app
 
@@ -18,12 +18,12 @@ After years of using almost every major note-taking app, I knew exactly what I n
 
 - **It had to be fast, very fast** - opening, navigating, authoring. When an idea comes to mind or a note needs updating, there can't be friction.
 - **It needed great search** - I've lost count of the times I couldn't find content I knew was in my notes. Most apps give you one result per file and call it a day - often highlighting the wrong section entirely.
-- **No editing friction** - flicking between raw markdown and rendered HTML is jarring. I tried hybrid editors, but when I committed to markdown as both the authoring and presentation layer, everything clicked.
-- **Clean note source files** - every time I migrated between apps, the export was the same story: lost folder structure, files renamed to internal IDs, notes polluted with HTML and proprietary frontmatter. My notes should be portable, and outlive the software I use to manage them.
+- **Frictionless authoring** - flicking between raw markdown and rendered HTML is jarring and adds unnecessary friction.
+- **Clean note source files** - every time I migrated between apps, the export resulted in a similar outcome: lost folder structure, files renamed to internal IDs, notes polluted with HTML and proprietary frontmatter. **My notes should be portable, and outlive the software I use to author them.**
 - **Transparency and control** - app bugs, company shutdowns, policy changes - there are too many ways to lose access to your own notes. I wanted a solution where users own their data completely, no lock-in, no privacy trade-offs.
 - **Track every single task** - if I create a task and don't complete it, it shouldn't fall off the radar. I needed something that surfaces incomplete tasks until they're resolved or deliberately cancelled.
 - **Privacy** - I want to know that my notes aren't being scanned, profiled, used to train AI models, or sold to data brokers. I should control who has access to my notes - and the answer should default to nobody but me.
- 
+
 ## What I built
 
 It took a few years and several false starts, but when the pieces came together, it just felt right:
