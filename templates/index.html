@@ -285,8 +285,7 @@ config.extra.tagline }}{% endblock %} {% block content %}
 </section>
 
 <!-- CTA Section -->
-{% set downloads = load_data(path="data/downloads.toml") %} {% set groups =
-downloads.downloads | group_by(attribute="group") %}
+{% set downloads = load_data(path="data/downloads.toml") %}
 <section class="cta-section">
     <div class="cta-container">
         <h2 class="cta-title">Ready to take control?</h2>
@@ -295,12 +294,12 @@ downloads.downloads | group_by(attribute="group") %}
         </p>
 
         <div class="cta-buttons">
-            {% for group_name, items in groups %}
+            {% for platform in downloads.platforms %}
             <a
-                href="/download/#{{ group_name | lower | replace(from=' ', to='-') }}"
+                href="/download/#{{ platform.id }}"
                 class="cta-button cta-button-primary"
             >
-                <span class="button-store-name">{{ group_name }}</span>
+                <span class="button-store-name">{{ platform.name }}</span>
             </a>
             {% endfor %}
         </div>

@@ -1,7 +1,6 @@
 {% extends "base.html" %} {% block title %}{{ section.title }} - {{ config.title
 }}{% endblock %} {% block description %}{{ section.description }}{% endblock %}
 {% block content %} {% set downloads = load_data(path="data/downloads.toml") %}
-{% set grouped = downloads.downloads | group_by(attribute="group") %}
 
 <section class="download-section">
     <div class="download-container">
@@ -11,32 +10,44 @@
             notified when it's available.
         </p>
 
-        {% for group_name, items in grouped %}
-        <div class="download-group" id="{{ group_name | lower | replace(from=" ", to="-") }}">
-            <h2 class="download-group-title">{{ group_name }}</h2>
+        {% for platform in downloads.platforms %}
+        <div class="download-group" id="{{ platform.id }}">
+            <h2 class="download-group-title">{{ platform.name }}</h2>
             <table class="download-table">
                 <thead>
                     <tr>
-                        <th>Platform</th>
                         <th>Source</th>
                         <th>Version</th>
+                        <th>Checksum</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for dl in items %}
+                    {% for dl in platform.downloads %}
                     <tr
                         class="{% if dl.enabled %}download-row-available{% else %}download-row-coming-soon{% endif %}"
                     >
-                        <td>{{ dl.platform }}</td>
                         <td>
                             {% if dl.enabled %}
-                            <a href="{{ dl.url }}" class="download-link"
-                                >{{ dl.name }}</a
-                            >
+                                {% if dl.store_url is defined and dl.store_url %}
+                                <a href="{{ dl.store_url }}" class="download-link"
+                                    >{{ dl.name }}</a
+                                >
+                                {% elif dl.github_url is defined and dl.github_url %}
+                                <a href="{{ dl.github_url }}" class="download-link"
+                                    >{{ dl.name }}</a
+                                >
+                                {% else %}
+                                {{ dl.name }}
+                                {% endif %}
                             {% else %} {{ dl.name }} {% endif %}
                         </td>
                         <td>{{ dl.version | default(value="-") }}</td>
+                        <td>
+                            {% if dl.checksum is defined and dl.checksum %}
+                            <span title="{{ dl.checksum }}">{{ dl.checksum | truncate(length=16) }}</span>
+                            {% else %}-{% endif %}
+                        </td>
                         <td>
                             {% if dl.enabled %}
                             <span class="status-badge status-available"

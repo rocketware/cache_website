@@ -1,72 +1,78 @@
-# Cache Download Sources
-# Single source of truth for all download buttons and tables
+# Cache Download Sources — latest versions for the website
+# Template priority: store_url > github_url > disabled
 
-[[downloads]]
-id = "app_store"
-name = "App Store"
-platform = "iOS + macOS"
-group = "Apple"
-url = "#"
+[[platforms]]
+id = "android"
+name = "Android"
+icon = "android"
+
+  [[platforms.downloads]]
+  id = "play_store"
+  name = "Google Play"
+  store_url = "https://play.google.com/store/apps/details?id=io.rocketware.cache.googleplay"
+  enabled = true
+
+  [[platforms.downloads]]
+  id = "accrescent"
+  name = "Accrescent"
+  enabled = false
+
+  [[platforms.downloads]]
+  id = "apk"
+  name = "APK"
+  enabled = false
+
+[[platforms]]
+id = "apple"
+name = "Apple"
 icon = "apple"
-enabled = false
-version = ""
 
-[[downloads]]
-id = "play_store"
-name = "Google Play"
-platform = "Android"
-group = "Android"
-url = "https://play.google.com/store/apps/details?id=io.rocketware.cache.googleplay"
-icon = "android"
-enabled = true
-version = ""
+  [[platforms.downloads]]
+  id = "app_store"
+  name = "App Store"
+  enabled = false
 
-[[downloads]]
-id = "accrescent"
-name = "Accrescent"
-platform = "Android"
-group = "Android"
-url = "#"
-icon = "android"
-enabled = false
-version = ""
-
-[[downloads]]
-id = "apk"
-name = "APK"
-platform = "Android"
-group = "Android"
-url = "#"
-icon = "android"
-enabled = false
-version = ""
-
-[[downloads]]
-id = "nix"
-name = "Nix"
-platform = "Linux"
-group = "Linux"
-url = "#"
+[[platforms]]
+id = "linux"
+name = "Linux"
 icon = "linux"
-enabled = false
-version = ""
 
-[[downloads]]
-id = "flathub"
-name = "Flathub"
-platform = "Linux"
-group = "Linux"
-url = "#"
-icon = "linux"
-enabled = false
-version = ""
+  [[platforms.downloads]]
+  id = "appimage"
+  name = "AppImage"
+  enabled = false
 
-[[downloads]]
-id = "github"
-name = "Microsoft Store"
-platform = "Windows"
-group = "Microsoft"
-url = "#"
+  [[platforms.downloads]]
+  id = "deb"
+  name = "Debian / Ubuntu"
+  enabled = false
+
+  [[platforms.downloads]]
+  id = "rpm"
+  name = "Fedora / RHEL"
+  enabled = false
+
+  [[platforms.downloads]]
+  id = "tar_gz"
+  name = "tar.gz"
+  enabled = false
+
+  [[platforms.downloads]]
+  id = "nix"
+  name = "Nix"
+  enabled = false
+
+  [[platforms.downloads]]
+  id = "flathub"
+  name = "Flathub"
+  enabled = false
+
+[[platforms]]
+id = "windows"
+name = "Windows"
 icon = "windows"
-enabled = false
-version = ""
+
+  [[platforms.downloads]]
+  id = "microsoft_store"
+  name = "Microsoft Store"
+  enabled = false
