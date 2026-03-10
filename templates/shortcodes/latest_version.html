@@ -1,0 +1,1 @@
+{% set downloads = load_data(path="data/downloads.toml") %}{% if downloads.latest_version %}{{ downloads.latest_version }}{% else %}X.Y.Z{% endif %}

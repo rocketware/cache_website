@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} - {{ config.title }}{% endblock %}
+{% block description %}{{ section.description }}{% endblock %}
+
+{% block content %}
+<section class="release-section">
+    <div class="release-container">
+        <h1>Cache Releases</h1>
+        <p class="release-feed-link">
+            <a href="/releases/atom.xml">Atom feed</a>
+        </p>
+
+        {% for page in section.pages %}
+        <div class="release-entry">
+            <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
+            <time datetime="{{ page.date }}">{{ page.date | date(format="%B %d, %Y") }}</time>
+            <p>
+                <a href="/releases/v{{ page.title | split(pat='v') | last }}.toml">Signed manifest</a>
+                &middot;
+                <a href="/releases/v{{ page.title | split(pat='v') | last }}.toml.minisig">Signature</a>
+            </p>
+        </div>
+        {% endfor %}
+
+        {% if section.pages | length == 0 %}
+        <p>No releases yet.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -626,6 +626,22 @@ main {
   margin: 0 0 0.75rem 0;
 }
 
+.download-verify {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  margin: 2rem 0 1.5rem 0;
+}
+
+.download-verify a {
+  color: var(--brand-link);
+  text-decoration: none;
+}
+
+.download-verify a:hover {
+  text-decoration: underline;
+}
+
 .download-cta {
   text-align: center;
   color: var(--text-secondary);
@@ -638,6 +654,56 @@ main {
 
 .download-cta a:hover {
   text-decoration: underline;
+}
+
+/* Release Pages */
+.release-section {
+  padding: 4rem 1rem;
+  background-color: var(--bg-primary);
+}
+
+.release-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.release-container h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+}
+
+.release-feed-link {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  margin: 0 0 2rem 0;
+}
+
+.release-entry {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.release-entry:last-child {
+  border-bottom: none;
+}
+
+.release-entry h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+}
+
+.release-entry time {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+}
+
+.release-entry p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0.5rem 0 0 0;
 }
 
 /* Currency Picker (shared between pricing + purchase pages) */

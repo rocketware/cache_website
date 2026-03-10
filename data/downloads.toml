@@ -1,6 +1,8 @@
 # Cache Download Sources — latest versions for the website
 # Template priority: store_url > github_url > disabled
 
+latest_version = ""
+
 [[platforms]]
 id = "android"
 name = "Android"
