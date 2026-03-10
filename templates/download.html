@@ -19,7 +19,7 @@
                         <th>Source</th>
                         <th>Version</th>
                         <th>Checksum</th>
-                        <th>Status</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,21 +27,7 @@
                     <tr
                         class="{% if dl.enabled %}download-row-available{% else %}download-row-coming-soon{% endif %}"
                     >
-                        <td>
-                            {% if dl.enabled %}
-                                {% if dl.store_url is defined and dl.store_url %}
-                                <a href="{{ dl.store_url }}" class="download-link"
-                                    >{{ dl.name }}</a
-                                >
-                                {% elif dl.github_url is defined and dl.github_url %}
-                                <a href="{{ dl.github_url }}" class="download-link"
-                                    >{{ dl.name }}</a
-                                >
-                                {% else %}
-                                {{ dl.name }}
-                                {% endif %}
-                            {% else %} {{ dl.name }} {% endif %}
-                        </td>
+                        <td>{{ dl.name }}</td>
                         <td>{{ dl.version | default(value="-") }}</td>
                         <td>
                             {% if dl.checksum is defined and dl.checksum %}
@@ -50,13 +36,15 @@
                         </td>
                         <td>
                             {% if dl.enabled %}
-                            <span class="status-badge status-available"
-                                >Available</span
-                            >
+                                {% if dl.store_url is defined and dl.store_url %}
+                                <a href="{{ dl.store_url }}" class="download-btn">Download</a>
+                                {% elif dl.github_url is defined and dl.github_url %}
+                                <a href="{{ dl.github_url }}" class="download-btn">Download</a>
+                                {% else %}
+                                <span class="download-btn download-btn-disabled">Download</span>
+                                {% endif %}
                             {% else %}
-                            <span class="status-badge status-coming-soon"
-                                >Coming Soon</span
-                            >
+                            <span class="download-btn download-btn-disabled">Coming Soon</span>
                             {% endif %}
                         </td>
                     </tr>
