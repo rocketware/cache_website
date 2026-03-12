@@ -5,10 +5,7 @@
 <section class="download-section">
     <div class="download-container">
         <h1 class="download-title">Download Cache</h1>
-        <p class="download-subtitle">
-            Cache is coming soon to all platforms. Join the waitlist to be
-            notified when it's available.
-        </p>
+        <p class="download-subtitle">Your knowledge, accessible and portable across every platform and screen size.</p>
 
         {% for platform in downloads.platforms %}
         <div class="download-group" id="{{ platform.id }}">
@@ -55,8 +52,9 @@
         {% endfor %}
 
         <div class="download-verify">
-            <p>All direct downloads are cryptographically signed.
-               <a href="/docs/build-verification/">How to verify</a></p>
+            <p>Latest version: <strong>v{% if downloads.latest_version %}{{ downloads.latest_version }}{% else %}X.Y.Z{% endif %}</strong>
+               · <a href="/releases/">Release feed</a>
+               · <a href="/docs/build-verification/">Verify downloads</a></p>
         </div>
     </div>
 </section>
