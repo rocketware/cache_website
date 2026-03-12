@@ -12,7 +12,7 @@ All Cache direct downloads are cryptographically signed using [Minisign](https:/
 
 ## What is signed
 
-Each release includes a **signed manifest** (e.g. <code>v{{ latest_version() }}.toml</code>) listing every artifact with its SHA-256 checksum. The manifest is signed with our Ed25519 key — verifying the signature proves both integrity and authenticity of all listed artifacts.
+Each release includes a **signed manifest** (e.g. <code>v{{ latest_version() }}.toml</code>) listing every artifact with its SHA-256 checksum. The manifest is signed with Cache's Ed25519 key — verifying the signature proves both integrity and authenticity of all listed artifacts.
 
 ## Public key
 
@@ -20,9 +20,7 @@ Each release includes a **signed manifest** (e.g. <code>v{{ latest_version() }}.
 RWSuyCCt9+/8XP0AK3jidFQotJmj82u3RQvmTRCHZeW460xcSsjxH8RQ
 ```
 
-Download: [`cache-minisign.pub`](/cache-minisign.pub)
-
-The public key is also available in the [repository root](https://github.com/rocketware/cache/blob/main/cache-minisign.pub).
+Download: [`cache-minisign.pub`](/cache-minisign.pub) (also available on [Github](https://github.com/rocketware/cache/blob/main/cache-minisign.pub)).
 
 ---
 

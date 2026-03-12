@@ -49,6 +49,10 @@
       const savedId = localStorage.getItem('cache_license_id');
       if (savedId) {
         document.getElementById('license-id-input').value = savedId;
+        const hint = document.createElement('small');
+        hint.textContent = 'Pre-filled from your last used license';
+        hint.style.opacity = '0.6';
+        document.querySelector('.license-form-row').after(hint);
       }
     }
 
