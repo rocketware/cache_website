@@ -55,7 +55,7 @@ annual = { gbp = 6, usd = 9, eur = 6 }
 [plans.business]
 pricing_model = "graduated"
 display_name = "Business"
-tagline = "For organisations"
+tagline = "For teams and organisations"
 product_id = "prod_U0UyX2cX4kl5gD"
 monthly_id = "price_1T2TykHBjuEfyzFqA2RVNIvu"
 annual_id = "price_1T3GvtHBjuEfyzFqnZXattf4"

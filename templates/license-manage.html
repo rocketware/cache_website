@@ -39,6 +39,11 @@
     <!-- Dashboard -->
     <div id="dashboard" style="display: none;">
 
+      <!-- Sandbox banner -->
+      <div id="sandbox-banner" class="license-sandbox" style="display: none;">
+        Sandbox license — test mode, not valid for production use.
+      </div>
+
       <!-- License details -->
       <div class="license-details">
         <div class="detail-row">
@@ -284,6 +289,10 @@
     document.getElementById('dashboard').style.display = 'block';
 
     const d = licenseData;
+
+    // Sandbox banner
+    const sandboxBanner = document.getElementById('sandbox-banner');
+    sandboxBanner.style.display = d.sandbox ? 'block' : 'none';
 
     // Details
     document.getElementById('detail-id').textContent = d.license_id;
