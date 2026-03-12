@@ -72,3 +72,16 @@ annual = { gbp = 36, usd = 45, eur = 40 }
 [[plans.business.tiers]]
 monthly = { gbp = 2.50, usd = 3.00, eur = 2.75 }
 annual = { gbp = 24, usd = 30, eur = 27 }
+
+# Founder plan — one-time lifetime purchase (limited availability)
+[plans.founder]
+display_name = "Founder"
+tagline = "Lifetime license, limited availability"
+pricing_model = "fixed"
+price_id = "price_1TA8MFHBjuEfyzFqdtMRopvg"
+repositories = 3
+
+[plans.founder.price]
+gbp = 100
+usd = 130
+eur = 120

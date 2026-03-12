@@ -24,14 +24,23 @@
       <div class="purchase-step">
         <h2>1. Choose a plan</h2>
         <div class="plan-options">
-          <label class="plan-option">
-            <input type="radio" name="plan" value="personal" checked>
-            <div class="plan-option-content">
-              <strong>{{ data.plans.personal.display_name }}</strong>
-              <span class="plan-tagline">{{ data.plans.personal.tagline }}</span>
-              <span class="plan-price" id="plan-price-personal"></span>
-            </div>
-          </label>
+          <div class="plan-option-group">
+            <label class="plan-option">
+              <input type="radio" name="plan" value="personal" checked>
+              <div class="plan-option-content">
+                <strong>{{ data.plans.personal.display_name }}</strong>
+                <span class="plan-tagline">{{ data.plans.personal.tagline }}</span>
+                <span class="plan-price" id="plan-price-personal"></span>
+              </div>
+            </label>
+            <label class="founder-suboption" id="founder-suboption">
+              <input type="checkbox" id="founder-checkbox">
+              <span class="founder-suboption-text">
+                <strong>Founding Member</strong>
+                <span id="plan-price-founder"></span>
+              </span>
+            </label>
+          </div>
           <label class="plan-option">
             <input type="radio" name="plan" value="business">
             <div class="plan-option-content">
@@ -53,7 +62,7 @@
       </div>
 
       <!-- Step 3: Billing period -->
-      <div class="purchase-step">
+      <div class="purchase-step" id="billing-step">
         <h2>3. Billing period</h2>
         <div class="billing-options">
           <label class="billing-option">
@@ -159,7 +168,11 @@
   let activeCurrency;
 
   function getActivePlan() {
-    return document.querySelector('input[name="plan"]:checked').value;
+    const plan = document.querySelector('input[name="plan"]:checked').value;
+    if (plan === 'personal' && document.getElementById('founder-checkbox').checked) {
+      return 'founder';
+    }
+    return plan;
   }
 
   function getPlanConfig(planName) {
@@ -177,18 +190,31 @@
   // -- UI updates -------------------------------------------------------------
 
   function updatePlanUI() {
+    const basePlan = document.querySelector('input[name="plan"]:checked').value;
+    const founderBox = document.getElementById('founder-checkbox');
+
+    // Show founder suboption only when personal is selected
+    const isPersonal = basePlan === 'personal';
+    const group = document.querySelector('.plan-option-group');
+    document.getElementById('founder-suboption').style.display = isPersonal ? '' : 'none';
+    group.classList.toggle('founder-visible', isPersonal);
+    if (!isPersonal) founderBox.checked = false;
+
     const plan = getActivePlan();
     const cfg = getPlanConfig(plan);
-    const input = document.getElementById('quantity-input');
-    const label = document.getElementById('quantity-label');
+    const founder = plan === 'founder';
 
-    label.textContent = 'Number of ' + cfg.units;
-    input.min = cfg.min;
-    input.max = cfg.max;
-    // Reset to min if current value is out of range
-    const current = parseInt(input.value) || 1;
-    if (current < cfg.min || current > cfg.max) {
-      input.value = cfg.min;
+    document.getElementById('config-step').style.display = founder ? 'none' : '';
+    document.getElementById('billing-step').style.display = founder ? 'none' : '';
+
+    if (!founder) {
+      const input = document.getElementById('quantity-input');
+      const label = document.getElementById('quantity-label');
+      label.textContent = 'Number of ' + cfg.units;
+      input.min = cfg.min;
+      input.max = cfg.max;
+      const current = parseInt(input.value) || 1;
+      if (current < cfg.min || current > cfg.max) input.value = cfg.min;
     }
   }
 
@@ -201,9 +227,15 @@
     const bTier1 = CONFIG.plans.business.tiers[0];
     document.getElementById('plan-price-business').textContent =
       'from ' + formatPrice(bTier1.monthly[c], c) + '/month/user';
+
+    if (CONFIG.plans.founder) {
+      document.getElementById('plan-price-founder').textContent =
+        formatPrice(CONFIG.plans.founder.price[c], c) + ' one-time';
+    }
   }
 
   function updateAnnualSavings() {
+    if (getActivePlan() === 'founder') return;
     const plan = getActivePlan();
     const cfg = getPlanConfig(plan);
     const quantity = getQuantity();
@@ -224,8 +256,16 @@
     const quantity = getQuantity();
     const c = activeCurrency;
 
-    const { total } = calculateTotal(cfg.tiers, quantity, c, billing, cfg.pricing_model);
     const el = document.getElementById('price-summary');
+
+    if (cfg.pricing_model === 'fixed') {
+      const price = cfg.price[c];
+      el.innerHTML = '<span class="price-amount">' + formatPrice(price, c) + '</span>'
+        + '<div class="price-detail">Launch offer &middot; One-time payment &middot; ' + cfg.repositories + ' repositories &middot; Lifetime license &middot; Your name in the app</div>';
+      return;
+    }
+
+    const { total } = calculateTotal(cfg.tiers, quantity, c, billing, cfg.pricing_model);
     const unitsLabel = quantity === 1 ? cfg.unit : cfg.units;
     let html = '';
 
@@ -283,7 +323,10 @@
   // -- Pre-select plan from query param ---------------------------------------
 
   const paramPlan = params.get('plan');
-  if (paramPlan === 'business' || paramPlan === 'personal') {
+  if (paramPlan === 'founder') {
+    document.querySelector('input[name="plan"][value="personal"]').checked = true;
+    document.getElementById('founder-checkbox').checked = true;
+  } else if (paramPlan === 'business' || paramPlan === 'personal') {
     const radio = document.querySelector('input[name="plan"][value="' + paramPlan + '"]');
     if (radio) radio.checked = true;
   }
@@ -295,6 +338,9 @@
 
   document.querySelectorAll('input[name="plan"]').forEach(radio => {
     radio.addEventListener('change', () => { updatePlanUI(); updateAll(); });
+  });
+  document.getElementById('founder-checkbox').addEventListener('change', () => {
+    updatePlanUI(); updateAll();
   });
   document.querySelectorAll('input[name="billing"]').forEach(radio => {
     radio.addEventListener('change', () => { updateAnnualSavings(); updatePriceSummary(); });
@@ -314,6 +360,7 @@
   function resolveProductId() {
     const plan = getActivePlan();
     const cfg = getPlanConfig(plan);
+    if (cfg.price_id) return cfg.price_id;
     const billing = getBilling();
     return billing === 'monthly' ? cfg.monthly_id : cfg.annual_id;
   }
@@ -328,7 +375,7 @@
     loadingEl.style.display = 'block';
 
     const productId = resolveProductId();
-    const quantity = getQuantity();
+    const quantity = getPlanConfig(getActivePlan()).pricing_model === 'fixed' ? 1 : getQuantity();
 
     try {
       const res = await fetch(API_BASE + '/checkout/create', {

@@ -780,6 +780,29 @@ main {
   margin: 0 0 2rem 0;
 }
 
+/* Founder Callout Banner */
+.founder-callout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.founder-callout-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.founder-callout-btn {
+  white-space: nowrap;
+}
+
 .pricing-cards {
   display: grid;
   grid-template-columns: 1fr;
@@ -1354,6 +1377,45 @@ main {
   border-color: var(--brand-outlined);
 }
 
+.plan-option-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.founder-suboption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  transition: border-color 0.2s ease;
+}
+
+.plan-option-group.founder-visible .plan-option {
+  border-radius: 6px 6px 0 0;
+}
+
+.founder-suboption:has(input:checked) {
+  border-color: var(--brand-outlined);
+}
+
+.founder-suboption-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.founder-suboption-text strong {
+  color: var(--text-headings);
+  font-size: 0.8125rem;
+}
+
 .plan-option input {
   margin-top: 0.25rem;
 }
@@ -1457,6 +1519,14 @@ main {
 
   .plan-option {
     flex: 1;
+  }
+
+  .plan-option-group {
+    flex: 1;
+  }
+
+  .plan-option-group .plan-option {
+    flex: unset;
   }
 }
 

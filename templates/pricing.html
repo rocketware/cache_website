@@ -57,6 +57,11 @@
       </div>
     </div>
 
+    <div class="founder-callout">
+      <span class="founder-callout-text"><strong>Launch offer:</strong> <span id="founder-price"></span> for lifetime license, 3 repos, your name in the app.</span>
+      <a id="link-founder" href="/license/purchase/?plan=founder" class="btn btn-primary btn-small founder-callout-btn">Become a Founder</a>
+    </div>
+
     <p class="pricing-note">
       Monthly billing also available. Prices may vary slightly by app store and currency.
     </p>
@@ -165,11 +170,17 @@
     document.getElementById('price-business').innerHTML =
       '<span class="price-from">from </span>' + formatPrice(bTier1.annual[currency] / 12, currency);
 
+    // Founder
+    const founderPrice = CONFIG.plans.founder.price[currency];
+    document.getElementById('founder-price').textContent = formatPrice(founderPrice, currency);
+
     // Update buy links with currency
     document.getElementById('link-personal').href =
       '/license/purchase/?plan=personal&currency=' + currency;
     document.getElementById('link-business').href =
       '/license/purchase/?plan=business&currency=' + currency;
+    document.getElementById('link-founder').href =
+      '/license/purchase/?plan=founder&currency=' + currency;
   }
 
   // Init
