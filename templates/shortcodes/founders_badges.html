@@ -1,0 +1,10 @@
+{% set founders_data = load_data(path="data/founders.toml") %}
+{% if founders_data.founders and founders_data.founders | length > 0 %}
+<div class="founders-badges">
+  {% for f in founders_data.founders %}
+  <span class="founder-badge">{{ f.display_name }}</span>
+  {% endfor %}
+</div>
+{% else %}
+<p><em>Be the first!</em></p>
+{% endif %}
