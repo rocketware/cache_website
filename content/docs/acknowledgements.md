@@ -23,6 +23,6 @@ Cache is built on the shoulders of incredible open source projects. I'm grateful
 
 ## Founders
 
-Thank you to the founders whose early support helped kick-start Cache.
+Thank you to the founders whose early support helped fund the development of Cache.
 
 {{ founders_badges() }}

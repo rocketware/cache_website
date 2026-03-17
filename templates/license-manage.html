@@ -99,11 +99,13 @@
         </div>
         <div id="founder-form-container" style="display: none;">
           <p>As a founder, you can set a display name that appears on the acknowledgements page on the website and in the app. This is permanent and cannot be changed.</p>
+          <p class="founder-name-hint">This is a thank-you to you as a person — not advertising space. Please use your name or alias, not a brand name or URL.</p>
           <form class="license-form" onsubmit="setFounderName(event)">
             <div class="license-form-row">
-              <input type="text" id="founder-name-input" placeholder="Display name" maxlength="50" required>
+              <input type="text" id="founder-name-input" placeholder="Display name" maxlength="32" required>
               <button type="submit" class="btn btn-primary">Set Name</button>
             </div>
+            <div id="founder-name-error" class="license-error" style="display: none;"></div>
           </form>
         </div>
       </div>
@@ -408,12 +410,27 @@
   async function setFounderName(e) {
     e.preventDefault();
     const name = document.getElementById('founder-name-input').value.trim();
+    const errorEl = document.getElementById('founder-name-error');
+    errorEl.style.display = 'none';
+
+    if (name.length > 32) {
+      errorEl.textContent = 'Name must be 32 characters or fewer.';
+      errorEl.style.display = 'block';
+      return;
+    }
+    if (/[:\/\/]|www\.|\.com|\.io|\.org|\.net|\.co\b|\.app|\.dev/i.test(name)) {
+      errorEl.textContent = 'URLs and domain names are not allowed.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
     if (!confirm(`Set your founder name to "${name}"? This cannot be changed.`)) return;
     try {
       await manageAction({ action: 'set_founder_name', display_name: name });
       await loadLicense(licenseData.license_id);
     } catch (err) {
-      alert(err.message);
+      errorEl.textContent = err.message;
+      errorEl.style.display = 'block';
     }
   }
 

@@ -1303,6 +1303,13 @@ main {
   margin: 0 0 1rem 0;
 }
 
+.founder-name-hint {
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: var(--text-tertiary);
+  margin: -0.5rem 0 1rem 0;
+}
+
 /* Secure License (Lock) */
 .license-secure {
   background: var(--bg-secondary);
