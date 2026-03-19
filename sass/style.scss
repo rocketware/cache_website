@@ -24,6 +24,10 @@
   /* BORDER */
   --border-color: oklch(0.915 0.05 285.96);
 
+  /* LAYOUT */
+  --header-h: calc(1.5rem + 40px + 1px); /* padding + toggle height + border */
+  --content-start: calc(var(--header-h) + 1.5rem);
+
   color-scheme: light;
 }
 
@@ -615,7 +619,7 @@ main {
 
 .download-group {
   margin-bottom: 2rem;
-  scroll-margin-top: 5rem;
+  scroll-margin-top: var(--content-start);
 }
 
 .download-group:last-of-type {
@@ -623,9 +627,22 @@ main {
 }
 
 .download-group-title {
+  display: flex;
+  align-items: baseline;
   font-size: 1.25rem;
   font-weight: 600;
   margin: 0 0 0.75rem 0;
+}
+
+.download-verify-link {
+  margin-left: auto;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--brand-link);
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .download-verify {
@@ -1715,21 +1732,21 @@ body.docs {
   .docs-layout {
     grid-template-columns: 220px 1fr;
     gap: 1rem;
-    padding: 1rem;
+    padding: 1.5rem 1rem 1rem;
   }
 
   .docs-sidebar {
     display: block;
     position: sticky;
-    top: 60px;
+    top: var(--content-start);
     height: fit-content;
-    max-height: calc(100vh - 60px);
+    max-height: calc(100vh - var(--content-start));
     overflow-y: auto;
     padding: 1rem;
   }
 
   .docs-content {
-    padding: 0 1rem;
+    padding: 1rem 1rem 0;
     min-width: 0;
   }
 }
@@ -1741,21 +1758,21 @@ body.docs {
     gap: 2rem;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 1.5rem 2rem 2rem;
   }
 
   .docs-toc {
     display: block;
     position: sticky;
-    top: 60px;
+    top: var(--content-start);
     height: fit-content;
-    max-height: calc(100vh - 60px);
+    max-height: calc(100vh - var(--content-start));
     overflow-y: auto;
     padding: 1rem;
   }
 
   .docs-content {
-    padding: 0;
+    padding: 1rem 0 0;
   }
 }
 
@@ -1866,12 +1883,14 @@ body.docs {
   font-size: 1.5rem;
   font-weight: 600;
   margin: 2rem 0 1rem 0;
+  scroll-margin-top: var(--content-start);
 }
 
 .docs-content h3 {
   font-size: 1.25rem;
   font-weight: 600;
   margin: 1.5rem 0 0.75rem 0;
+  scroll-margin-top: var(--content-start);
 }
 
 .docs-content p {

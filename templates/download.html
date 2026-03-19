@@ -9,7 +9,12 @@
 
         {% for platform in downloads.platforms %}
         <div class="download-group" id="{{ platform.id }}">
-            <h2 class="download-group-title">{{ platform.name }}</h2>
+            <h2 class="download-group-title">
+                {{ platform.name }}
+                {% if platform.verify_anchor is defined and platform.verify_anchor %}
+                <a href="/docs/build-verification/#{{ platform.verify_anchor }}" class="download-verify-link">Verify build</a>
+                {% endif %}
+            </h2>
             <table class="download-table">
                 <thead>
                     <tr>

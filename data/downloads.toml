@@ -7,6 +7,7 @@ latest_version = ""
 id = "android"
 name = "Android"
 icon = "android"
+verify_anchor = "android-apk"
 
   [[platforms.downloads]]
   id = "play_store"
@@ -38,6 +39,7 @@ icon = "apple"
 id = "linux"
 name = "Linux"
 icon = "linux"
+verify_anchor = "linux"
 
   [[platforms.downloads]]
   id = "appimage"
