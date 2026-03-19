@@ -4,11 +4,53 @@
 {% block description %}{{ page.description | default(value="Cache release") }}{% endblock %}
 
 {% block content %}
+{% set tag = "v" ~ page.title | split(pat="v") | last %}
 <section class="release-section">
     <div class="release-container">
-        <article class="docs-content">
-            {{ page.content | safe }}
-        </article>
+        <p style="font-size: 0.875rem; color: var(--text-tertiary); margin: 0 0 0.5rem 0;">
+            <a href="/releases/">Releases</a> / {{ page.title }}
+        </p>
+        <h1>{{ page.title }}</h1>
+        <p><time datetime="{{ page.date }}">{{ page.date | date(format="%B %d, %Y") }}</time></p>
+
+        <h2>Artifacts</h2>
+        {% if page.extra.artifacts is defined %}
+        <table class="download-table">
+            <thead>
+                <tr>
+                    <th>Platform</th>
+                    <th>Format</th>
+                    <th>Filename</th>
+                    <th>Checksum</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for art in page.extra.artifacts %}
+                <tr>
+                    <td>{{ art.platform }}</td>
+                    <td>{{ art.format }}</td>
+                    <td>{{ art.filename }}</td>
+                    <td><span title="{{ art.sha256 }}">{{ art.sha256 | truncate(length=16) }}</span></td>
+                    <td><a href="{{ art.github_url }}" class="download-btn">Download</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        <h2>Verification</h2>
+        <p>
+            Download the <a href="/releases/{{ tag }}.manifest.toml">signed manifest</a>
+            and <a href="/releases/{{ tag }}.manifest.toml.minisig">signature</a>, then verify:
+        </p>
+        <pre><code>minisign -Vm {{ tag }}.manifest.toml -p minisign.pub</code></pre>
+
+        <p>
+            <a href="{{ page.extra.github_release }}">GitHub release</a>
+            &middot; <a href="/docs/build-verification/">Verification guide</a>
+            &middot; <a href="/download/">Download page</a>
+        </p>
     </div>
 </section>
 {% endblock %}

@@ -11,19 +11,37 @@
             <a href="/releases/atom.xml">Atom feed</a>
         </p>
 
-        {% for page in section.pages %}
-        <div class="release-entry">
-            <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
-            <time datetime="{{ page.date }}">{{ page.date | date(format="%B %d, %Y") }}</time>
-            <p>
-                <a href="/releases/v{{ page.title | split(pat='v') | last }}.manifest.toml">Signed manifest</a>
-                &middot;
-                <a href="/releases/v{{ page.title | split(pat='v') | last }}.manifest.toml.minisig">Signature</a>
-            </p>
-        </div>
-        {% endfor %}
-
-        {% if section.pages | length == 0 %}
+        {% if section.pages | length > 0 %}
+        <table class="download-table">
+            <thead>
+                <tr>
+                    <th>Version</th>
+                    <th>Date</th>
+                    <th>Artifacts</th>
+                    <th>Manifest</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for page in section.pages %}
+                {% set version = page.title | split(pat="v") | last %}
+                <tr>
+                    <td><a href="{{ page.permalink }}">{{ page.title }}</a></td>
+                    <td>{{ page.date | date(format="%B %d, %Y") }}</td>
+                    <td>{{ page.extra.artifact_count | default(value="-") }}</td>
+                    <td>
+                        <a href="/releases/v{{ version }}.manifest.toml">manifest</a>
+                        &middot;
+                        <a href="/releases/v{{ version }}.manifest.toml.minisig">sig</a>
+                    </td>
+                    <td>
+                        <a href="https://github.com/rocketware/cache/releases/tag/v{{ version }}" class="download-btn">GitHub</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
         <p>No releases yet.</p>
         {% endif %}
     </div>

@@ -20,7 +20,7 @@
                     <tr>
                         <th>Source</th>
                         <th>Version</th>
-                        <th>Checksum</th>
+                        <th>{% if platform.id == "android" %}Signing Key{% else %}Checksum{% endif %}</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -32,7 +32,9 @@
                         <td>{{ dl.name }}</td>
                         <td>{{ dl.version | default(value="-") }}</td>
                         <td>
-                            {% if dl.checksum is defined and dl.checksum %}
+                            {% if dl.signing_key is defined and dl.signing_key %}
+                            <span title="{{ dl.signing_key }}">{{ dl.signing_key | truncate(length=16) }}</span>
+                            {% elif dl.checksum is defined and dl.checksum %}
                             <span title="{{ dl.checksum }}">{{ dl.checksum | truncate(length=16) }}</span>
                             {% else %}-{% endif %}
                         </td>

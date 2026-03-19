@@ -1,7 +1,7 @@
 # Cache Download Sources — latest versions for the website
 # Template priority: store_url > github_url > disabled
 
-latest_version = ""
+latest_version = "0.1.0"
 
 [[platforms]]
 id = "android"
@@ -13,7 +13,7 @@ verify_anchor = "android-apk"
   id = "play_store"
   name = "Google Play"
   store_url = "https://play.google.com/store/apps/details?id=io.rocketware.cache.googleplay"
-  enabled = true
+  enabled = false
 
   [[platforms.downloads]]
   id = "accrescent"
@@ -21,9 +21,34 @@ verify_anchor = "android-apk"
   enabled = false
 
   [[platforms.downloads]]
-  id = "apk"
-  name = "APK"
-  enabled = false
+  id = "apk_arm64"
+  name = "APK (arm64)"
+  version = "0.1.0"
+  signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
+  checksum = "sha256:906131fd6511781025fbf230cdec39f79be6811bf2a48ea0e4ed854bc73cd319"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-android-arm64.apk"
+  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-android-arm64.apk"
+  enabled = true
+
+  [[platforms.downloads]]
+  id = "apk_arm"
+  name = "APK (arm)"
+  version = "0.1.0"
+  signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
+  checksum = "sha256:4178138db2152ab624a26eeaecde1de6dd6f455963fe70ce5286a1997f086569"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-android-arm.apk"
+  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-android-arm.apk"
+  enabled = true
+
+  [[platforms.downloads]]
+  id = "apk_x64"
+  name = "APK (x64)"
+  version = "0.1.0"
+  signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
+  checksum = "sha256:e30b20274cb865c69fc42df7f01fe0b5ea7a008bcd64cb00f2b546cb35bab571"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-android-x64.apk"
+  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-android-x64.apk"
+  enabled = true
 
 [[platforms]]
 id = "apple"
