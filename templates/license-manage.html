@@ -339,22 +339,36 @@
         const repo = repos[i];
         const isReassignable = new Date(repo.reassignable_after) <= new Date();
         slot.classList.add('repo-slot-filled');
+        const noteHtml = repo.note
+          ? `<span class="repo-note">${repo.note}</span>`
+          : '';
+        const noteAction = isReassignable
+          ? `<button class="btn btn-small btn-secondary" onclick="editRepoNote('${repo.repo_hash}', '${(repo.note || '').replace(/'/g, "\\'")}')">${repo.note ? 'Edit note' : 'Add note'}</button>`
+          : '';
+        const dateLine = isReassignable
+          ? `Assigned ${new Date(repo.assigned_at).toLocaleDateString()}`
+          : `Assigned ${new Date(repo.assigned_at).toLocaleDateString()} · Editable from ${new Date(repo.reassignable_after).toLocaleDateString()}`;
         slot.innerHTML = `
           <div class="repo-slot-info">
-            <code class="repo-hash">${repo.repo_hash.substring(0, 16)}...</code>
-            <span class="repo-date">Assigned ${new Date(repo.assigned_at).toLocaleDateString()}</span>
+            <code class="repo-hash">${repo.repo_hash}</code>
+            ${noteHtml}
+            <span class="repo-date">${dateLine}</span>
           </div>
-          <button class="btn btn-small ${isReassignable ? '' : 'btn-disabled'}"
-                  onclick="removeRepo('${repo.repo_hash}')"
-                  ${isReassignable ? '' : `disabled title="Available ${new Date(repo.reassignable_after).toLocaleDateString()}"`}>
-            Remove
-          </button>
+          <div class="repo-slot-actions">
+            ${noteAction}
+            <button class="btn btn-small ${isReassignable ? '' : 'btn-disabled'}"
+                    onclick="removeRepo('${repo.repo_hash}')"
+                    ${isReassignable ? '' : `disabled title="Editable from ${new Date(repo.reassignable_after).toLocaleDateString()}"`}>
+              Remove
+            </button>
+          </div>
         `;
       } else {
         slot.classList.add('repo-slot-empty');
         slot.innerHTML = `
           <form onsubmit="addRepo(event, this)" class="repo-add-form">
             <input type="text" placeholder="Repository hash (SHA-256)" class="repo-hash-input" required>
+            <input type="text" placeholder="Note (optional)" class="repo-note-input" maxlength="32">
             <button type="submit" class="btn btn-small">Add</button>
           </form>
         `;
@@ -389,8 +403,26 @@
   async function addRepo(e, form) {
     e.preventDefault();
     const hash = form.querySelector('.repo-hash-input').value.trim();
+    const note = form.querySelector('.repo-note-input').value.trim();
     try {
-      await manageAction({ action: 'add_repo', repo_hash: hash });
+      const payload = { action: 'add_repo', repo_hash: hash };
+      if (note) payload.note = note;
+      await manageAction(payload);
+      await loadLicense(licenseData.license_id);
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  async function editRepoNote(hash, currentNote) {
+    const note = prompt('Note (max 32 characters):', currentNote || '');
+    if (note === null) return;
+    if (note.length > 32) {
+      alert('Note must be 32 characters or fewer.');
+      return;
+    }
+    try {
+      await manageAction({ action: 'set_repo_note', repo_hash: hash, note: note.trim() });
       await loadLicense(licenseData.license_id);
     } catch (err) {
       alert(err.message);

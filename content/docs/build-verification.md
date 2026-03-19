@@ -54,7 +54,7 @@ Compare the `Signer #1 certificate SHA-256 digest` against the fingerprint above
 
 Linux direct downloads (AppImage, deb, rpm, tar.gz) are signed using [Minisign](https://jedisct1.github.io/minisign/).
 
-Each release includes a **signed manifest** (e.g. <code>v{{ latest_version() }}.toml</code>) listing every artifact with its SHA-256 checksum. Verifying the manifest signature proves both integrity and authenticity of all listed artifacts.
+Each release includes a **signed manifest** (e.g. <code>v{{ latest_version() }}.manifest.toml</code>) listing every artifact with its SHA-256 checksum. Verifying the manifest signature proves both integrity and authenticity of all listed artifacts.
 
 ### Public key
 
@@ -72,15 +72,15 @@ Install [Minisign](https://jedisct1.github.io/minisign/) for your platform.
 
 **2. Download the manifest and signature**
 
-From any release page, download the `.toml` manifest and its `.toml.minisig` signature. Available from three independent sources:
+From any release page, download the `.manifest.toml` manifest and its `.manifest.toml.minisig` signature. Available from three independent sources:
 
-- **Website**: <code>https://www.cachenotes.app/releases/v{{ latest_version() }}.toml</code>
+- **Website**: <code>https://www.cachenotes.app/releases/v{{ latest_version() }}.manifest.toml</code>
 - **GitHub**: release assets on [github.com/rocketware/cache/releases](https://github.com/rocketware/cache/releases)
 - **GCP mirror**: <code>https://download.rocketware.io/cache/v{{ latest_version() }}/</code>
 
 **3. Verify the signature**
 
-<pre><code>minisign -Vm v{{ latest_version() }}.toml -p cache-minisign.pub</code></pre>
+<pre><code>minisign -Vm v{{ latest_version() }}.manifest.toml -p cache-minisign.pub</code></pre>
 
 If valid, you'll see: `Signature and comment signature verified`.
 

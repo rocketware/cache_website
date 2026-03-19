@@ -16,9 +16,9 @@
             <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
             <time datetime="{{ page.date }}">{{ page.date | date(format="%B %d, %Y") }}</time>
             <p>
-                <a href="/releases/v{{ page.title | split(pat='v') | last }}.toml">Signed manifest</a>
+                <a href="/releases/v{{ page.title | split(pat='v') | last }}.manifest.toml">Signed manifest</a>
                 &middot;
-                <a href="/releases/v{{ page.title | split(pat='v') | last }}.toml.minisig">Signature</a>
+                <a href="/releases/v{{ page.title | split(pat='v') | last }}.manifest.toml.minisig">Signature</a>
             </p>
         </div>
         {% endfor %}

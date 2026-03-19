@@ -1239,11 +1239,15 @@ main {
   display: flex;
   flex-direction: column;
   gap: 0.125rem;
+  min-width: 0;
 }
 
 .repo-hash {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8125rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .repo-date {
@@ -1257,12 +1261,14 @@ main {
 
 .repo-add-form {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   width: 100%;
 }
 
 .repo-hash-input {
-  flex: 1;
+  flex: 3 1 14rem;
+  min-width: 0;
   padding: 0.375rem 0.5rem;
   font-size: 0.8125rem;
   font-family: 'JetBrains Mono', monospace;
@@ -1270,6 +1276,34 @@ main {
   border-radius: 4px;
   background: var(--bg-primary);
   color: var(--text-primary);
+}
+
+.repo-note-input {
+  flex: 1 1 6rem;
+  min-width: 0;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.8125rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+@media (max-width: 600px) {
+  .repo-hash-input {
+    flex-basis: 100%;
+  }
+}
+
+.repo-note {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.repo-slot-actions {
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
 }
 
 /* License TOML Download */
