@@ -90,7 +90,7 @@ Compare the checksum of your downloaded artifact:
 
 <pre><code>sha256sum cache-{{ latest_version() }}-linux-x64.AppImage</code></pre>
 
-Match the output against the `sha256` field in the manifest for that artifact.
+Match the output against the `checksum_sha256` field in the manifest for that artifact.
 
 ---
 

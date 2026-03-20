@@ -15,11 +15,10 @@
                 <a href="/docs/build-verification/#{{ platform.verify_anchor }}" class="download-verify-link">Verify build</a>
                 {% endif %}
             </h2>
-            <table class="download-table">
+            <table class="download-table download-table-fixed">
                 <thead>
                     <tr>
                         <th>Source</th>
-                        <th>Version</th>
                         <th>{% if platform.id == "android" %}Signing Key{% else %}Checksum{% endif %}</th>
                         <th></th>
                     </tr>
@@ -29,13 +28,15 @@
                     <tr
                         class="{% if dl.enabled %}download-row-available{% else %}download-row-coming-soon{% endif %}"
                     >
-                        <td>{{ dl.name }}</td>
-                        <td>{{ dl.version | default(value="-") }}</td>
                         <td>
+                            <div>{{ dl.name }}</div>
+                            <div class="download-cell-sub">{{ dl.version | default(value="-") }}</div>
+                        </td>
+                        <td class="dl-col-ellipsis">
                             {% if dl.signing_key is defined and dl.signing_key %}
-                            <span title="{{ dl.signing_key }}">{{ dl.signing_key | truncate(length=16) }}</span>
-                            {% elif dl.checksum is defined and dl.checksum %}
-                            <span title="{{ dl.checksum }}">{{ dl.checksum | truncate(length=16) }}</span>
+                            <span title="{{ dl.signing_key }}">{{ dl.signing_key | upper }}</span>
+                            {% elif dl.checksum_sha256 is defined and dl.checksum_sha256 %}
+                            <span title="{{ dl.checksum_sha256 }}">{{ dl.checksum_sha256 }}</span>
                             {% else %}-{% endif %}
                         </td>
                         <td>

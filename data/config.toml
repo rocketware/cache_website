@@ -25,11 +25,6 @@ symbol = "€"
 label = "EUR"
 position = "prefix"
 
-# Android APK signing certificate fingerprints (SHA-256)
-[signing_keys.android]
-rocketware = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
-google_play = ""
-
 # Personal plan — graduated pricing by repository count
 # First repo at full price, each additional at a flat discount rate
 [plans.personal]

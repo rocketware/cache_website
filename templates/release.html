@@ -7,36 +7,47 @@
 {% set tag = "v" ~ page.title | split(pat="v") | last %}
 <section class="release-section">
     <div class="release-container">
-        <p style="font-size: 0.875rem; color: var(--text-tertiary); margin: 0 0 0.5rem 0;">
-            <a href="/releases/">Releases</a> / {{ page.title }}
-        </p>
         <h1>{{ page.title }}</h1>
         <p><time datetime="{{ page.date }}">{{ page.date | date(format="%B %d, %Y") }}</time></p>
+        <p style="font-size: 0.875rem; color: var(--text-tertiary); margin: 0 0 0.5rem 0;">
+            <a href="/releases/">&larr; Releases</a>
+        </p>
+
+        {% if page.extra.changelog is defined %}
+        {% if page.extra.changelog | length > 0 %}
+        <h2>Changelog</h2>
+        <ul>
+            {% for entry in page.extra.changelog %}
+            <li>{{ entry }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endif %}
 
         <h2>Artifacts</h2>
         {% if page.extra.artifacts is defined %}
-        <table class="download-table">
-            <thead>
-                <tr>
-                    <th>Platform</th>
-                    <th>Format</th>
-                    <th>Filename</th>
-                    <th>Checksum</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for art in page.extra.artifacts %}
-                <tr>
-                    <td>{{ art.platform }}</td>
-                    <td>{{ art.format }}</td>
-                    <td>{{ art.filename }}</td>
-                    <td><span title="{{ art.sha256 }}">{{ art.sha256 | truncate(length=16) }}</span></td>
-                    <td><a href="{{ art.github_url }}" class="download-btn">Download</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="artifact-list">
+            {% for art in page.extra.artifacts %}
+            <div class="artifact-row">
+                <div class="artifact-info">
+                    <div class="artifact-filename">{{ art.filename }}</div>
+                    <div class="artifact-meta">
+                        {{ art.platform }} &middot; {{ art.format }}
+                        {% if art.arch is defined and art.arch != "" %} &middot; {{ art.arch }}{% endif %}
+                        {% if art.filesize is defined and art.filesize != "" %} &middot; {{ art.filesize }}{% endif %}
+                    </div>
+                    <div class="artifact-meta">
+                        {% if art.signing_key is defined %}
+                        <span title="{{ art.signing_key }}">signing key: {{ art.signing_key | upper }}</span>
+                        {% else %}
+                        <span title="{{ art.checksum_sha256 }}">checksum sha256: {{ art.checksum_sha256 | truncate(length=20) }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <a href="{{ art.github_url }}" class="download-btn">Download</a>
+            </div>
+            {% endfor %}
+        </div>
         {% endif %}
 
         <h2>Verification</h2>

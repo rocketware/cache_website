@@ -25,7 +25,7 @@ verify_anchor = "android-apk"
   name = "APK (arm64)"
   version = "0.1.0"
   signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
-  checksum = "sha256:906131fd6511781025fbf230cdec39f79be6811bf2a48ea0e4ed854bc73cd319"
+  checksum_sha256 = "906131fd6511781025fbf230cdec39f79be6811bf2a48ea0e4ed854bc73cd319"
   github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-android-arm64.apk"
   rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-android-arm64.apk"
   enabled = true
@@ -35,7 +35,7 @@ verify_anchor = "android-apk"
   name = "APK (arm)"
   version = "0.1.0"
   signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
-  checksum = "sha256:4178138db2152ab624a26eeaecde1de6dd6f455963fe70ce5286a1997f086569"
+  checksum_sha256 = "4178138db2152ab624a26eeaecde1de6dd6f455963fe70ce5286a1997f086569"
   github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-android-arm.apk"
   rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-android-arm.apk"
   enabled = true
@@ -45,19 +45,44 @@ verify_anchor = "android-apk"
   name = "APK (x64)"
   version = "0.1.0"
   signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
-  checksum = "sha256:e30b20274cb865c69fc42df7f01fe0b5ea7a008bcd64cb00f2b546cb35bab571"
+  checksum_sha256 = "e30b20274cb865c69fc42df7f01fe0b5ea7a008bcd64cb00f2b546cb35bab571"
   github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-android-x64.apk"
   rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-android-x64.apk"
   enabled = true
 
 [[platforms]]
-id = "apple"
-name = "Apple"
+id = "macos"
+name = "macOS"
+icon = "apple"
+verify_anchor = "macos"
+
+  [[platforms.downloads]]
+  id = "mac_app_store"
+  name = "Mac App Store"
+  enabled = false
+
+  [[platforms.downloads]]
+  id = "dmg"
+  name = "DMG (universal)"
+  version = "0.1.0"
+  checksum_sha256 = "63210b66964678ef1d36ec746b0b196e5a92c4ed395596a29ba53a4659b1c58a"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-macos.dmg"
+  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-macos.dmg"
+  enabled = true
+
+[[platforms]]
+id = "ios"
+name = "iOS"
 icon = "apple"
 
   [[platforms.downloads]]
-  id = "app_store"
+  id = "ios_app_store"
   name = "App Store"
+  enabled = false
+
+  [[platforms.downloads]]
+  id = "ipa"
+  name = "IPA"
   enabled = false
 
 [[platforms]]
