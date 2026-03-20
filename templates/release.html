@@ -56,17 +56,13 @@
 
         <h2>Verification</h2>
         <p>
-            Download the <a href="/releases/{{ tag }}.manifest.toml">signed manifest</a>
-            and <a href="/releases/{{ tag }}.manifest.toml.minisig">signature</a>, then verify:
+            <a href="/downloads/releases/{{ tag }}.manifest.toml" class="download-btn" download>Manifest</a>
+            <a href="/downloads/releases/{{ tag }}.manifest.toml.minisig" class="download-btn" download>Signature</a>
         </p>
-        <pre><code>minisign -Vm {{ tag }}.manifest.toml -p minisign.pub</code></pre>
-
-        <hr>
-
         <p>
-            <a href="{{ page.extra.github_release }}">GitHub release</a>
-            &middot; <a href="/docs/build-verification/">Verification guide</a>
-            &middot; <a href="/download/">Download page</a>
+            <a href="/docs/build-verification/">How to verify</a>
+            &middot; <a href="{{ page.extra.github_release }}">GitHub release</a>
+            &middot; <a href="/download/">Downloads</a>
         </p>
     </div>
 </section>

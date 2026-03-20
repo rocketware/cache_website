@@ -30,9 +30,9 @@
                     <td>{{ page.date | date(format="%B %d, %Y") }}</td>
                     <td>{{ page.extra.artifact_count | default(value="-") }}</td>
                     <td>
-                        <a href="/releases/v{{ version }}.manifest.toml">manifest</a>
+                        <a href="/downloads/releases/v{{ version }}.manifest.toml">manifest</a>
                         &middot;
-                        <a href="/releases/v{{ version }}.manifest.toml.minisig">sig</a>
+                        <a href="/downloads/releases/v{{ version }}.manifest.toml.minisig">sig</a>
                     </td>
                     <td>
                         <a href="https://github.com/rocketware/cache/releases/tag/v{{ version }}" class="download-btn">GitHub</a>

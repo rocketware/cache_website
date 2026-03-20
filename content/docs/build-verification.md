@@ -41,7 +41,7 @@ Download: [`cache-minisign.pub`](/cache-minisign.pub) (also on [GitHub](https://
 
 From any release page, download `.manifest.toml` and `.manifest.toml.minisig`. Available from three independent sources:
 
-- **Website**: <code>https://www.cachenotes.app/releases/v{{ latest_version() }}.manifest.toml</code>
+- **Website**: <code>https://www.cachenotes.app/downloads/releases/v{{ latest_version() }}.manifest.toml</code>
 - **GitHub**: release assets on [github.com/rocketware/cache/releases](https://github.com/rocketware/cache/releases)
 - **GCP mirror**: <code>https://download.rocketware.io/cache/v{{ latest_version() }}/</code>
 
