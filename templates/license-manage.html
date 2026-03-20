@@ -339,39 +339,79 @@
         const repo = repos[i];
         const isReassignable = new Date(repo.reassignable_after) <= new Date();
         slot.classList.add('repo-slot-filled');
-        const noteHtml = repo.note
-          ? `<span class="repo-note">${repo.note}</span>`
-          : '';
-        const noteAction = isReassignable
-          ? `<button class="btn btn-small btn-secondary" onclick="editRepoNote('${repo.repo_hash}', '${(repo.note || '').replace(/'/g, "\\'")}')">${repo.note ? 'Edit note' : 'Add note'}</button>`
-          : '';
-        const dateLine = isReassignable
+
+        const info = document.createElement('div');
+        info.className = 'repo-slot-info';
+
+        const hashEl = document.createElement('code');
+        hashEl.className = 'repo-hash';
+        hashEl.textContent = repo.repo_hash;
+        info.appendChild(hashEl);
+
+        if (repo.note) {
+          const noteEl = document.createElement('span');
+          noteEl.className = 'repo-note';
+          noteEl.textContent = repo.note;
+          info.appendChild(noteEl);
+        }
+
+        const dateEl = document.createElement('span');
+        dateEl.className = 'repo-date';
+        dateEl.textContent = isReassignable
           ? `Assigned ${new Date(repo.assigned_at).toLocaleDateString()}`
           : `Assigned ${new Date(repo.assigned_at).toLocaleDateString()} · Editable from ${new Date(repo.reassignable_after).toLocaleDateString()}`;
-        slot.innerHTML = `
-          <div class="repo-slot-info">
-            <code class="repo-hash">${repo.repo_hash}</code>
-            ${noteHtml}
-            <span class="repo-date">${dateLine}</span>
-          </div>
-          <div class="repo-slot-actions">
-            ${noteAction}
-            <button class="btn btn-small ${isReassignable ? '' : 'btn-disabled'}"
-                    onclick="removeRepo('${repo.repo_hash}')"
-                    ${isReassignable ? '' : `disabled title="Editable from ${new Date(repo.reassignable_after).toLocaleDateString()}"`}>
-              Remove
-            </button>
-          </div>
-        `;
+        info.appendChild(dateEl);
+
+        const actions = document.createElement('div');
+        actions.className = 'repo-slot-actions';
+
+        if (isReassignable) {
+          const noteBtn = document.createElement('button');
+          noteBtn.className = 'btn btn-small btn-secondary';
+          noteBtn.textContent = repo.note ? 'Edit note' : 'Add note';
+          noteBtn.addEventListener('click', () => editRepoNote(repo.repo_hash, repo.note || ''));
+          actions.appendChild(noteBtn);
+        }
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = `btn btn-small ${isReassignable ? '' : 'btn-disabled'}`;
+        removeBtn.textContent = 'Remove';
+        if (!isReassignable) {
+          removeBtn.disabled = true;
+          removeBtn.title = `Editable from ${new Date(repo.reassignable_after).toLocaleDateString()}`;
+        }
+        removeBtn.addEventListener('click', () => removeRepo(repo.repo_hash));
+        actions.appendChild(removeBtn);
+
+        slot.appendChild(info);
+        slot.appendChild(actions);
       } else {
         slot.classList.add('repo-slot-empty');
-        slot.innerHTML = `
-          <form onsubmit="addRepo(event, this)" class="repo-add-form">
-            <input type="text" placeholder="Repository hash (SHA-256)" class="repo-hash-input" required>
-            <input type="text" placeholder="Note (optional)" class="repo-note-input" maxlength="32">
-            <button type="submit" class="btn btn-small">Add</button>
-          </form>
-        `;
+        const form = document.createElement('form');
+        form.className = 'repo-add-form';
+        form.addEventListener('submit', (e) => addRepo(e, form));
+
+        const hashInput = document.createElement('input');
+        hashInput.type = 'text';
+        hashInput.placeholder = 'Repository hash (SHA-256)';
+        hashInput.className = 'repo-hash-input';
+        hashInput.required = true;
+
+        const noteInput = document.createElement('input');
+        noteInput.type = 'text';
+        noteInput.placeholder = 'Note (optional)';
+        noteInput.className = 'repo-note-input';
+        noteInput.maxLength = 32;
+
+        const submitBtn = document.createElement('button');
+        submitBtn.type = 'submit';
+        submitBtn.className = 'btn btn-small';
+        submitBtn.textContent = 'Add';
+
+        form.appendChild(hashInput);
+        form.appendChild(noteInput);
+        form.appendChild(submitBtn);
+        slot.appendChild(form);
       }
       container.appendChild(slot);
     }
