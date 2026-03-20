@@ -79,14 +79,16 @@ E0:FB:26:D7:60:32:37:72:B2:47:B4:D3:5D:34:2F:B0:EF:40:9B:17:22:7C:DB:CA:A8:43:D3
 
 ## macOS
 
-The DMG is code-signed with a Developer ID Application certificate. After mounting, verify:
+Verify the DMG checksum against the [signed manifest](#signed-manifest):
 
-<pre><code>codesign --verify --deep /Volumes/Cache/Cache.app
-codesign -dv /Volumes/Cache/Cache.app 2>&1 | grep TeamIdentifier</code></pre>
+<pre><code>shasum -a 256 cache-{{ latest_version() }}-macos-universal.dmg</code></pre>
+
+After installing, you can verify the code signature and Team ID:
+
+<pre><code>codesign --verify --deep /Applications/Cache.app
+codesign -dv /Applications/Cache.app 2>&1 | grep TeamIdentifier</code></pre>
 
 **Expected Team ID:** `U4KM65Y22D` (Rocketware Limited)
-
-Verify the DMG checksum against the [signed manifest](#signed-manifest).
 
 ---
 

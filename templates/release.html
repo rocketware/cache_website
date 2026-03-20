@@ -15,6 +15,9 @@
 
         {% if page.extra.changelog is defined %}
         {% if page.extra.changelog | length > 0 %}
+
+        <hr>
+
         <h2>Changelog</h2>
         <ul>
             {% for entry in page.extra.changelog %}
@@ -51,8 +54,6 @@
             {% endfor %}
         </div>
         {% endif %}
-
-        <hr>
 
         <h2>Verification</h2>
         <p>

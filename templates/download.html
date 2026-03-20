@@ -9,16 +9,11 @@
 
         {% for platform in downloads.platforms %}
         <div class="download-group" id="{{ platform.id }}">
-            <h2 class="download-group-title">
-                {{ platform.name }}
-                {% if platform.verify_anchor is defined and platform.verify_anchor %}
-                <a href="/docs/build-verification/#{{ platform.verify_anchor }}" class="download-verify-link">Verify build</a>
-                {% endif %}
-            </h2>
+            <h2 class="download-group-title">{{ platform.name }}</h2>
             <table class="download-table download-table-fixed">
                 <thead>
                     <tr>
-                        <th>Source</th>
+                        <th>Package</th>
                         <th>{% if platform.id == "android" %}Signing Key{% else %}Checksum{% endif %}</th>
                         <th></th>
                     </tr>
@@ -30,7 +25,7 @@
                     >
                         <td>
                             <div>{{ dl.name }}</div>
-                            <div class="download-cell-sub">{% if dl.version is defined and dl.version %}<a href="/releases/v{{ dl.version | replace(from='.', to='-') }}/" class="download-version-link">v{{ dl.version }}</a>{% else %}-{% endif %}</div>
+                            <div class="download-cell-sub">{% if dl.version is defined and dl.version %}<a href="/releases/v{{ dl.version | replace(from='.', to='-') }}/" class="download-version-link">v{{ dl.version }}</a>{% if platform.verify_anchor is defined and platform.verify_anchor %} &middot; <a href="/docs/build-verification/#{{ platform.verify_anchor }}" class="download-version-link">Verify</a>{% endif %}{% else %}-{% endif %}</div>
                         </td>
                         <td class="dl-col-ellipsis">
                             {% if dl.signing_key is defined and dl.signing_key %}

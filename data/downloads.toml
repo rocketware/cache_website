@@ -65,9 +65,9 @@ verify_anchor = "macos"
   id = "dmg"
   name = "DMG (universal)"
   version = "0.1.0"
-  checksum_sha256 = "63210b66964678ef1d36ec746b0b196e5a92c4ed395596a29ba53a4659b1c58a"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-macos.dmg"
-  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-macos.dmg"
+  checksum_sha256 = "fa661b1c3af9a9e221f7102df27b6fe03a75f7a0c03bf2c468965d3f31edd57d"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-macos-universal.dmg"
+  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-macos-universal.dmg"
   enabled = true
 
 [[platforms]]
@@ -94,22 +94,38 @@ verify_anchor = "linux"
   [[platforms.downloads]]
   id = "appimage"
   name = "AppImage"
-  enabled = false
+  version = "0.1.0"
+  checksum_sha256 = "118c936158b1f81bd42cfcb1f15520c2ae73ada43cb490cb79525dfd01c0e1ed"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-linux-x64.AppImage"
+  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-linux-x64.AppImage"
+  enabled = true
 
   [[platforms.downloads]]
   id = "deb"
   name = "Debian / Ubuntu"
-  enabled = false
+  version = "0.1.0"
+  checksum_sha256 = "b06000a9abc6acd526caf77f9d216e3f3f5ba4f6e672065f9e89fde30811fab3"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-linux-x64.deb"
+  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-linux-x64.deb"
+  enabled = true
 
   [[platforms.downloads]]
   id = "rpm"
   name = "Fedora / RHEL"
-  enabled = false
+  version = "0.1.0"
+  checksum_sha256 = "0cfa11944edb39f400272964658c318fa38a676a2fed64c577556367c2254469"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-linux-x64.rpm"
+  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-linux-x64.rpm"
+  enabled = true
 
   [[platforms.downloads]]
   id = "tar_gz"
   name = "tar.gz"
-  enabled = false
+  version = "0.1.0"
+  checksum_sha256 = "5f3b96786093796c17624fa255ab7fff9e589f0700346dcaccaaf92066cef46d"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-linux-x64-flatpak.tar.gz"
+  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-linux-x64-flatpak.tar.gz"
+  enabled = true
 
   [[platforms.downloads]]
   id = "nix"
