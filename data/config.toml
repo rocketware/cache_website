@@ -31,9 +31,9 @@ position = "prefix"
 display_name = "Personal"
 tagline = "For individuals and families"
 pricing_model = "graduated"
-product_id = "prod_U0UhEwEmWvVOUh"
-monthly_id = "price_1T2WuWHBjuEfyzFqERbpfJ23"
-annual_id = "price_1T3GqyHBjuEfyzFqAjSSC3jU"
+product_id = "prod_UBSSFOAN7sYVCo"
+monthly_id = "price_1TD5Y4HAn6iWiQrYKtu9y8DG"
+annual_id = "price_1TD5Y3HAn6iWiQrY7ZZLlvAZ"
 unit = "repository"
 units = "repositories"
 min = 1
@@ -56,9 +56,9 @@ annual = { gbp = 6, usd = 9, eur = 6 }
 pricing_model = "graduated"
 display_name = "Business"
 tagline = "For teams and organisations"
-product_id = "prod_U0UyX2cX4kl5gD"
-monthly_id = "price_1T2TykHBjuEfyzFqA2RVNIvu"
-annual_id = "price_1T3GvtHBjuEfyzFqnZXattf4"
+product_id = "prod_UBSSY105M5P6y3"
+monthly_id = "price_1TD5Y2HAn6iWiQrY21WAudUz"
+annual_id = "price_1TD5Y1HAn6iWiQrY7YPKuWNA"
 unit = "seat"
 units = "seats"
 min = 1
@@ -78,7 +78,8 @@ annual = { gbp = 24, usd = 30, eur = 27 }
 display_name = "Founder"
 tagline = "Lifetime license, limited availability"
 pricing_model = "fixed"
-price_id = "price_1TA8MFHBjuEfyzFqdtMRopvg"
+product_id = "prod_UBSSAq3PeJTtZy"
+price_id = "price_1TD5Y4HAn6iWiQrYx78SoqiS"
 repositories = 3
 
 [plans.founder.price]
