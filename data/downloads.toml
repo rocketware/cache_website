@@ -122,9 +122,9 @@ verify_anchor = "linux"
   id = "tar_gz"
   name = "tar.gz"
   version = "0.1.0"
-  checksum_sha256 = "5f3b96786093796c17624fa255ab7fff9e589f0700346dcaccaaf92066cef46d"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-linux-x64-flatpak.tar.gz"
-  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-linux-x64-flatpak.tar.gz"
+  checksum_sha256 = "0c102d69ff20b1d15cc7f018457b298f6dadd791205a88967fd31317cb26db36"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-linux-x64.tar.gz"
+  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-linux-x64.tar.gz"
   enabled = true
 
   [[platforms.downloads]]
