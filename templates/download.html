@@ -30,7 +30,7 @@
                     >
                         <td>
                             <div>{{ dl.name }}</div>
-                            <div class="download-cell-sub">{{ dl.version | default(value="-") }}</div>
+                            <div class="download-cell-sub">{% if dl.version is defined and dl.version %}<a href="/releases/v{{ dl.version | replace(from='.', to='-') }}/" class="download-version-link">v{{ dl.version }}</a>{% else %}-{% endif %}</div>
                         </td>
                         <td class="dl-col-ellipsis">
                             {% if dl.signing_key is defined and dl.signing_key %}

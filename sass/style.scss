@@ -602,6 +602,11 @@ main {
   color: var(--text-tertiary);
 }
 
+.download-version-link {
+  color: var(--text-tertiary);
+  text-decoration: underline;
+}
+
 .download-row-coming-soon {
   color: var(--text-tertiary);
 }
@@ -1958,7 +1963,7 @@ body.docs {
   line-height: 1.2;
 }
 
-.docs-content hr {
+hr {
   border: none;
   border-top: 1px solid var(--border-color);
   margin: 2rem 0;

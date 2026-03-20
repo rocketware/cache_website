@@ -24,6 +24,8 @@
         {% endif %}
         {% endif %}
 
+        <hr>
+
         <h2>Artifacts</h2>
         {% if page.extra.artifacts is defined %}
         <div class="artifact-list">
@@ -50,12 +52,16 @@
         </div>
         {% endif %}
 
+        <hr>
+
         <h2>Verification</h2>
         <p>
             Download the <a href="/releases/{{ tag }}.manifest.toml">signed manifest</a>
             and <a href="/releases/{{ tag }}.manifest.toml.minisig">signature</a>, then verify:
         </p>
         <pre><code>minisign -Vm {{ tag }}.manifest.toml -p minisign.pub</code></pre>
+
+        <hr>
 
         <p>
             <a href="{{ page.extra.github_release }}">GitHub release</a>
