@@ -94,37 +94,37 @@ verify_anchor = "linux"
   [[platforms.downloads]]
   id = "appimage"
   name = "AppImage"
-  version = "0.1.0"
-  checksum_sha256 = "118c936158b1f81bd42cfcb1f15520c2ae73ada43cb490cb79525dfd01c0e1ed"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-linux-x64.AppImage"
-  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-linux-x64.AppImage"
+  version = "0.2.0"
+  checksum_sha256 = "bc8347546574f6877e2a58228ba0aaf16692d2520fe7d968d7582286bef3a135"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.2.0/cache-0.2.0-linux-x64.AppImage"
+  rocketware_url = "https://download.rocketware.io/cache/v0.2.0/cache-0.2.0-linux-x64.AppImage"
   enabled = true
 
   [[platforms.downloads]]
   id = "deb"
   name = "Debian / Ubuntu"
-  version = "0.1.0"
-  checksum_sha256 = "b06000a9abc6acd526caf77f9d216e3f3f5ba4f6e672065f9e89fde30811fab3"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-linux-x64.deb"
-  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-linux-x64.deb"
+  version = "0.2.0"
+  checksum_sha256 = "1b77e816a340303a3d09128d3f60f0366aecc0884fd9a976ba9b7e9fce725583"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.2.0/cache-0.2.0-linux-x64.deb"
+  rocketware_url = "https://download.rocketware.io/cache/v0.2.0/cache-0.2.0-linux-x64.deb"
   enabled = true
 
   [[platforms.downloads]]
   id = "rpm"
   name = "Fedora / RHEL"
-  version = "0.1.0"
-  checksum_sha256 = "0cfa11944edb39f400272964658c318fa38a676a2fed64c577556367c2254469"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-linux-x64.rpm"
-  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-linux-x64.rpm"
+  version = "0.2.0"
+  checksum_sha256 = "2a5cbf10bac3e5ee1eb180da00d3216a960de4c35d9b1fdae3b32da2943d2047"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.2.0/cache-0.2.0-linux-x64.rpm"
+  rocketware_url = "https://download.rocketware.io/cache/v0.2.0/cache-0.2.0-linux-x64.rpm"
   enabled = true
 
   [[platforms.downloads]]
   id = "tar_gz"
   name = "tar.gz"
-  version = "0.1.0"
-  checksum_sha256 = "0c102d69ff20b1d15cc7f018457b298f6dadd791205a88967fd31317cb26db36"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.1.0/cache-0.1.0-linux-x64.tar.gz"
-  rocketware_url = "https://download.rocketware.io/cache/v0.1.0/cache-0.1.0-linux-x64.tar.gz"
+  version = "0.2.0"
+  checksum_sha256 = "b90bd476876c8e1db20230ec80588916b1b1c35d71473726b769e5192e0783ba"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.2.0/cache-0.2.0-linux-x64.tar.gz"
+  rocketware_url = "https://download.rocketware.io/cache/v0.2.0/cache-0.2.0-linux-x64.tar.gz"
   enabled = true
 
   [[platforms.downloads]]
