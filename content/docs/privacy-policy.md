@@ -8,7 +8,7 @@ sidebar_group = "Legal"
 
 # Privacy Policy
 
-*Last updated: March 2025*
+*Last updated: March 2026*
 
 > **Your notes never touch our servers. We collect zero data about you. Upgrading requires only a non-identifiable hash to generate your license key.**
 
@@ -45,7 +45,7 @@ Payments are processed through platform app stores, please refer to the Privacy 
 
 ## The Website
 
-We use [Umami](https://umami.is/), an open-source, privacy-focused analytics tool, to understand how visitors use our site and documentation. Umami collects no personal or identifiable information.
+This website uses no analytics, no cookies, and no tracking of any kind.
 
 ---
 
@@ -55,7 +55,6 @@ We use [Umami](https://umami.is/), an open-source, privacy-focused analytics too
 |---------|---------|-----------|
 | Your git provider | Note sync | Your notes (encrypted in transit) |
 | App stores / Stripe | Payments | Payment info (per their policies) |
-| Umami | Website analytics | None identifiable |
 
 ---
 

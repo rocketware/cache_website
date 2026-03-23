@@ -8,7 +8,7 @@ sidebar_group = "Legal"
 
 # Terms of Service
 
-*Last updated: March 2025*
+*Last updated: March 2026*
 
 > **You own your notes. No lock-in, no accounts. We provide the software — you bring your own Git provider.**
 
