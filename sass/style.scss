@@ -352,7 +352,6 @@ main {
 
 .value-proposition {
   font-size: 1.125rem;
-  line-height: 1.6;
   color: var(--text-secondary);
   max-width: 700px;
   margin: 0 auto 3rem auto;
@@ -433,7 +432,6 @@ main {
 
 .feature-description {
   font-size: 0.9375rem;
-  line-height: 1.6;
   margin: 0;
   color: var(--text-secondary);
 }
@@ -555,7 +553,6 @@ main {
 
 .download-subtitle {
   font-size: 1.125rem;
-  line-height: 1.6;
   color: var(--text-secondary);
   margin: 0 0 2rem 0;
   text-align: center;
@@ -839,7 +836,6 @@ main {
 
 .pricing-subtitle {
   font-size: 1.125rem;
-  line-height: 1.6;
   color: var(--text-secondary);
   margin: 0 0 2rem 0;
 }
@@ -987,7 +983,6 @@ main {
 
 .pricing-faq-answer {
   font-size: 0.9375rem;
-  line-height: 1.6;
   color: var(--text-secondary);
   margin: 0;
 }
@@ -1077,13 +1072,12 @@ main {
 .license-title {
   font-size: 2rem;
   font-weight: bold;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 1.5rem 0;
   text-align: center;
 }
 
 .license-subtitle {
   font-size: 1rem;
-  line-height: 1.6;
   color: var(--text-secondary);
   margin: 0 0 2rem 0;
   text-align: center;
@@ -1171,6 +1165,22 @@ main {
 }
 
 /* License Dashboard */
+.license-tip {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.license-tip-featured {
+  border: 1px solid var(--brand-outlined);
+  background: var(--bg-secondary);
+  padding: 1.25rem 1.5rem;
+  line-height: 1.6;
+}
+
 .license-sandbox {
   background-color: oklch(0.75 0.12 75 / 0.15);
   border: 1px solid oklch(0.75 0.12 75 / 0.4);
@@ -1186,7 +1196,7 @@ main {
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .detail-row {
@@ -1223,19 +1233,6 @@ main {
   border-radius: 3px;
 }
 
-.tier-badge {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.25em 0.5em;
-  border-radius: 4px;
-  text-transform: capitalize;
-}
-
-.tier-free { background: var(--bg-tertiary); color: var(--text-tertiary); }
-.tier-personal { background: oklch(0.45 0.25 292 / 0.15); color: var(--brand-outlined); }
-.tier-founder { background: oklch(0.6 0.2 60 / 0.15); color: oklch(0.6 0.2 60); }
-.tier-business { background: oklch(0.5 0.14 149.58 / 0.15); color: oklch(0.5 0.14 149.58); }
 
 /* Founder Badges (acknowledgements page) */
 .founders-badges {
@@ -1886,7 +1883,6 @@ body.docs {
   color: var(--text-secondary);
   text-decoration: none;
   font-size: 0.875rem;
-  line-height: 1.5;
   padding: 0.375rem 0.75rem;
   border-radius: 4px;
   transition: all 0.2s ease;
@@ -1929,7 +1925,6 @@ body.docs {
   color: var(--text-secondary);
   text-decoration: none;
   font-size: 0.8125rem;
-  line-height: 1.5;
   padding: 0.25rem 0;
   padding-left: 0.75rem;
   border-left: 2px solid transparent;
@@ -1976,7 +1971,6 @@ hr {
 
 .docs-content p {
   margin: 0 0 1rem 0;
-  line-height: 1.7;
 }
 
 .docs-content ul, .docs-content ol {
@@ -1986,7 +1980,6 @@ hr {
 
 .docs-content li {
   margin: 0.25rem 0;
-  line-height: 1.6;
 }
 
 .docs-content code {
@@ -2020,7 +2013,6 @@ hr {
   background: none;
   padding: 0;
   font-size: 0.875rem;
-  line-height: 1.5;
 }
 
 .docs-content table {

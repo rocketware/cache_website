@@ -8,15 +8,15 @@
 
 <section class="license-section">
   <div class="license-container">
-    <h1 class="license-title">Manage License</h1>
+    <h1 id="page-title" class="license-title">Manage License</h1>
 
     <!-- Loading state -->
     <div id="loading-state" class="license-loading">
       <span id="loading-message">Loading license...</span>
-      <div id="loading-license-id" style="display: none; margin-top: 0.5em;">
-        <small>Your License ID:</small>
-        <code id="loading-license-id-value" style="user-select: all; cursor: text; display: block; margin-top: 0.25em;"></code>
+      <div id="loading-license-id" style="display: none; margin-top: 0.25em;">
+        <code id="loading-license-id-value" style="user-select: all; cursor: text; font-size: 1rem; color: var(--text-primary);"></code>
       </div>
+      <div id="loading-tip" class="license-tip" style="display: none; margin-top: 1.5em;">Make a note of your License ID — it's the only way to find and restore your license.</div>
     </div>
 
     <!-- Error state -->
@@ -39,6 +39,9 @@
     <!-- Dashboard -->
     <div id="dashboard" style="display: none;">
 
+      <!-- License ID tip -->
+      <div id="license-tip-dashboard" class="license-tip" style="display: none;"></div>
+
       <!-- Sandbox banner -->
       <div id="sandbox-banner" class="license-sandbox" style="display: none;">
         Sandbox license — test mode, not valid for production use.
@@ -54,8 +57,8 @@
           </span>
         </div>
         <div class="detail-row">
-          <span class="detail-label">Tier</span>
-          <span class="detail-value"><span id="detail-tier" class="tier-badge"></span></span>
+          <span class="detail-label">Type</span>
+          <span class="detail-value" id="detail-tier"></span>
         </div>
         <div class="detail-row">
           <span class="detail-label">Status</span>
@@ -74,6 +77,9 @@
           <span class="detail-value" id="detail-autorenew"></span>
         </div>
       </div>
+
+      <!-- License ID reminder (returning visits) -->
+      <div id="license-tip-returning" class="license-tip" style="display: none; color: var(--text-tertiary);"></div>
 
       <!-- Repository slots -->
       <div class="license-slots">
@@ -142,6 +148,7 @@
   const API_BASE = '{{ data.domains.license_server | safe }}';
   let licenseData = null;
   let licensePassword = null;
+  let isNewPurchase = false;
 
   // Entry detection
   (function() {
@@ -165,13 +172,14 @@
 
   function showLoadingLicenseId(licenseId) {
     if (!licenseId) return;
-    const el = document.getElementById('loading-license-id');
-    const val = document.getElementById('loading-license-id-value');
-    val.textContent = licenseId;
-    el.style.display = 'block';
+    document.getElementById('loading-message').textContent = 'Your License ID:';
+    document.getElementById('loading-license-id-value').textContent = licenseId;
+    document.getElementById('loading-license-id').style.display = 'block';
+    document.getElementById('loading-tip').style.display = 'block';
   }
 
   async function pollCheckoutComplete(sessionId) {
+    document.getElementById('page-title').textContent = 'Completing Purchase';
     showLoading('Completing purchase...');
 
     // Show license_id immediately if available from localStorage
@@ -192,6 +200,7 @@
           showLoadingLicenseId(json.data.license_id);
         }
         if (json.data?.status === 'complete') {
+          isNewPurchase = true;
           // Clean URL
           history.replaceState(null, '', `/license/manage/?id=${json.data.license_id}`);
           loadLicense(json.data.license_id);
@@ -287,10 +296,23 @@
   }
 
   function renderDashboard() {
+    document.getElementById('page-title').textContent = 'Manage License';
     document.getElementById('loading-state').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
 
     const d = licenseData;
+
+    // License ID tip
+    const tipEl = document.getElementById('license-tip-dashboard');
+    const returningTip = document.getElementById('license-tip-returning');
+    returningTip.textContent = 'Keep your License ID safe — it\'s the only way to restore your license.';
+    returningTip.style.display = 'block';
+
+    if (isNewPurchase) {
+      tipEl.textContent = 'Thank you for purchasing a Cache license and supporting its ongoing development. Note down your License ID — you\'ll need it to manage your license.';
+      tipEl.classList.add('license-tip-featured');
+      tipEl.style.display = 'block';
+    }
 
     // Sandbox banner
     const sandboxBanner = document.getElementById('sandbox-banner');
@@ -299,7 +321,6 @@
     // Details
     document.getElementById('detail-id').textContent = d.license_id;
     document.getElementById('detail-tier').textContent = d.tier.charAt(0).toUpperCase() + d.tier.slice(1);
-    document.getElementById('detail-tier').className = `tier-badge tier-${d.tier}`;
     document.getElementById('detail-status').textContent = d.status;
     document.getElementById('detail-created').textContent = d.created ? new Date(d.created).toLocaleDateString() : '-';
     document.getElementById('detail-expires').textContent = d.lifetime ? 'Never (lifetime)' : (d.expires ? new Date(d.expires).toLocaleDateString() : '-');
