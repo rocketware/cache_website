@@ -5,12 +5,12 @@ weight = 32
 [extra]
 sidebar_group = "Legal"
 +++
-
+<!-- Generated from shared/ -- do not edit by hand -->
 # Terms of Service
 
-*Last updated: March 2026*
+_Last updated: March 2026_
 
-> **You own your notes. No lock-in, no accounts. We provide the software — you bring your own Git provider.**
+> **You own your notes. No lock-in, no accounts. We provide the software - you bring your own Git provider.**
 
 ---
 
@@ -21,6 +21,7 @@ By using Cache, you agree to these terms. If you don't agree, don't use the app.
 ## What We Provide
 
 Cache is note-taking software. You get:
+
 - An app for creating and managing notes
 - Local storage on your device
 - Git sync to your chosen provider
@@ -48,18 +49,20 @@ We don't provide hosting, cloud storage, or access to your notes.
 **Free tier**: No cost, no account, all features, limited to 50 notes.
 
 **Paid subscriptions**: Billed via Apple App Store, Google Play, or Stripe.
-- Cancel anytime—access continues until your billing period ends
+
+- Cancel anytime - access continues until your billing period ends
 - Refunds are handled by your payment provider per their policies
 
 ---
 
 ## The Legal Bits
 
-*Standard legal protections.*
+_Standard legal protections._
 
 ### No Warranties
 
 Cache is provided "as is". We work hard on reliability, but we can't guarantee:
+
 - Uninterrupted service
 - Freedom from bugs
 - Compatibility with every git provider
@@ -69,6 +72,7 @@ Cache is provided "as is". We work hard on reliability, but we can't guarantee:
 To the maximum extent permitted by law, our liability is limited to what you've paid us in the past 12 months.
 
 We're not liable for:
+
 - Data loss (that's what your git backup is for)
 - Issues with third-party services (git providers, payment processors)
 
@@ -76,7 +80,7 @@ We're not liable for:
 
 ## Termination
 
-You can stop using Cache whenever you want. Your notes are plain markdown in your own git repo—no export needed, no lock-in.
+You can stop using Cache whenever you want. Your notes are plain markdown in your own git repo - no export needed, no lock-in.
 
 ## Changes
 
@@ -90,4 +94,4 @@ These terms are governed by the laws of England and Wales, United Kingdom.
 
 ## Contact
 
-Questions? [support@rocketware.co.uk](mailto:support@rocketware.co.uk)
+Questions? [support@rocketware.io](mailto:support@rocketware.io)

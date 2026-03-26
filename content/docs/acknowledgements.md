@@ -5,7 +5,7 @@ weight = 24
 [extra]
 sidebar_group = "About"
 +++
-
+<!-- Generated from shared/ -- do not edit by hand -->
 # Acknowledgements
 
 Cache is built on the shoulders of incredible open source projects. I'm grateful to the communities behind them.
@@ -14,11 +14,11 @@ Cache is built on the shoulders of incredible open source projects. I'm grateful
 
 | Project | License | Used for |
 |---------|---------|----------|
-| [Flutter](https://flutter.dev/) & [Dart](https://dart.dev/) | BSD-3-Clause | Framework and language powering Cache across all platforms |
-| [libgit2](https://libgit2.org/) | GPLv2 | Git implementation powering repository sync |
-| [SQLite](https://sqlite.org/copyright.html) | Public Domain | Embedded database engine for search and task indexing |
-| [Nerd Fonts](https://www.nerdfonts.com/) | OFL-1.1 / MIT | JetBrains Mono patched typeface used throughout the interface |
-| [Carbon Icons](https://carbondesignsystem.com/elements/icons/library/) | Apache-2.0 | Icon set used throughout the UI |
+| [Flutter & Dart](https://flutter.dev/) | BSD-3-Clause | Framework and language powering Cache |
+| [libgit2](https://libgit2.org/) | GPL-2.0-LE | Git implementation library used for repository sync |
+| [SQLite](https://sqlite.org/) | Public Domain | Database engine for indexing and search |
+| [Nerd Fonts](https://www.nerdfonts.com/) | OFL-1.1 | JetBrains Mono font with programming ligatures and icons |
+| [Carbon Icons](https://carbondesignsystem.com/elements/icons/library/) | Apache-2.0 | Icon set from IBM's Carbon Design System |
 | [Zola](https://www.getzola.org/) | MIT | Static site generator powering this website |
 
 ## Founders
