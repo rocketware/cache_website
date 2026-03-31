@@ -32,8 +32,8 @@ display_name = "Personal"
 tagline = "For individuals and families"
 pricing_model = "graduated"
 product_id = "prod_UBSSFOAN7sYVCo"
-monthly_id = "price_1TD8KMHAn6iWiQrYacQs1RZL"
-annual_id = "price_1TD8MxHAn6iWiQrYPrWeyPyq"
+monthly_id = "price_1TH5gpHAn6iWiQrYaaapmETX"
+annual_id = "price_1TH5tgHAn6iWiQrYzcm0fNL8"
 unit = "repository"
 units = "repositories"
 min = 1
@@ -42,11 +42,11 @@ max = 5
 [[plans.personal.tiers]]
 up_to = 1
 monthly = { gbp = 2.50, usd = 3.00, eur = 2.75 }
-annual = { gbp = 24, usd = 30, eur = 27 }
+annual = { gbp = 24, usd = 30, eur = 28 }
 
 [[plans.personal.tiers]]
-monthly = { gbp = 0.50, usd = 0.75, eur = 0.50 }
-annual = { gbp = 6, usd = 9, eur = 6 }
+monthly = { gbp = 0.50, usd = 0.75, eur = 0.75 }
+annual = { gbp = 6, usd = 9, eur = 8 }
 
 # Business plan — graduated pricing by seat count
 # Single shared repository per subscription. First 10 seats at full price,
