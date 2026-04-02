@@ -1,7 +1,7 @@
 # Cache Download Sources — latest versions for the website
 # Template priority: store_url > github_url > disabled
 
-latest_version = "0.2.0"
+latest_version = "0.3.3"
 
 [[platforms]]
 id = "android"
@@ -12,8 +12,10 @@ verify_anchor = "android-apk"
   [[platforms.downloads]]
   id = "play_store"
   name = "Google Play"
+  version = "0.3.3"
+  signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
   store_url = "https://play.google.com/store/apps/details?id=io.rocketware.cache.googleplay"
-  enabled = false
+  enabled = true
 
   [[platforms.downloads]]
   id = "accrescent"
@@ -23,31 +25,31 @@ verify_anchor = "android-apk"
   [[platforms.downloads]]
   id = "apk_arm64"
   name = "APK (arm64)"
-  version = "0.2.0"
+  version = "0.3.3"
   signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
   checksum_sha256 = "906131fd6511781025fbf230cdec39f79be6811bf2a48ea0e4ed854bc73cd319"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.2.0/cache-0.2.0-android-arm64.apk"
-  rocketware_url = "https://download.rocketware.io/cache/v0.2.0/cache-0.2.0-android-arm64.apk"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.3.3/cache-0.3.3-android-arm64.apk"
+  rocketware_url = "https://download.rocketware.io/cache/v0.3.3/cache-0.3.3-android-arm64.apk"
   enabled = true
 
   [[platforms.downloads]]
   id = "apk_arm"
   name = "APK (arm)"
-  version = "0.2.0"
+  version = "0.3.3"
   signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
   checksum_sha256 = "4178138db2152ab624a26eeaecde1de6dd6f455963fe70ce5286a1997f086569"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.2.0/cache-0.2.0-android-arm.apk"
-  rocketware_url = "https://download.rocketware.io/cache/v0.2.0/cache-0.2.0-android-arm.apk"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.3.3/cache-0.3.3-android-arm.apk"
+  rocketware_url = "https://download.rocketware.io/cache/v0.3.3/cache-0.3.3-android-arm.apk"
   enabled = true
 
   [[platforms.downloads]]
   id = "apk_x64"
   name = "APK (x64)"
-  version = "0.2.0"
+  version = "0.3.3"
   signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
   checksum_sha256 = "e30b20274cb865c69fc42df7f01fe0b5ea7a008bcd64cb00f2b546cb35bab571"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.2.0/cache-0.2.0-android-x64.apk"
-  rocketware_url = "https://download.rocketware.io/cache/v0.2.0/cache-0.2.0-android-x64.apk"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.3.3/cache-0.3.3-android-x64.apk"
+  rocketware_url = "https://download.rocketware.io/cache/v0.3.3/cache-0.3.3-android-x64.apk"
   enabled = true
 
 [[platforms]]
@@ -64,10 +66,10 @@ verify_anchor = "macos"
   [[platforms.downloads]]
   id = "dmg"
   name = "DMG (universal)"
-  version = "0.2.0"
-  checksum_sha256 = "f01647ad3516816640548360be11a840862957dde1e7d3064d80de4b584a0a2a"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.2.0/cache-0.2.0-macos-universal.dmg"
-  rocketware_url = "https://download.rocketware.io/cache/v0.2.0/cache-0.2.0-macos-universal.dmg"
+  version = "0.3.3"
+  checksum_sha256 = "4e81bf410b030dc27de881fa36f8e1dbaa873b6c4300942f43af1b55e2050e74"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.3.3/cache-0.3.3-macos-universal.dmg"
+  rocketware_url = "https://download.rocketware.io/cache/v0.3.3/cache-0.3.3-macos-universal.dmg"
   enabled = true
 
 [[platforms]]
