@@ -37,3 +37,43 @@ filename = "cache-0.3.3-macos-universal.dmg"
 checksum_sha256 = "4e81bf410b030dc27de881fa36f8e1dbaa873b6c4300942f43af1b55e2050e74"
 filesize = "44.7.7 MB"
 apple_team_id = "U4KM65Y22D"
+
+[[artifacts]]
+platform = "linux"
+format = "tar.gz"
+arch = "flatpak"
+filename = "cache-0.3.3-linux-x64-flatpak.tar.gz"
+checksum_sha256 = "49a9476bffaed9e55a458201bc879548be8311694609644f88b7527cdd172f95"
+filesize = "21.0.0 MB"
+
+[[artifacts]]
+platform = "linux"
+format = "tar.gz"
+arch = "x64"
+filename = "cache-0.3.3-linux-x64.tar.gz"
+checksum_sha256 = "79b1c4c536dd0b949eb9cc271c9ce4cd18fab372f217672260bb9bfcda577ab5"
+filesize = "21.0.0 MB"
+
+[[artifacts]]
+platform = "linux"
+format = "AppImage"
+arch = "x64"
+filename = "cache-0.3.3-linux-x64.AppImage"
+checksum_sha256 = "0233a1edd9d80540f06abb84f24d3a14cf720d1ab1d5179e5610b34811648923"
+filesize = "20.2.2 MB"
+
+[[artifacts]]
+platform = "linux"
+format = "deb"
+arch = "x64"
+filename = "cache-0.3.3-linux-x64.deb"
+checksum_sha256 = "9bc013357e364903ef7c80f2ef8fd5abc9f2669d6730dcbacb054105309eb666"
+filesize = "21.4.4 MB"
+
+[[artifacts]]
+platform = "linux"
+format = "rpm"
+arch = "x64"
+filename = "cache-0.3.3-linux-x64.rpm"
+checksum_sha256 = "09fd9a15bd0bb38275f95e52e288173560137ed2e1948198b1cf20bd83f01e1e"
+filesize = "22.1.1 MB"
