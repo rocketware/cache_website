@@ -1,0 +1,89 @@
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta content="width=device-width,initial-scale=1.0" name=viewport><title>Pricing - Cache</title><meta content="Cache pricing plans" name=description><meta content=Cache property=og:title><meta content="Your personal store of knowledge. Privacy-first note-taking with Git sync." property=og:description><meta content=website property=og:type><meta content=https://www.cachenotes.app property=og:url><link href=/images/icon.webp rel=icon type=image/webp><link title="Cache Releases" href=/releases/atom.xml rel=alternate type=application/atom+xml><link href=/style.css rel=stylesheet><script>(function() {
+      const theme = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();</script><body><svg style=display:none xmlns=http://www.w3.org/2000/svg><symbol viewbox="0 0 32 32" id=light><rect height=5 width=2 x=15 y=2 /><rect transform="translate(1.5191 19.3744) rotate(-45)" height=1.9998 width=4.958 x=21.6675 y=6.8536 /><rect height=2 width=5 x=25 y=15 /><rect transform="translate(-10.0018 24.1465) rotate(-45)" height=4.958 width=1.9998 x=23.1466 y=21.6675 /><rect height=5 width=2 x=15 y=25 /><rect transform="translate(-14.7739 12.6256) rotate(-45)" height=1.9998 width=4.958 x=5.3745 y=23.1466 /><rect height=2 width=5 x=2 y=15 /><rect transform="translate(-3.253 7.8535) rotate(-45)" height=4.958 width=1.9998 x=6.8536 y=5.3745 /><path d=M16,12a4,4,0,1,1-4,4,4.0045,4.0045,0,0,1,4-4m0-2a6,6,0,1,0,6,6,6,6,0,0,0-6-6Z /></symbol><symbol viewbox="0 0 32 32" id=asleep><path d=M13.5025,5.4136A15.0755,15.0755,0,0,0,25.096,23.6082a11.1134,11.1134,0,0,1-7.9749,3.3893c-.1385,0-.2782.0051-.4178,0A11.0944,11.0944,0,0,1,13.5025,5.4136M14.98,3a1.0024,1.0024,0,0,0-.1746.0156A13.0959,13.0959,0,0,0,16.63,28.9973c.1641.006.3282,0,.4909,0a13.0724,13.0724,0,0,0,10.702-5.5556,1.0094,1.0094,0,0,0-.7833-1.5644A13.08,13.08,0,0,1,15.8892,4.38,1.0149,1.0149,0,0,0,14.98,3Z /></symbol></svg><header class=header><div class=header-container><a class=header-brand href=/> <img alt="Cache logo" class=header-logo src=/images/icon.svg> <span class=header-title>Cache</span> <span class="badge badge-alpha">ALPHA</span> </a><nav class=header-nav><a class=header-link href=/download/>Download</a><a class=header-link href=/pricing/>Pricing</a><a class=header-link href=/docs/>Docs</a></nav><div class=header-actions><button aria-label="Toggle theme" class=theme-toggle onclick=toggleTheme()><span class="theme-icon theme-icon-light"> <svg><use href=#light /></svg></span> <span class="theme-icon theme-icon-dark"> <svg><use href=#asleep /></svg></span></button></div></div></header><main><section class=pricing-section><div class=pricing-container><h1 class=pricing-title>Pricing</h1><p class=pricing-subtitle>Simple, transparent pricing. Every feature included.<div class=currency-picker><select aria-label=Currency id=currency-select></select></div><div class=pricing-cards><div class=pricing-card><h2 class=pricing-card-title>Free</h2><div class=pricing-card-price><span id=price-free></span></div><p class=pricing-card-description>All features, up to 50 notes<ul class=pricing-card-features><li>All features included<li>50 note limit</ul><a class="btn btn-secondary pricing-card-btn" href=/download/>Download</a></div><div class="pricing-card pricing-card-featured"><h2 class=pricing-card-title>Personal</h2><div class=pricing-card-price><span id=price-personal></span><span class=pricing-card-period>/month</span></div><p class=pricing-card-description>For individuals and families<p class=pricing-card-description>Billed annually<ul class=pricing-card-features><li>All features included<li>Unlimited notes</ul><a class="btn btn-primary pricing-card-btn" href="/license/purchase/?plan=personal" id=link-personal>Buy now</a></div><div class=pricing-card><h2 class=pricing-card-title>Business</h2><div class=pricing-card-price><span id=price-business></span><span class=pricing-card-period>/month/user</span></div><p class=pricing-card-description>For teams and organisations<p class=pricing-card-description>Billed annually<ul class=pricing-card-features><li>All features included<li>Unlimited notes<li>Commercial license</ul><a class="btn btn-secondary pricing-card-btn" href="/license/purchase/?plan=business" id=link-business>Buy now</a></div></div><div class=founder-callout><span class=founder-callout-text><strong>Launch offer:</strong> <span id=founder-price></span> for lifetime license, 3 repos, your name in the app.</span><a class="btn btn-primary btn-small founder-callout-btn" href="/license/purchase/?plan=founder" id=link-founder>Become a Founder</a></div><p class=pricing-note>Monthly billing also available. Prices may vary slightly by app store and currency.<p class=pricing-note>Already purchased? <a href=/license/>Manage your license</a>.<div class=pricing-faq><h2 class=pricing-faq-title>FAQ</h2><div class=pricing-faq-item><h3 class=pricing-faq-question>Why isn't Cache free?</h3><p class=pricing-faq-answer>Cache is independently built with a focus on privacy — no data harvesting, no data brokers, no advertisements. Zero information is collected about you or your notes. Your subscription directly funds continued development and improvements to the app.</div><div class=pricing-faq-item><h3 class=pricing-faq-question>Are payments cross-platform?</h3><p class=pricing-faq-answer>Yes. Your license is stored in your notes repository and synced via git. Upgrade once, and all your devices receive it automatically. If you change git providers, Cache will reassign your license. No accounts required.</div><div class=pricing-faq-item><h3 class=pricing-faq-question>What information is captured during payment?</h3><p class=pricing-faq-answer>Cache only stores a hash of your repository's git remote URL to verify your subscription. (This hash is irreversible, it identifies your subscription without revealing any information.) No other identifiable information is captured by us. The payment provider (Stripe, Apple App Store, Google Play) will collect the information required to process your payment according to their privacy policies. For more information see the <a href=/docs/privacy-policy/>Privacy Policy</a>.</div><div class=pricing-faq-item><h3 class=pricing-faq-question>Do I lose my notes if I cancel?</h3><p class=pricing-faq-answer>Never. Your notes live in your own Git repository as plain markdown files — you can take them to any app. Cache will continue to work — reading, searching, tasks — but if you have more than 50 notes, you won't be able to create new ones.</div></div></div></section><script>const CONFIG = {"currencies":{"default":"usd","eur":{"label":"EUR","position":"prefix","symbol":"€"},"gbp":{"label":"GBP","position":"prefix","symbol":"£"},"supported":["usd","gbp","eur"],"usd":{"label":"USD","position":"prefix","symbol":"$"}},"domains":{"license_server":"https://api.cachenotes.app","website":"https://www.cachenotes.app"},"plans":{"business":{"annual_id":"price_1TD8QqHAn6iWiQrYFli8F9Ub","display_name":"Business","max":100,"min":1,"monthly_id":"price_1TD8P5HAn6iWiQrYZEuccLYg","pricing_model":"graduated","product_id":"prod_UBSSY105M5P6y3","tagline":"For teams and organisations","tiers":[{"annual":{"eur":40,"gbp":36,"usd":45},"monthly":{"eur":4.0,"gbp":3.75,"usd":4.5},"up_to":10},{"annual":{"eur":27,"gbp":24,"usd":30},"monthly":{"eur":2.75,"gbp":2.5,"usd":3.0}}],"unit":"seat","units":"seats"},"founder":{"display_name":"Founder","price":{"eur":120,"gbp":100,"usd":130},"price_id":"price_1TD5Y4HAn6iWiQrYx78SoqiS","pricing_model":"fixed","product_id":"prod_UBSSAq3PeJTtZy","repositories":3,"tagline":"Lifetime license, limited availability"},"personal":{"annual_id":"price_1TH5tgHAn6iWiQrYzcm0fNL8","display_name":"Personal","max":5,"min":1,"monthly_id":"price_1TH5gpHAn6iWiQrYaaapmETX","pricing_model":"graduated","product_id":"prod_UBSSFOAN7sYVCo","tagline":"For individuals and families","tiers":[{"annual":{"eur":28,"gbp":24,"usd":30},"monthly":{"eur":2.75,"gbp":2.5,"usd":3.0},"up_to":1},{"annual":{"eur":8,"gbp":6,"usd":9},"monthly":{"eur":0.75,"gbp":0.5,"usd":0.75}}],"unit":"repository","units":"repositories"}}};
+  const SUPPORTED = CONFIG.currencies.supported;
+  const DEFAULT_CURRENCY = CONFIG.currencies.default;
+
+  function detectCurrency(supported, fallback) {
+    const saved = localStorage.getItem('cache_currency');
+    if (saved && supported.includes(saved)) return saved;
+
+    const langs = navigator.languages || [navigator.language || ''];
+    const lang = langs.find(l => l.includes('-')) || langs[0] || '';
+    const region = lang.split('-')[1]?.toUpperCase();
+
+    const map = {
+      US: 'usd', GB: 'gbp', UK: 'gbp',
+      IE: 'eur', FR: 'eur', DE: 'eur', ES: 'eur', IT: 'eur',
+      NL: 'eur', BE: 'eur', AT: 'eur', PT: 'eur', FI: 'eur', GR: 'eur',
+      LU: 'eur', SK: 'eur', SI: 'eur', EE: 'eur', LV: 'eur', LT: 'eur',
+      CY: 'eur', MT: 'eur', HR: 'eur',
+    };
+    const detected = map[region];
+    if (detected && supported.includes(detected)) return detected;
+    return fallback;
+  }
+
+  function formatPrice(amount, currency) {
+    return new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: currency.toUpperCase(),
+      currencyDisplay: 'narrowSymbol',
+      minimumFractionDigits: amount % 1 === 0 ? 0 : 2,
+    }).format(amount);
+  }
+
+  // Build currency picker
+  const select = document.getElementById('currency-select');
+  SUPPORTED.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = CONFIG.currencies[c].label;
+    select.appendChild(opt);
+  });
+
+  function updatePrices(currency) {
+    // Free
+    document.getElementById('price-free').textContent = formatPrice(0, currency);
+
+    // Personal: "from {tier1 annual price per month}"
+    const pTier1 = CONFIG.plans.personal.tiers[0];
+    document.getElementById('price-personal').innerHTML =
+      '<span class="price-from">from </span>' + formatPrice(pTier1.annual[currency] / 12, currency);
+
+    // Business: "from {tier1 annual price per month}"
+    const bTier1 = CONFIG.plans.business.tiers[0];
+    document.getElementById('price-business').innerHTML =
+      '<span class="price-from">from </span>' + formatPrice(bTier1.annual[currency] / 12, currency);
+
+    // Founder
+    const founderPrice = CONFIG.plans.founder.price[currency];
+    document.getElementById('founder-price').textContent = formatPrice(founderPrice, currency);
+
+    // Update buy links with currency
+    document.getElementById('link-personal').href =
+      '/license/purchase/?plan=personal&currency=' + currency;
+    document.getElementById('link-business').href =
+      '/license/purchase/?plan=business&currency=' + currency;
+    document.getElementById('link-founder').href =
+      '/license/purchase/?plan=founder&currency=' + currency;
+  }
+
+  // Init
+  const activeCurrency = detectCurrency(SUPPORTED, DEFAULT_CURRENCY);
+  select.value = activeCurrency;
+  updatePrices(activeCurrency);
+
+  select.addEventListener('change', () => {
+    const c = select.value;
+    localStorage.setItem('cache_currency', c);
+    updatePrices(c);
+  });</script></main><footer class=footer><div class=footer-container><p class=footer-text>© 2026 Rocketware<nav class=footer-links><a class=footer-link href=/docs/>Docs</a><a class=footer-link href=/license/>License</a><a class=footer-link href=/docs/privacy-policy/>Privacy</a><a class=footer-link href=https://github.com/rocketware/cache rel=noopener target=_blank>GitHub</a></nav></div></footer><script>function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }</script>
