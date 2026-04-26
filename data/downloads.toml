@@ -1,7 +1,7 @@
 # Cache Download Sources — latest versions for the website
 # Template priority: store_url > github_url > disabled
 
-latest_version = "0.3.3"
+latest_version = "0.4.0"
 
 [[platforms]]
 id = "android"
@@ -12,7 +12,7 @@ verify_anchor = "android-apk"
   [[platforms.downloads]]
   id = "play_store"
   name = "Google Play"
-  version = "0.3.3"
+  version = "0.4.0"
   signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
   store_url = "https://play.google.com/store/apps/details?id=io.rocketware.cache.googleplay"
   enabled = true
@@ -25,31 +25,31 @@ verify_anchor = "android-apk"
   [[platforms.downloads]]
   id = "apk_arm64"
   name = "APK (arm64)"
-  version = "0.3.3"
+  version = "0.4.0"
   signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
   checksum_sha256 = "906131fd6511781025fbf230cdec39f79be6811bf2a48ea0e4ed854bc73cd319"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.3.3/cache-0.3.3-android-arm64.apk"
-  rocketware_url = "https://download.rocketware.io/cache/v0.3.3/cache-0.3.3-android-arm64.apk"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.4.0/cache-0.4.0-android-arm64.apk"
+  rocketware_url = "https://download.rocketware.io/cache/v0.4.0/cache-0.4.0-android-arm64.apk"
   enabled = true
 
   [[platforms.downloads]]
   id = "apk_arm"
   name = "APK (arm)"
-  version = "0.3.3"
+  version = "0.4.0"
   signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
   checksum_sha256 = "4178138db2152ab624a26eeaecde1de6dd6f455963fe70ce5286a1997f086569"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.3.3/cache-0.3.3-android-arm.apk"
-  rocketware_url = "https://download.rocketware.io/cache/v0.3.3/cache-0.3.3-android-arm.apk"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.4.0/cache-0.4.0-android-arm.apk"
+  rocketware_url = "https://download.rocketware.io/cache/v0.4.0/cache-0.4.0-android-arm.apk"
   enabled = true
 
   [[platforms.downloads]]
   id = "apk_x64"
   name = "APK (x64)"
-  version = "0.3.3"
+  version = "0.4.0"
   signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
   checksum_sha256 = "e30b20274cb865c69fc42df7f01fe0b5ea7a008bcd64cb00f2b546cb35bab571"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.3.3/cache-0.3.3-android-x64.apk"
-  rocketware_url = "https://download.rocketware.io/cache/v0.3.3/cache-0.3.3-android-x64.apk"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.4.0/cache-0.4.0-android-x64.apk"
+  rocketware_url = "https://download.rocketware.io/cache/v0.4.0/cache-0.4.0-android-x64.apk"
   enabled = true
 
 [[platforms]]
@@ -66,10 +66,10 @@ verify_anchor = "macos"
   [[platforms.downloads]]
   id = "dmg"
   name = "DMG (universal)"
-  version = "0.3.3"
-  checksum_sha256 = "4e81bf410b030dc27de881fa36f8e1dbaa873b6c4300942f43af1b55e2050e74"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.3.3/cache-0.3.3-macos-universal.dmg"
-  rocketware_url = "https://download.rocketware.io/cache/v0.3.3/cache-0.3.3-macos-universal.dmg"
+  version = "0.4.0"
+  checksum_sha256 = "e04953039551177ed92ec01fbbe9ffb81564c8518ea2a29bcb60041b94fa305a"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.4.0/cache-0.4.0-macos-universal.dmg"
+  rocketware_url = "https://download.rocketware.io/cache/v0.4.0/cache-0.4.0-macos-universal.dmg"
   enabled = true
 
 [[platforms]]
@@ -96,37 +96,37 @@ verify_anchor = "linux"
   [[platforms.downloads]]
   id = "appimage"
   name = "AppImage"
-  version = "0.3.3"
-  checksum_sha256 = "0233a1edd9d80540f06abb84f24d3a14cf720d1ab1d5179e5610b34811648923"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.3.3/cache-0.3.3-linux-x64.AppImage"
-  rocketware_url = "https://download.rocketware.io/cache/v0.3.3/cache-0.3.3-linux-x64.AppImage"
+  version = "0.4.0"
+  checksum_sha256 = "b45e12269e8c50513b1728505519a488cc278d8aab68f3c0be01a9ac4613c497"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.4.0/cache-0.4.0-linux-x64.AppImage"
+  rocketware_url = "https://download.rocketware.io/cache/v0.4.0/cache-0.4.0-linux-x64.AppImage"
   enabled = true
 
   [[platforms.downloads]]
   id = "deb"
   name = "Debian / Ubuntu"
-  version = "0.3.3"
-  checksum_sha256 = "9bc013357e364903ef7c80f2ef8fd5abc9f2669d6730dcbacb054105309eb666"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.3.3/cache-0.3.3-linux-x64.deb"
-  rocketware_url = "https://download.rocketware.io/cache/v0.3.3/cache-0.3.3-linux-x64.deb"
+  version = "0.4.0"
+  checksum_sha256 = "73795f286dedb3e5776918910d014ef92cfe8710c539f91c9250a72d0b74bca8"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.4.0/cache-0.4.0-linux-x64.deb"
+  rocketware_url = "https://download.rocketware.io/cache/v0.4.0/cache-0.4.0-linux-x64.deb"
   enabled = true
 
   [[platforms.downloads]]
   id = "rpm"
   name = "Fedora / RHEL"
-  version = "0.3.3"
-  checksum_sha256 = "09fd9a15bd0bb38275f95e52e288173560137ed2e1948198b1cf20bd83f01e1e"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.3.3/cache-0.3.3-linux-x64.rpm"
-  rocketware_url = "https://download.rocketware.io/cache/v0.3.3/cache-0.3.3-linux-x64.rpm"
+  version = "0.4.0"
+  checksum_sha256 = "27688db034aade140af33f2dec839eb923320c662b50fb25e5d8b4789fa505aa"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.4.0/cache-0.4.0-linux-x64.rpm"
+  rocketware_url = "https://download.rocketware.io/cache/v0.4.0/cache-0.4.0-linux-x64.rpm"
   enabled = true
 
   [[platforms.downloads]]
   id = "tar_gz"
   name = "tar.gz"
-  version = "0.3.3"
-  checksum_sha256 = "79b1c4c536dd0b949eb9cc271c9ce4cd18fab372f217672260bb9bfcda577ab5"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.3.3/cache-0.3.3-linux-x64.tar.gz"
-  rocketware_url = "https://download.rocketware.io/cache/v0.3.3/cache-0.3.3-linux-x64.tar.gz"
+  version = "0.4.0"
+  checksum_sha256 = "7fd17923b99deaaca2f5802b63a5b64c396cce07f7b8c4946f2bab3e49589701"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.4.0/cache-0.4.0-linux-x64.tar.gz"
+  rocketware_url = "https://download.rocketware.io/cache/v0.4.0/cache-0.4.0-linux-x64.tar.gz"
   enabled = true
 
   [[platforms.downloads]]
