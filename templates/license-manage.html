@@ -330,6 +330,7 @@
 
     // Repo slots
     renderRepoSlots();
+    promptAutoAssign();
 
     // Founder section
     if (d.tier === 'founder') {
@@ -353,8 +354,6 @@
     container.innerHTML = '';
     const maxRepos = licenseData.max_repositories;
     const repos = licenseData.repositories || [];
-    let repoHashFound = false;
-    let prefilled = false;
 
     for (let i = 0; i < maxRepos; i++) {
       const slot = document.createElement('div');
@@ -366,7 +365,6 @@
         slot.classList.add('repo-slot-filled');
 
         if (queryRepoHash && repo.repo_hash === queryRepoHash) {
-          repoHashFound = true;
           slot.classList.add('repo-slot-current');
         }
 
@@ -402,20 +400,18 @@
         const actions = document.createElement('div');
         actions.className = 'repo-slot-actions';
 
-        if (isReassignable) {
-          const noteBtn = document.createElement('button');
-          noteBtn.className = 'btn btn-small btn-secondary';
-          noteBtn.textContent = repo.note ? 'Edit note' : 'Add note';
-          noteBtn.addEventListener('click', () => editRepoNote(repo.repo_hash, repo.note || ''));
-          actions.appendChild(noteBtn);
-        }
+        const noteBtn = document.createElement('button');
+        noteBtn.className = 'btn btn-small btn-secondary';
+        noteBtn.textContent = repo.note ? 'Edit note' : 'Add note';
+        noteBtn.addEventListener('click', () => editRepoNote(repo.repo_hash, repo.note || ''));
+        actions.appendChild(noteBtn);
 
         const removeBtn = document.createElement('button');
         removeBtn.className = `btn btn-small btn-secondary ${isReassignable ? '' : 'btn-disabled'}`;
         removeBtn.textContent = 'Unassign';
         if (!isReassignable) {
           removeBtn.disabled = true;
-          removeBtn.title = `Editable from ${new Date(repo.reassignable_after).toLocaleDateString()}`;
+          removeBtn.title = `Reassignable from ${new Date(repo.reassignable_after).toLocaleDateString()}`;
         }
         removeBtn.addEventListener('click', () => removeRepo(repo.repo_hash));
         actions.appendChild(removeBtn);
@@ -433,11 +429,6 @@
         hashInput.placeholder = 'Repository hash (SHA-256)';
         hashInput.className = 'repo-hash-input';
         hashInput.required = true;
-
-        if (queryRepoHash && !repoHashFound && !prefilled) {
-          hashInput.value = queryRepoHash;
-          prefilled = true;
-        }
 
         const noteInput = document.createElement('input');
         noteInput.type = 'text';
@@ -457,12 +448,27 @@
       }
       container.appendChild(slot);
     }
+  }
 
-    if (queryRepoHash && !repoHashFound && !prefilled) {
-      const msg = document.createElement('div');
-      msg.className = 'repo-slots-info';
-      msg.textContent = 'All repository slots are in use. Remove an existing assignment to add this repository.';
-      container.appendChild(msg);
+  async function promptAutoAssign() {
+    if (!queryRepoHash) return;
+    const repos = licenseData.repositories || [];
+    const alreadyAssigned = repos.some(r => r.repo_hash === queryRepoHash);
+    if (alreadyAssigned) return;
+
+    const shortHash = queryRepoHash.substring(0, 8) + '...';
+    const hasEmptySlot = repos.length < licenseData.max_repositories;
+    if (!hasEmptySlot) {
+      alert(`Your current repository (${shortHash}) is not assigned to this license.\n\nAll ${licenseData.max_repositories} slots are in use. Unassign an existing repository to free up a slot.`);
+      return;
+    }
+    const slotNum = repos.length + 1;
+    if (!confirm(`Do you want to assign repository ${shortHash} to this license?\n\nThis will fill slot ${slotNum} of ${licenseData.max_repositories}.`)) return;
+    try {
+      await manageAction({ action: 'add_repo', repo_hash: queryRepoHash });
+      await loadLicense(licenseData.license_id);
+    } catch (err) {
+      alert(err.message);
     }
   }
 
@@ -504,7 +510,9 @@
   }
 
   async function editRepoNote(hash, currentNote) {
-    const note = prompt('Note (max 32 characters):', currentNote || '');
+    const shortHash = hash.substring(0, 8) + '...';
+    const action = currentNote ? 'Edit' : 'Add a';
+    const note = prompt(`${action} note for repository ${shortHash}\n\nA short label to help you identify this repository (max 32 characters).`, currentNote || '');
     if (note === null) return;
     if (note.length > 32) {
       alert('Note must be 32 characters or fewer.');
@@ -519,7 +527,8 @@
   }
 
   async function removeRepo(hash) {
-    if (!confirm('Unassign this repository from your license?')) return;
+    const shortHash = hash.substring(0, 8) + '...';
+    if (!confirm(`Unassign repository ${shortHash} from your license?\n\nThe slot will become available after a 7-day cooldown.`)) return;
     try {
       await manageAction({ action: 'remove_repo', repo_hash: hash });
       await loadLicense(licenseData.license_id);
