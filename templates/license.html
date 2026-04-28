@@ -39,12 +39,21 @@
 <script>
   (function() {
     const params = new URLSearchParams(window.location.search);
-    const errorId = params.get('id');
+    const licenseId = params.get('license_id');
+    const repoHash = params.get('repo_hash');
     const error = params.get('error');
 
+    // Auto-redirect to manage page if license_id is present without an error
+    if (licenseId && !error) {
+      let url = '/license/manage/?license_id=' + encodeURIComponent(licenseId);
+      if (repoHash) url += '&repo_hash=' + encodeURIComponent(repoHash);
+      window.location.href = url;
+      return;
+    }
+
     // Pre-fill from query param (error redirect) or localStorage
-    if (errorId) {
-      document.getElementById('license-id-input').value = errorId;
+    if (licenseId) {
+      document.getElementById('license-id-input').value = licenseId;
     } else {
       const savedId = localStorage.getItem('cache_license_id');
       if (savedId) {
@@ -74,7 +83,7 @@
     e.preventDefault();
     const id = document.getElementById('license-id-input').value.trim();
     if (id) {
-      window.location.href = '/license/manage/?id=' + encodeURIComponent(id);
+      window.location.href = '/license/manage/?license_id=' + encodeURIComponent(id);
     }
   }
 </script>

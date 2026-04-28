@@ -149,12 +149,14 @@
   let licenseData = null;
   let licensePassword = null;
   let isNewPurchase = false;
+  let queryRepoHash = null;
 
   // Entry detection
   (function() {
     const params = new URLSearchParams(window.location.search);
     const sessionId = params.get('session_id');
-    const licenseId = params.get('id');
+    const licenseId = params.get('license_id');
+    queryRepoHash = params.get('repo_hash');
 
     if (sessionId) {
       pollCheckoutComplete(sessionId);
@@ -202,7 +204,7 @@
         if (json.data?.status === 'complete') {
           isNewPurchase = true;
           // Clean URL
-          history.replaceState(null, '', `/license/manage/?id=${json.data.license_id}`);
+          history.replaceState(null, '', `/license/manage/?license_id=${json.data.license_id}`);
           loadLicense(json.data.license_id);
           return;
         }
@@ -218,7 +220,7 @@
       try {
         const res = await fetch(`${API_BASE}/license?license_id=${encodeURIComponent(licenseId)}`);
         if (res.ok) {
-          history.replaceState(null, '', `/license/manage/?id=${licenseId}`);
+          history.replaceState(null, '', `/license/manage/?license_id=${licenseId}`);
           loadLicense(licenseId);
           return;
         }
@@ -235,7 +237,7 @@
       errEl.append(code);
       errEl.append(document.createElement('br'));
       const link = document.createElement('a');
-      link.href = `/license/manage/?id=${encodeURIComponent(licenseId)}`;
+      link.href = `/license/manage/?license_id=${encodeURIComponent(licenseId)}`;
       link.textContent = 'Try again';
       errEl.append(link);
     } else {
@@ -248,11 +250,11 @@
     try {
       const res = await fetch(`${API_BASE}/license?license_id=${encodeURIComponent(licenseId)}`);
       if (res.status === 404) {
-        window.location.href = `/license/?id=${encodeURIComponent(licenseId)}&error=not_found`;
+        window.location.href = `/license/?license_id=${encodeURIComponent(licenseId)}&error=not_found`;
         return;
       }
       if (!res.ok) {
-        window.location.href = `/license/?id=${encodeURIComponent(licenseId)}&error=server`;
+        window.location.href = `/license/?license_id=${encodeURIComponent(licenseId)}&error=server`;
         return;
       }
       const json = await res.json();
@@ -265,7 +267,7 @@
         renderDashboard();
       }
     } catch (err) {
-      window.location.href = `/license/?id=${encodeURIComponent(licenseId)}&error=network`;
+      window.location.href = `/license/?license_id=${encodeURIComponent(licenseId)}&error=network`;
     }
   }
 
@@ -351,6 +353,8 @@
     container.innerHTML = '';
     const maxRepos = licenseData.max_repositories;
     const repos = licenseData.repositories || [];
+    let repoHashFound = false;
+    let prefilled = false;
 
     for (let i = 0; i < maxRepos; i++) {
       const slot = document.createElement('div');
@@ -360,6 +364,11 @@
         const repo = repos[i];
         const isReassignable = new Date(repo.reassignable_after) <= new Date();
         slot.classList.add('repo-slot-filled');
+
+        if (queryRepoHash && repo.repo_hash === queryRepoHash) {
+          repoHashFound = true;
+          slot.classList.add('repo-slot-current');
+        }
 
         const info = document.createElement('div');
         info.className = 'repo-slot-info';
@@ -383,6 +392,13 @@
           : `Assigned ${new Date(repo.assigned_at).toLocaleDateString()} · Editable from ${new Date(repo.reassignable_after).toLocaleDateString()}`;
         info.appendChild(dateEl);
 
+        if (queryRepoHash && repo.repo_hash === queryRepoHash) {
+          const currentLabel = document.createElement('span');
+          currentLabel.className = 'repo-current-label';
+          currentLabel.textContent = 'Current repository';
+          info.appendChild(currentLabel);
+        }
+
         const actions = document.createElement('div');
         actions.className = 'repo-slot-actions';
 
@@ -395,8 +411,8 @@
         }
 
         const removeBtn = document.createElement('button');
-        removeBtn.className = `btn btn-small ${isReassignable ? '' : 'btn-disabled'}`;
-        removeBtn.textContent = 'Remove';
+        removeBtn.className = `btn btn-small btn-secondary ${isReassignable ? '' : 'btn-disabled'}`;
+        removeBtn.textContent = 'Unassign';
         if (!isReassignable) {
           removeBtn.disabled = true;
           removeBtn.title = `Editable from ${new Date(repo.reassignable_after).toLocaleDateString()}`;
@@ -418,6 +434,11 @@
         hashInput.className = 'repo-hash-input';
         hashInput.required = true;
 
+        if (queryRepoHash && !repoHashFound && !prefilled) {
+          hashInput.value = queryRepoHash;
+          prefilled = true;
+        }
+
         const noteInput = document.createElement('input');
         noteInput.type = 'text';
         noteInput.placeholder = 'Note (optional)';
@@ -426,7 +447,7 @@
 
         const submitBtn = document.createElement('button');
         submitBtn.type = 'submit';
-        submitBtn.className = 'btn btn-small';
+        submitBtn.className = 'btn btn-small btn-secondary';
         submitBtn.textContent = 'Add';
 
         form.appendChild(hashInput);
@@ -435,6 +456,13 @@
         slot.appendChild(form);
       }
       container.appendChild(slot);
+    }
+
+    if (queryRepoHash && !repoHashFound && !prefilled) {
+      const msg = document.createElement('div');
+      msg.className = 'repo-slots-info';
+      msg.textContent = 'All repository slots are in use. Remove an existing assignment to add this repository.';
+      container.appendChild(msg);
     }
   }
 
@@ -491,7 +519,7 @@
   }
 
   async function removeRepo(hash) {
-    if (!confirm('Remove this repository assignment?')) return;
+    if (!confirm('Unassign this repository from your license?')) return;
     try {
       await manageAction({ action: 'remove_repo', repo_hash: hash });
       await loadLicense(licenseData.license_id);

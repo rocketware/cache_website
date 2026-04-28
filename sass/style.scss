@@ -1303,6 +1303,25 @@ main {
   border-style: dashed;
 }
 
+.repo-slot-current {
+  border-left: 3px solid var(--brand-outlined);
+}
+
+.repo-current-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--brand-outlined);
+}
+
+.repo-slots-info {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  padding: 0.75rem 1rem;
+  border: 1px dashed var(--border-color);
+  border-radius: 6px;
+  text-align: center;
+}
+
 .repo-add-form {
   display: flex;
   flex-wrap: wrap;
@@ -1334,6 +1353,13 @@ main {
 }
 
 @media (max-width: 600px) {
+  .repo-slot-filled {
+    flex-wrap: wrap;
+  }
+  .repo-slot-filled .repo-slot-actions {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
   .repo-hash-input {
     flex-basis: 100%;
   }
