@@ -193,5 +193,24 @@
     localStorage.setItem('cache_currency', c);
     updatePrices(c);
   });
+
+  // Apple guideline 3.1.1: suppress purchase links for App Store users
+  if (window.isAppStoreEdition) {
+    ['link-personal', 'link-business', 'link-founder'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const span = document.createElement('span');
+      span.className = el.className.replace('btn-primary', 'btn-disabled').replace('btn-secondary', 'btn-disabled');
+      span.textContent = 'Subscribe in the app';
+      span.id = el.id;
+      el.replaceWith(span);
+    });
+
+    const callout = document.querySelector('.founder-callout');
+    if (callout) callout.style.display = 'none';
+
+    const subtitle = document.querySelector('.pricing-subtitle');
+    if (subtitle) subtitle.textContent = 'Subscribe directly in the app to get started.';
+  }
 </script>
 {% endblock %}

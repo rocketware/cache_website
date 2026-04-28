@@ -77,6 +77,12 @@
       banner.textContent = msg;
       banner.style.display = 'block';
     }
+
+    // Hide purchase CTA for App Store users
+    if (window.isAppStoreEdition) {
+      const cta = document.querySelector('.license-cta');
+      if (cta) cta.style.display = 'none';
+    }
   })();
 
   function handleLicenseSubmit(e) {

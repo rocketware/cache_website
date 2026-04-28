@@ -97,6 +97,11 @@
 </section>
 
 <script>
+  // Apple guideline 3.1.1: redirect App Store users away from web checkout
+  if (window.isAppStoreEdition) {
+    window.location.replace('/pricing/');
+  }
+
   const CONFIG = {{ data | json_encode() | safe }};
   const API_BASE = CONFIG.domains.license_server;
   const WEBSITE = CONFIG.domains.website;

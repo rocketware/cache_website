@@ -30,6 +30,19 @@
       document.documentElement.setAttribute('data-theme', theme);
     })();
   </script>
+
+  <!-- App Store edition detection (Apple guideline 3.1.1 compliance) -->
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('edition') === 'appstore') {
+        document.cookie = 'cache_edition=appstore; max-age=600; path=/; SameSite=Lax; Secure';
+      }
+      window.isAppStoreEdition = document.cookie.split('; ').some(function(c) {
+        return c === 'cache_edition=appstore';
+      });
+    })();
+  </script>
 </head>
 <body{% block body_class %}{% endblock %}>
   <!-- SVG Icon Sprite -->
