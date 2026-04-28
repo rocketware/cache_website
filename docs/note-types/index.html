@@ -1,0 +1,77 @@
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta content="width=device-width,initial-scale=1.0" name=viewport><title>Note Types - Cache Docs</title><meta content="Configure note types with templates for new notes" name=description><meta content=Cache property=og:title><meta content="Your personal store of knowledge. Privacy-first note-taking with Git sync." property=og:description><meta content=website property=og:type><meta content=https://www.cachenotes.app property=og:url><link href=/images/icon.webp rel=icon type=image/webp><link title="Cache Releases" href=/releases/atom.xml rel=alternate type=application/atom+xml><link href=/style.css rel=stylesheet><script>(function() {
+      const theme = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();</script><script>(function() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('edition') === 'appstore') {
+        document.cookie = 'cache_edition=appstore; max-age=600; path=/; SameSite=Lax; Secure';
+      }
+      window.isAppStoreEdition = document.cookie.split('; ').some(function(c) {
+        return c === 'cache_edition=appstore';
+      });
+    })();</script><body class=docs><svg style=display:none xmlns=http://www.w3.org/2000/svg><symbol viewbox="0 0 32 32" id=light><rect height=5 width=2 x=15 y=2 /><rect transform="translate(1.5191 19.3744) rotate(-45)" height=1.9998 width=4.958 x=21.6675 y=6.8536 /><rect height=2 width=5 x=25 y=15 /><rect transform="translate(-10.0018 24.1465) rotate(-45)" height=4.958 width=1.9998 x=23.1466 y=21.6675 /><rect height=5 width=2 x=15 y=25 /><rect transform="translate(-14.7739 12.6256) rotate(-45)" height=1.9998 width=4.958 x=5.3745 y=23.1466 /><rect height=2 width=5 x=2 y=15 /><rect transform="translate(-3.253 7.8535) rotate(-45)" height=4.958 width=1.9998 x=6.8536 y=5.3745 /><path d=M16,12a4,4,0,1,1-4,4,4.0045,4.0045,0,0,1,4-4m0-2a6,6,0,1,0,6,6,6,6,0,0,0-6-6Z /></symbol><symbol viewbox="0 0 32 32" id=asleep><path d=M13.5025,5.4136A15.0755,15.0755,0,0,0,25.096,23.6082a11.1134,11.1134,0,0,1-7.9749,3.3893c-.1385,0-.2782.0051-.4178,0A11.0944,11.0944,0,0,1,13.5025,5.4136M14.98,3a1.0024,1.0024,0,0,0-.1746.0156A13.0959,13.0959,0,0,0,16.63,28.9973c.1641.006.3282,0,.4909,0a13.0724,13.0724,0,0,0,10.702-5.5556,1.0094,1.0094,0,0,0-.7833-1.5644A13.08,13.08,0,0,1,15.8892,4.38,1.0149,1.0149,0,0,0,14.98,3Z /></symbol></svg><header class=header><div class=header-container><a class=header-brand href=/> <img alt="Cache logo" class=header-logo src=/images/icon.svg> <span class=header-title>Cache</span> <span class="badge badge-alpha">ALPHA</span> </a><nav class=header-nav><a class=header-link href=/download/>Download</a><a class=header-link href=/pricing/>Pricing</a><a class=header-link href=/docs/>Docs</a></nav><div class=header-actions><button aria-label="Toggle theme" class=theme-toggle onclick=toggleTheme()><span class="theme-icon theme-icon-light"> <svg><use href=#light /></svg></span> <span class="theme-icon theme-icon-dark"> <svg><use href=#asleep /></svg></span></button></div></div></header><main><div class=docs-layout><nav class=docs-sidebar><h3>Guides</h3><ul><li><a href=https://www.cachenotes.app/docs/> Getting Started </a><li><a href=https://www.cachenotes.app/docs/git/> Git Setup </a><li><a class=active href=https://www.cachenotes.app/docs/note-types/> Note Types </a><li><a href=https://www.cachenotes.app/docs/tasks/> Task Management </a></ul><h3>About</h3><ul><li><a href=https://www.cachenotes.app/docs/why-cache/> Why Cache </a><li><a href=https://www.cachenotes.app/docs/acknowledgements/> Acknowledgements </a><li><a href=https://www.cachenotes.app/docs/build-verification/> Build Verification </a><li><a href=https://www.cachenotes.app/docs/privacy-policy/> Privacy Policy </a><li><a href=https://www.cachenotes.app/docs/terms-of-service/> Terms of Service </a></ul></nav><button onclick="let s=document.querySelector('.docs-sidebar');s.classList.toggle('open');this.textContent=s.classList.contains('open')?'Close':'Pages';" class=docs-menu-toggle>Pages</button><article class=docs-content><h1 id=note-types>Note Types</h1><p>Every note in your repository belongs to a note type. To define a note type, create a directory with a <code>.config.md</code> file inside it.<p>The <code>.config.md</code> file serves two purposes:<ol><li><strong>Configuration</strong> (frontmatter) — Defines the note type, naming, and behavior<li><strong>Template</strong> (body) — The default content for new notes</ol><p>When you create a new note in a directory, Cache reads its <code>.config.md</code> to determine how to name the file and what content to start with.<hr><h2 id=file-structure>File Structure</h2><p>A <code>.config.md</code> file has two parts:<pre class=language-markdown data-lang=markdown><code class=language-markdown data-lang=markdown>+++
+name = 'Journal'
+type = 'daily'
+filename = '${date.iso}'
++++                               &lt;-- Configuration (frontmatter)
+
+# ${date.day_name}, ${date.day} ${date.month_name}
+
+- {{CURSOR}}
+                                  &lt;-- Template (body)
+</code></pre><hr><h2 id=configuration-frontmatter>Configuration (Frontmatter)</h2><p>The frontmatter defines how the directory behaves and how notes are created.<table><thead><tr><th>Field<th>Required<th>Description<th>Example<tbody><tr><td><code>name</code><td>Yes<td>Display name for the directory<td><code>'Journal'</code><tr><td><code>singular</code><td>No<td>Singular form for "New X" dialogs<td><code>'Journal Entry'</code><tr><td><code>type</code><td>No<td><code>'daily'</code> or <code>'reference'</code> (default: <code>'reference'</code>)<td><code>'daily'</code><tr><td><code>filename</code><td>No<td>Filename pattern (supports variables)<td><code>'${date.iso}'</code><tr><td><code>date</code><td>No<td>Date field for timed notes<td><code>'${date.iso}'</code><tr><td><code>sort</code><td>No<td>Sort order for directory listings: <code>'modified'</code>, <code>'proximity'</code>, or <code>'filename'</code><td><code>'proximity'</code><tr><td><code>directories</code><td>No<td>How subdirectories display: <code>'separate'</code> (grouped at top) or <code>'mixed'</code> (interleaved with notes). Default: <code>'separate'</code><td><code>'mixed'</code><tr><td><code>icon</code><td>No<td>Icon name from Carbon icons<td><code>'calendar'</code></table><h3 id=note-types-1>Note Types</h3><ul><li><strong><code>daily</code></strong> — Calendar-based notes tied to specific dates (journals, daily logs)<li><strong><code>reference</code></strong> — Standalone notes not tied to dates (pages, documents, meeting notes)</ul><blockquote><p>For backward compatibility, <code>type = 'note'</code> is treated as <code>'reference'</code>.</blockquote><hr><h2 id=template-body>Template (Body)</h2><p>Everything after the frontmatter becomes the content of new notes. Templates support variables and cursor positioning.<h3 id=variable-syntax>Variable Syntax</h3><p>Variables use <code>${namespace.variable}</code> format and are replaced when the note is created:<pre class=language-markdown data-lang=markdown><code class=language-markdown data-lang=markdown># ${note.title}
+
+Created: ${date.day_name}, ${date.month_name} ${date.day}
+</code></pre><p>If a variable isn't recognized, it's left unchanged for debugging.<h3 id=cursor-positioning>Cursor Positioning</h3><p>Use <code>{{CURSOR}}</code> to set where the cursor appears when the note opens:<pre class=language-markdown data-lang=markdown><code class=language-markdown data-lang=markdown>## Notes
+
+- {{CURSOR}}
+</code></pre><p>The marker is removed and the cursor positioned at that location.<hr><h2 id=available-variables>Available Variables</h2><h3 id=note-variables>Note Variables</h3><table><thead><tr><th>Variable<th>Description<th>Example<tbody><tr><td><code>${note.title}</code><td>Note title<td><code>Meeting Notes</code><tr><td><code>${note.type}</code><td>Type ID<td><code>journal</code></table><h3 id=date-variables>Date Variables</h3><p>For daily notes, these use the note's date. For reference notes, they use the creation date.<table><thead><tr><th>Variable<th>Description<th>Example<tbody><tr><td><code>${date.iso}</code><td>ISO format<td><code>2026-02-05</code><tr><td><code>${date.day}</code><td>Day of month<td><code>5</code><tr><td><code>${date.month}</code><td>Month (zero-padded)<td><code>02</code><tr><td><code>${date.year}</code><td>Four-digit year<td><code>2026</code><tr><td><code>${date.day_name}</code><td>Day of week<td><code>Thursday</code><tr><td><code>${date.month_name}</code><td>Month name<td><code>February</code><tr><td><code>${date.week_number}</code><td>Week of year (1-53)<td><code>6</code></table><h3 id=calculated-dates>Calculated Dates</h3><p>Reference other dates relative to the note's date:<table><thead><tr><th>Variable<th>Description<th>Example<tbody><tr><td><code>${date.today}</code><td>The note's date<td><code>2026-02-05</code><tr><td><code>${date.week_start}</code><td>Monday of that week<td><code>2026-02-02</code><tr><td><code>${date.week_end}</code><td>Sunday of that week<td><code>2026-02-08</code><tr><td><code>${date.month_start}</code><td>First of the month<td><code>2026-02-01</code><tr><td><code>${date.month_end}</code><td>Last of the month<td><code>2026-02-28</code><tr><td><code>${date.year_start}</code><td>January 1st<td><code>2026-01-01</code><tr><td><code>${date.year_end}</code><td>December 31st<td><code>2026-12-31</code><tr><td><code>${date.last_friday}</code><td>Most recent Friday<td><code>2026-01-31</code><tr><td><code>${date.next_monday}</code><td>Coming Monday<td><code>2026-02-09</code></table><h3 id=date-arithmetic>Date Arithmetic</h3><p>Add or subtract time using <code>+</code> or <code>-</code> with a number and unit (<code>d</code> days, <code>w</code> weeks, <code>m</code> months, <code>y</code> years):<table><thead><tr><th>Variable<th>Description<th>Example<tbody><tr><td><code>${date.today+1d}</code><td>Tomorrow<td><code>2026-02-06</code><tr><td><code>${date.today-1w}</code><td>One week ago<td><code>2026-01-29</code><tr><td><code>${date.month_end+1d}</code><td>First of next month<td><code>2026-03-01</code><tr><td><code>${date.week_start+2w}</code><td>Monday in 2 weeks<td><code>2026-02-16</code></table><hr><h2 id=examples>Examples</h2><h3 id=daily-journal>Daily Journal</h3><p>A calendar-based journal with daily entries:<pre class=language-markdown data-lang=markdown><code class=language-markdown data-lang=markdown>+++
+name = 'Journal'
+type = 'daily'
+date = '${date.iso}'
+filename = '${date.iso}'
+icon = 'calendar'
++++
+
+# ${date.day_name}, ${date.day} ${date.month_name} ${date.year}
+
+## What happened today?
+
+- {{CURSOR}}
+
+## Thoughts & reflections
+
+-
+</code></pre><p><strong>Creates:</strong> <code>2026-02-05.md</code> with heading "Thursday, 5 February 2026"<blockquote><p>Include the <code>date</code> field for daily notes — Cache uses it to associate the note with that date, and tasks inherit their due date from it.</blockquote><h3 id=reference-pages>Reference Pages</h3><p>Simple standalone notes:<pre class=language-markdown data-lang=markdown><code class=language-markdown data-lang=markdown>+++
+name = 'Pages'
+singular = 'Page'
+type = 'reference'
+filename = '${note.title}'
++++
+
+# ${note.title}
+
+{{CURSOR}}
+</code></pre><p><strong>Creates:</strong> <code>meeting-notes.md</code> (sanitized from title "Meeting Notes")<h3 id=weekly-reports>Weekly Reports</h3><p>Reference notes can also use date variables (based on creation date):<pre class=language-markdown data-lang=markdown><code class=language-markdown data-lang=markdown>+++
+name = 'Reports'
+singular = 'Weekly Report'
+type = 'reference'
+sort = 'proximity'
+filename = '${date.year}-week-${date.week_number}'
++++
+
+# Week ${date.week_number} Report
+
+**Period:** ${date.week_start} to ${date.week_end}
+
+## Summary
+
+- {{CURSOR}}
+</code></pre><p><strong>Creates:</strong> <code>2026-week-6.md</code> with the week's date range filled in</article><aside class=docs-toc><h3>On this page</h3><ul><li><a href=#note-types>Note Types</a> <ul><li><a href=#file-structure>File Structure</a><li><a href=#configuration-frontmatter>Configuration (Frontmatter)</a><li><a href=#template-body>Template (Body)</a><li><a href=#available-variables>Available Variables</a><li><a href=#examples>Examples</a></ul></ul></aside></div></main><footer class=footer><div class=footer-container><p class=footer-text>© 2026 Rocketware<nav class=footer-links><a class=footer-link href=/docs/>Docs</a><a class=footer-link href=/license/>License</a><a class=footer-link href=/docs/privacy-policy/>Privacy</a><a class=footer-link href=https://github.com/rocketware/cache rel=noopener target=_blank>GitHub</a></nav></div></footer><script>function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }</script>

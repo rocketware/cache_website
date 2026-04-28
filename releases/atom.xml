@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Cache - Cache Releases</title>
+    <subtitle>Your personal store of knowledge. Privacy-first note-taking with Git sync.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://www.cachenotes.app/releases/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://www.cachenotes.app/releases/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-04-26T00:00:00+00:00</updated>
+    <id>https://www.cachenotes.app/releases/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Cache v0.4.0</title>
+        <published>2026-04-26T00:00:00+00:00</published>
+        <updated>2026-04-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.cachenotes.app/releases/v0-4-0/"/>
+        <id>https://www.cachenotes.app/releases/v0-4-0/</id>
+        
+        <content type="html" xml:base="https://www.cachenotes.app/releases/v0-4-0/"></content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Cache v0.3.3</title>
+        <published>2026-04-02T00:00:00+00:00</published>
+        <updated>2026-04-02T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.cachenotes.app/releases/v0-3-3/"/>
+        <id>https://www.cachenotes.app/releases/v0-3-3/</id>
+        
+        <content type="html" xml:base="https://www.cachenotes.app/releases/v0-3-3/"></content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Cache v0.2.0</title>
+        <published>2026-03-23T00:00:00+00:00</published>
+        <updated>2026-03-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.cachenotes.app/releases/v0-2-0/"/>
+        <id>https://www.cachenotes.app/releases/v0-2-0/</id>
+        
+        <content type="html" xml:base="https://www.cachenotes.app/releases/v0-2-0/"></content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Cache v0.1.0</title>
+        <published>2026-03-19T00:00:00+00:00</published>
+        <updated>2026-03-19T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.cachenotes.app/releases/v0-1-0/"/>
+        <id>https://www.cachenotes.app/releases/v0-1-0/</id>
+        
+        <content type="html" xml:base="https://www.cachenotes.app/releases/v0-1-0/"></content>
+        
+    </entry>
+</feed>
