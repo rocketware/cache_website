@@ -61,7 +61,9 @@ verify_anchor = "macos"
   [[platforms.downloads]]
   id = "mac_app_store"
   name = "Mac App Store"
-  enabled = false
+  version = "0.7.0"
+  store_url = "https://apps.apple.com/us/app/cache-markdown-notes/id6761917553"
+  enabled = true
 
   [[platforms.downloads]]
   id = "dmg"
