@@ -20,6 +20,7 @@
                 </thead>
                 <tbody>
                     {% for dl in platform.downloads %}
+                    {% if dl.hidden is not defined or not dl.hidden %}
                     <tr
                         class="{% if dl.enabled %}download-row-available{% else %}download-row-coming-soon{% endif %}"
                     >
@@ -48,6 +49,7 @@
                             {% endif %}
                         </td>
                     </tr>
+                    {% endif %}
                     {% endfor %}
                 </tbody>
             </table>

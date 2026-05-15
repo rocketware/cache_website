@@ -21,6 +21,7 @@ verify_anchor = "android-apk"
   id = "accrescent"
   name = "Accrescent"
   enabled = false
+  hidden = true
 
   [[platforms.downloads]]
   id = "apk_arm64"
@@ -82,12 +83,15 @@ icon = "apple"
   [[platforms.downloads]]
   id = "ios_app_store"
   name = "App Store"
-  enabled = false
+  version = "0.8.1"
+  store_url = "https://apps.apple.com/us/app/cache-markdown-notes/id6761917553"
+  enabled = true
 
   [[platforms.downloads]]
   id = "ipa"
   name = "IPA"
   enabled = false
+  hidden = true
 
 [[platforms]]
 id = "linux"
@@ -135,11 +139,13 @@ verify_anchor = "linux"
   id = "nix"
   name = "Nix"
   enabled = false
+  hidden = true
 
   [[platforms.downloads]]
   id = "flathub"
   name = "Flathub"
   enabled = false
+  hidden = true
 
 [[platforms]]
 id = "windows"
