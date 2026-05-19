@@ -10,9 +10,9 @@ config.extra.tagline }}{% endblock %} {% block content %}
         </div>
         <div class="hero-media">
             <div class="video-container">
-                {% if page.extra.youtube_id %}
+                {% if section.extra.youtube_id %}
                 <iframe
-                    src="https://www.youtube-nocookie.com/embed/{{ page.extra.youtube_id }}"
+                    src="https://www.youtube-nocookie.com/embed/{{ section.extra.youtube_id }}"
                     title="Cache demo video"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
@@ -319,14 +319,6 @@ config.extra.tagline }}{% endblock %} {% block content %}
         <div class="cta-buttons">
             <a href="/docs/" class="cta-button cta-button-secondary">
                 <span class="button-store-name">Documentation</span>
-            </a>
-            <a
-                href="{{ config.extra.github_url }}"
-                class="cta-button cta-button-secondary"
-                target="_blank"
-                rel="noopener"
-            >
-                <span class="button-store-name">View Source</span>
             </a>
         </div>
 
