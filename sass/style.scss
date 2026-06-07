@@ -330,8 +330,19 @@ main {
 }
 
 /* Features Section */
+
+/* Feature-grid sizing in one place so the column count and the single-column
+   behaviour stay in sync. $features-2col is the viewport width at which a second
+   column first fits; below it the grid collapses to one centred card. Changing
+   $feature-col-min reflows everything consistently. */
+$feature-col-min: 360px;
+$feature-col-max: 440px; // single-column card width cap (centred, full-aspect video)
+$feature-grid-gap: 32px; // 2rem
+$features-pad-x: 16px; // .features-section horizontal padding
+$features-2col: 2 * $feature-col-min + $feature-grid-gap + 2 * $features-pad-x; // 784px
+
 .features-section {
-  padding: 4rem 1rem;
+  padding: 4rem $features-pad-x;
   background-color: var(--bg-secondary);
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
@@ -340,7 +351,7 @@ main {
 
 .features-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -359,9 +370,18 @@ main {
 
 .features-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(#{$feature-col-min}, 100%), 1fr));
+  gap: $feature-grid-gap;
   margin: 0;
+}
+
+/* Single column (below the 2-column threshold): float one card in the centre, capped
+   at $feature-col-max so its video sits at full aspect ratio with no letterboxing. */
+@media (max-width: #{$features-2col - 1px}) {
+  .features-grid {
+    grid-template-columns: min(100%, #{$feature-col-max});
+    justify-content: center;
+  }
 }
 
 /* Feature Cards */
@@ -375,29 +395,16 @@ main {
 .feature-media {
   width: 100%;
   aspect-ratio: 720/430;
-  max-height: 220px;  /* constrain on short viewports */
   border-radius: 6px;
   overflow: hidden;
   background-color: var(--bg-tertiary);
   border: 1px solid var(--border-color);
 }
 
-/* Remove max-height constraint when sufficient vertical space */
-@media (min-height: 700px) and (min-width: 768px) {
-  .feature-media {
-    max-height: none;
-  }
-}
-
 .feature-media video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top;
-}
-
-.feature-media video.align-bottom {
-  object-position: bottom;
+  object-fit: contain;
 }
 
 .feature-content {
@@ -1754,10 +1761,6 @@ main {
     font-size: 3rem;
   }
 
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .cta-buttons {
     flex-direction: row;
     justify-content: center;
@@ -1789,11 +1792,6 @@ main {
   .hero-media {
     width: 50%;
   }
-
-  .features-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
 }
 
 /* ========================================
