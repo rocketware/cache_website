@@ -4,66 +4,96 @@
 {% block description %}{{ page.description | default(value="Cache release") }}{% endblock %}
 
 {% block content %}
-{% set tag = "v" ~ page.title | split(pat="v") | last %}
+{% set version = page.title | split(pat="v") | last %}
+{% set tag = "v" ~ version %}
+{% set downloads = load_data(path="data/downloads.toml") %}
+{% set is_latest = version == downloads.latest_version %}
+{% set all_arts = page.extra.artifacts | default(value=[]) %}
 <section class="release-section">
     <div class="release-container">
         <h1>{{ page.title }}</h1>
         <p><time datetime="{{ page.date }}">{{ page.date | date(format="%B %d, %Y") }}</time></p>
         <p style="font-size: 0.875rem; color: var(--text-tertiary); margin: 0 0 0.5rem 0;">
-            <a href="/releases/">&larr; Releases</a>
+            <a href="/releases/">&larr; Changelog</a>
         </p>
 
-        {% if page.extra.changelog is defined %}
-        {% if page.extra.changelog | length > 0 %}
-
+        {% if page.extra.changelog is defined and page.extra.changelog | length > 0 %}
         <hr>
-
-        <h2>Changelog</h2>
+        <h2>What's New</h2>
         <ul>
             {% for entry in page.extra.changelog %}
             <li>{{ entry }}</li>
             {% endfor %}
         </ul>
         {% endif %}
-        {% endif %}
 
         <hr>
 
-        <h2>Artifacts</h2>
-        {% if page.extra.artifacts is defined %}
-        <div class="artifact-list">
-            {% for art in page.extra.artifacts %}
-            <div class="artifact-row">
-                <div class="artifact-info">
-                    <div class="artifact-filename">{{ art.filename }}</div>
-                    <div class="artifact-meta">
-                        {{ art.platform }} &middot; {{ art.format }}
-                        {% if art.arch is defined and art.arch != "" %} &middot; {{ art.arch }}{% endif %}
-                        {% if art.filesize is defined and art.filesize != "" %} &middot; {{ art.filesize }}{% endif %}
-                    </div>
-                    <div class="artifact-meta">
-                        {% if art.signing_key is defined %}
-                        <span title="{{ art.signing_key }}">signing key: {{ art.signing_key | upper }}</span>
-                        {% else %}
-                        <span title="{{ art.checksum_sha256 }}">checksum sha256: {{ art.checksum_sha256 | truncate(length=20) }}</span>
-                        {% endif %}
-                    </div>
-                </div>
-                <a href="{{ art.github_url }}" class="download-btn">Download</a>
-            </div>
-            {% endfor %}
-        </div>
+        <h2>Download</h2>
+        <p class="release-verify-note">
+            Every build is signed and checksummed. Verify your download before installing &mdash;
+            <a href="/docs/build-verification/">how to verify</a> &middot;
+            <a href="/downloads/releases/{{ tag }}.manifest.toml" download>manifest</a> &middot;
+            <a href="/downloads/releases/{{ tag }}.manifest.toml.minisig" download>signature</a>.
+        </p>
+        {% if not is_latest %}
+        <p class="release-store-note">
+            App store links below always install the latest version (v{{ downloads.latest_version }}), not v{{ version }}.
+        </p>
         {% endif %}
 
-        <h2>Verification</h2>
-        <p>
-            <a href="/downloads/releases/{{ tag }}.manifest.toml" class="download-btn" download>Manifest</a>
-            <a href="/downloads/releases/{{ tag }}.manifest.toml.minisig" class="download-btn" download>Signature</a>
-        </p>
-        <p>
-            <a href="/docs/build-verification/">How to verify</a>
-            &middot; <a href="{{ page.extra.github_release }}">GitHub release</a>
-            &middot; <a href="/download/">Downloads</a>
+        {# Platform order follows data/downloads.toml, matching the download page #}
+        {% for p in downloads.platforms %}
+        {% set arts = all_arts | filter(attribute="platform", value=p.id) %}
+        {% set_global store_count = 0 %}
+        {% for dl in p.downloads %}
+        {% if dl.enabled and dl.store_url is defined and dl.store_url %}{% set_global store_count = store_count + 1 %}{% endif %}
+        {% endfor %}
+        {% if arts | length > 0 or store_count > 0 %}
+        <div class="release-platform">
+            <h3 class="release-platform-title">{{ p.name }}</h3>
+            <div class="artifact-list">
+                {% for dl in p.downloads %}
+                {% if dl.enabled and dl.store_url is defined and dl.store_url %}
+                <div class="artifact-row artifact-row-store">
+                    <div class="artifact-info">
+                        <div class="artifact-filename">{{ dl.name }}</div>
+                        <div class="artifact-meta">App store &middot; always the latest version</div>
+                    </div>
+                    <a href="{{ dl.store_url }}" class="download-btn">Get</a>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% for art in arts %}
+                <div class="artifact-row">
+                    <div class="artifact-info">
+                        <div class="artifact-filename">{{ art.filename }}</div>
+                        <div class="artifact-meta">
+                            {{ art.format }}
+                            {% if art.arch is defined and art.arch != "" %} &middot; {{ art.arch }}{% endif %}
+                            {% if art.filesize is defined and art.filesize != "" %} &middot; {{ art.filesize }}{% endif %}
+                            {% if p.verify_anchor is defined and p.verify_anchor %} &middot; <a href="/docs/build-verification/#{{ p.verify_anchor }}">verify</a>{% endif %}
+                        </div>
+                        <div class="artifact-meta">
+                            {% if art.signing_key is defined %}
+                            <span title="{{ art.signing_key }}">signing key: {{ art.signing_key | upper }}</span>
+                            {% else %}
+                            <span title="{{ art.checksum_sha256 }}">checksum sha256: {{ art.checksum_sha256 | truncate(length=20) }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <a href="{{ art.github_url }}" class="download-btn">Download</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        <p class="release-footer-links">
+            <a href="{{ page.extra.github_release }}">GitHub release</a>
+            &middot; <a href="/download/">All downloads</a>
+            &middot; <a href="/releases/">Changelog</a>
         </p>
     </div>
 </section>

@@ -6,31 +6,45 @@
 {% block content %}
 <section class="release-section">
     <div class="release-container">
-        <h1>Cache Releases</h1>
+        <h1>Changelog</h1>
         <p class="release-feed-link">
             <a href="/releases/atom.xml">Atom feed</a>
         </p>
 
-        {% if section.pages | length > 0 %}
-        <table class="download-table">
-            <thead>
-                <tr>
-                    <th>Version</th>
-                    <th>Date</th>
-                    <th>Artifacts</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for page in section.pages %}
-                {% set version = page.title | split(pat="v") | last %}
-                <tr>
-                    <td><a href="{{ page.permalink }}">v{{ version }}</a></td>
-                    <td>{{ page.date | date(format="%B %d, %Y") }}</td>
-                    <td>{{ page.extra.artifact_count | default(value="-") }}</td>
-                </tr>
+        {% if paginator.pages | length > 0 %}
+        {% for page in paginator.pages %}
+        {% set version = page.title | split(pat="v") | last %}
+        <div class="release-entry">
+            <h2><a href="{{ page.permalink }}">v{{ version }}</a></h2>
+            <time datetime="{{ page.date }}">{{ page.date | date(format="%B %d, %Y") }}</time>
+            {% if page.extra.changelog is defined and page.extra.changelog | length > 0 %}
+            <ul>
+                {% for entry in page.extra.changelog %}
+                <li>{{ entry }}</li>
                 {% endfor %}
-            </tbody>
-        </table>
+            </ul>
+            {% else %}
+            <p>See the release page for details.</p>
+            {% endif %}
+            <p class="changelog-cta"><a href="{{ page.permalink }}">Download v{{ version }} &rarr;</a></p>
+        </div>
+        {% endfor %}
+
+        {% if paginator.number_pagers > 1 %}
+        <nav class="pagination" aria-label="Changelog pages">
+            {% if paginator.previous %}
+            <a class="pagination-link" href="{{ paginator.previous }}">&lsaquo; Newer</a>
+            {% else %}
+            <span class="pagination-link pagination-disabled">&lsaquo; Newer</span>
+            {% endif %}
+            <span class="pagination-info">Page {{ paginator.current_index }} of {{ paginator.number_pagers }}</span>
+            {% if paginator.next %}
+            <a class="pagination-link" href="{{ paginator.next }}">Older &rsaquo;</a>
+            {% else %}
+            <span class="pagination-link pagination-disabled">Older &rsaquo;</span>
+            {% endif %}
+        </nav>
+        {% endif %}
         {% else %}
         <p>No releases yet.</p>
         {% endif %}

@@ -57,9 +57,9 @@
         {% endfor %}
 
         <div class="download-verify">
-            <p>Latest version: <strong>v{% if downloads.latest_version %}{{ downloads.latest_version }}{% else %}X.Y.Z{% endif %}</strong>
-               · <a href="/releases/">Release feed</a>
-               · <a href="/docs/build-verification/">Verify downloads</a></p>
+            <p><a href="/docs/build-verification/">Verify downloads</a>
+               · Latest version:
+               {% if downloads.latest_version %}<strong><a href="/releases/v{{ downloads.latest_version | replace(from='.', to='-') }}/">v{{ downloads.latest_version }}</a></strong>{% else %}<strong>vX.Y.Z</strong>{% endif %}</p>
         </div>
     </div>
 </section>
