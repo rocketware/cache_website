@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}Manage License - {{ config.title }}{% endblock %}
-{% block description %}Manage your Cache license{% endblock %}
+{% block description %}Your Cache license dashboard — repository slots, downloads, and subscription.{% endblock %}
 
 {% block content %}
 {% set data = load_data(path="data/config.toml") %}
@@ -53,7 +53,7 @@
           <span class="detail-label">License ID</span>
           <span class="detail-value">
             <code id="detail-id"></code>
-            <button class="btn-icon" onclick="copyText('detail-id')" title="Copy">&#x2398;</button>
+            <button class="btn-icon" onclick="copyText('detail-id')" title="Copy" aria-label="Copy License ID">&#x2398;</button>
           </span>
         </div>
         <div class="detail-row">

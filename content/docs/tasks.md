@@ -9,15 +9,15 @@ sidebar_group = "Guides"
 
 # Task Management
 
-Cache tracks tasks across your entire repository — every checkbox in every note, organized by urgency.
+Cache tracks tasks across your entire repository — every checkbox in every note, organised by urgency.
 
-Tasks are standard markdown checkboxes. Write them anywhere in your notes and Cache automatically indexes them, calculates due dates, and surfaces what needs attention.
+Tasks are standard Markdown checkboxes. Write them anywhere in your notes and Cache automatically indexes them, calculates due dates, and surfaces what needs attention.
 
 ---
 
 ## Task Syntax
 
-Tasks use markdown checkbox syntax with four states:
+Tasks use Markdown checkbox syntax with four states:
 
 | State | Syntax | Description |
 |-------|--------|-------------|

@@ -26,4 +26,4 @@ When you're ready to dive deeper, these guides cover Cache's key features in det
 
 - [Git Setup](/docs/git/) - Set up Git sync for backup and multi-device access
 - [Note Types](/docs/note-types/) - Configure Cache perfectly for you by customising note types and templates
-- [Tasks](/docs/tasks/) - Track every single task across your knowledge base with due dates for urgency and prioritization
+- [Tasks](/docs/tasks/) - Track every single task across your knowledge base with due dates for urgency and prioritisation

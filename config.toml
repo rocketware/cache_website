@@ -1,7 +1,7 @@
 # Cache Website Configuration
 base_url = "https://www.cachenotes.app"
 title = "Cache"
-description = "Your personal store of knowledge. Privacy-first note-taking with Git sync."
+description = "Private notes & tasks, synced via Git. Privacy-first — no account, no tracking, your data stays yours."
 default_language = "en"
 
 # Build options
@@ -18,7 +18,7 @@ dark_theme = "github-dark"
 
 [extra]
 # Site metadata
-tagline = "Your personal store of knowledge"
+tagline = "Private notes & tasks, synced via Git"
 author = "Rocketware"
 
 # Social/links

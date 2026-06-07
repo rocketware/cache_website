@@ -13,7 +13,7 @@ Every note in your repository belongs to a note type. To define a note type, cre
 
 The `.config.md` file serves two purposes:
 
-1. **Configuration** (frontmatter) — Defines the note type, naming, and behavior
+1. **Configuration** (frontmatter) — Defines the note type, naming, and behaviour
 2. **Template** (body) — The default content for new notes
 
 When you create a new note in a directory, Cache reads its `.config.md` to determine how to name the file and what content to start with.
@@ -77,7 +77,7 @@ Variables use `${namespace.variable}` format and are replaced when the note is c
 Created: ${date.day_name}, ${date.month_name} ${date.day}
 ```
 
-If a variable isn't recognized, it's left unchanged for debugging.
+If a variable isn't recognised, it's left unchanged so you can spot typos.
 
 ### Cursor Positioning
 
@@ -192,7 +192,7 @@ filename = '${note.title}'
 {{CURSOR}}
 ```
 
-**Creates:** `meeting-notes.md` (sanitized from title "Meeting Notes")
+**Creates:** `meeting-notes.md` (sanitised from title "Meeting Notes")
 
 ### Weekly Reports
 

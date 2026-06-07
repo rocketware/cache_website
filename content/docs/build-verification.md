@@ -1,6 +1,6 @@
 +++
 title = "Build Verification"
-weight = 24
+weight = 25
 
 [extra]
 sidebar_group = "About"
