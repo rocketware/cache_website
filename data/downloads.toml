@@ -1,7 +1,7 @@
 # Cache Download Sources — latest versions for the website
 # Template priority: store_url > github_url > disabled
 
-latest_version = "0.9.0"
+latest_version = "0.10.0"
 
 [[platforms]]
 id = "android"
@@ -12,7 +12,7 @@ verify_anchor = "android-apk"
   [[platforms.downloads]]
   id = "play_store"
   name = "Google Play"
-  version = "0.9.0"
+  version = "0.10.0"
   signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
   store_url = "https://play.google.com/store/apps/details?id=io.rocketware.cache.googleplay"
   enabled = true
@@ -25,31 +25,31 @@ verify_anchor = "android-apk"
   [[platforms.downloads]]
   id = "apk_arm64"
   name = "APK (arm64)"
-  version = "0.9.0"
+  version = "0.10.0"
   signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
   checksum_sha256 = "906131fd6511781025fbf230cdec39f79be6811bf2a48ea0e4ed854bc73cd319"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.9.0/cache-0.9.0-android-arm64.apk"
-  rocketware_url = "https://download.rocketware.io/cache/v0.9.0/cache-0.9.0-android-arm64.apk"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.10.0/cache-0.10.0-android-arm64.apk"
+  rocketware_url = "https://download.rocketware.io/cache/v0.10.0/cache-0.10.0-android-arm64.apk"
   enabled = true
 
   [[platforms.downloads]]
   id = "apk_arm"
   name = "APK (arm)"
-  version = "0.9.0"
+  version = "0.10.0"
   signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
   checksum_sha256 = "4178138db2152ab624a26eeaecde1de6dd6f455963fe70ce5286a1997f086569"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.9.0/cache-0.9.0-android-arm.apk"
-  rocketware_url = "https://download.rocketware.io/cache/v0.9.0/cache-0.9.0-android-arm.apk"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.10.0/cache-0.10.0-android-arm.apk"
+  rocketware_url = "https://download.rocketware.io/cache/v0.10.0/cache-0.10.0-android-arm.apk"
   enabled = true
 
   [[platforms.downloads]]
   id = "apk_x64"
   name = "APK (x64)"
-  version = "0.9.0"
+  version = "0.10.0"
   signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
   checksum_sha256 = "e30b20274cb865c69fc42df7f01fe0b5ea7a008bcd64cb00f2b546cb35bab571"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.9.0/cache-0.9.0-android-x64.apk"
-  rocketware_url = "https://download.rocketware.io/cache/v0.9.0/cache-0.9.0-android-x64.apk"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.10.0/cache-0.10.0-android-x64.apk"
+  rocketware_url = "https://download.rocketware.io/cache/v0.10.0/cache-0.10.0-android-x64.apk"
   enabled = true
 
 [[platforms]]
@@ -61,17 +61,17 @@ verify_anchor = "macos"
   [[platforms.downloads]]
   id = "mac_app_store"
   name = "Mac App Store"
-  version = "0.9.0"
+  version = "0.10.0"
   store_url = "https://apps.apple.com/us/app/cache-markdown-notes/id6761917553"
   enabled = true
 
   [[platforms.downloads]]
   id = "dmg"
   name = "DMG (universal)"
-  version = "0.9.0"
-  checksum_sha256 = "953963fe8ccd819f043a1d4fc46df75e95de092a7e0265fbc2c2bd1de7b573d2"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.9.0/cache-0.9.0-macos-universal.dmg"
-  rocketware_url = "https://download.rocketware.io/cache/v0.9.0/cache-0.9.0-macos-universal.dmg"
+  version = "0.10.0"
+  checksum_sha256 = "e354ef8791939a806562ea470c2ac3872a6621de0d6355e6d31f4ab133108394"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.10.0/cache-0.10.0-macos-universal.dmg"
+  rocketware_url = "https://download.rocketware.io/cache/v0.10.0/cache-0.10.0-macos-universal.dmg"
   enabled = true
 
 [[platforms]]
@@ -82,7 +82,7 @@ icon = "apple"
   [[platforms.downloads]]
   id = "ios_app_store"
   name = "App Store"
-  version = "0.9.0"
+  version = "0.10.0"
   store_url = "https://apps.apple.com/us/app/cache-markdown-notes/id6761917553"
   enabled = true
 
@@ -100,37 +100,37 @@ verify_anchor = "linux"
   [[platforms.downloads]]
   id = "appimage"
   name = "AppImage"
-  version = "0.9.0"
-  checksum_sha256 = "b7c36eb17f5e6a306fdcca848a4c1e7ef62c14194b9d51727569af99c1acde6c"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.9.0/cache-0.9.0-linux-x64.AppImage"
-  rocketware_url = "https://download.rocketware.io/cache/v0.9.0/cache-0.9.0-linux-x64.AppImage"
+  version = "0.10.0"
+  checksum_sha256 = "af5d893bb1cb6908c731084ca19b27e8b89e4ac807d49169ccf0fe7649c5cac7"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.10.0/cache-0.10.0-linux-x64.AppImage"
+  rocketware_url = "https://download.rocketware.io/cache/v0.10.0/cache-0.10.0-linux-x64.AppImage"
   enabled = true
 
   [[platforms.downloads]]
   id = "deb"
   name = "Debian / Ubuntu"
-  version = "0.9.0"
-  checksum_sha256 = "98fec12f350de630248d34611fdddbf9c74b25d7ae8599eeed46960a7fc333d2"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.9.0/cache-0.9.0-linux-x64.deb"
-  rocketware_url = "https://download.rocketware.io/cache/v0.9.0/cache-0.9.0-linux-x64.deb"
+  version = "0.10.0"
+  checksum_sha256 = "ecdd2f3d57a8882bb18c6fcb4a302534ed8bb72a78d6eedfda55e0f5947074e7"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.10.0/cache-0.10.0-linux-x64.deb"
+  rocketware_url = "https://download.rocketware.io/cache/v0.10.0/cache-0.10.0-linux-x64.deb"
   enabled = true
 
   [[platforms.downloads]]
   id = "rpm"
   name = "Fedora / RHEL"
-  version = "0.9.0"
-  checksum_sha256 = "a90bef406edda83858ec4901218fb2ccbcfab0f09ce67db795c1226e4bafa7b3"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.9.0/cache-0.9.0-linux-x64.rpm"
-  rocketware_url = "https://download.rocketware.io/cache/v0.9.0/cache-0.9.0-linux-x64.rpm"
+  version = "0.10.0"
+  checksum_sha256 = "7e9c000afb1e34313ac2d202bf52c24f211e859c80595f2ea9ab0b30c1b3a179"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.10.0/cache-0.10.0-linux-x64.rpm"
+  rocketware_url = "https://download.rocketware.io/cache/v0.10.0/cache-0.10.0-linux-x64.rpm"
   enabled = true
 
   [[platforms.downloads]]
   id = "tar_gz"
   name = "tar.gz"
-  version = "0.9.0"
-  checksum_sha256 = "c13b5d77d2c14a09e0b0cdc31118995a838d98e069fc1978a60eebd44586f3f1"
-  github_url = "https://github.com/rocketware/cache/releases/download/v0.9.0/cache-0.9.0-linux-x64.tar.gz"
-  rocketware_url = "https://download.rocketware.io/cache/v0.9.0/cache-0.9.0-linux-x64.tar.gz"
+  version = "0.10.0"
+  checksum_sha256 = "4a1f3f40c53390204b9cdd0239a21d7587dd12a10a83e799ee29f06347436fe6"
+  github_url = "https://github.com/rocketware/cache/releases/download/v0.10.0/cache-0.10.0-linux-x64.tar.gz"
+  rocketware_url = "https://download.rocketware.io/cache/v0.10.0/cache-0.10.0-linux-x64.tar.gz"
   enabled = true
 
   [[platforms.downloads]]
