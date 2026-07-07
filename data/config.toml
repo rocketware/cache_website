@@ -86,3 +86,29 @@ repositories = 3
 gbp = 100
 usd = 130
 eur = 120
+
+# Personal — Perpetual (one-time; own Cache 1.x forever)
+# Three fixed repo tiers (1/3/5); each is a flat one-time, multi-currency price.
+# price_id MUST equal the server product key (Config.lookupProduct) — live-mode
+# IDs matching config.dart ProductionStripeProducts.personalPerpetual{1,3,5}.
+# Keep numbers in sync with apps/notes/PRICING.md (authoritative).
+[plans.personal_perpetual]
+display_name = "Personal — Perpetual"
+tagline = "Own Cache 1.x forever"
+pricing_model = "perpetual"
+app_version_max = 1
+
+[[plans.personal_perpetual.options]]
+repositories = 1
+price_id = "price_1TqZDeHAn6iWiQrYdxsKySXZ"
+price = { gbp = 49, usd = 64, eur = 59 }
+
+[[plans.personal_perpetual.options]]
+repositories = 3
+price_id = "price_1TqZDXHAn6iWiQrYnf03IPq6"
+price = { gbp = 79, usd = 99, eur = 94 }
+
+[[plans.personal_perpetual.options]]
+repositories = 5
+price_id = "price_1TqZDNHAn6iWiQrYTcQWNk1W"
+price = { gbp = 109, usd = 139, eur = 129 }
