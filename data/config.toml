@@ -29,7 +29,7 @@ position = "prefix"
 # First repo at full price, each additional at a flat discount rate
 [plans.personal]
 display_name = "Personal"
-tagline = "For individuals and families"
+tagline = "Ideal for individuals and families"
 pricing_model = "graduated"
 product_id = "prod_UBSSFOAN7sYVCo"
 monthly_id = "price_1TH5gpHAn6iWiQrYaaapmETX"

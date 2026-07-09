@@ -19,6 +19,7 @@
       <div class="pricing-card">
         <h2 class="pricing-card-title">Free</h2>
         <div class="pricing-card-price"><span id="price-free"></span></div>
+        <hr class="pricing-card-divider">
         <p class="pricing-card-description">All features, up to 50 notes</p>
         <ul class="pricing-card-features">
           <li>All features included</li>
@@ -31,9 +32,14 @@
         <h2 class="pricing-card-title">{{ data.plans.personal.display_name }}</h2>
         <div class="pricing-card-price">
           <span id="price-personal"></span><span class="pricing-card-period">/month</span>
+          <p class="pricing-card-description">Billed annually</p>
         </div>
+        <div class="pricing-or" id="perpetual-or">or</div>
+        <div class="pricing-card-price" id="perpetual-price">
+          <span id="price-personal-perpetual"></span><span class="pricing-card-period">own forever</span>
+        </div>
+        <hr class="pricing-card-divider">
         <p class="pricing-card-description">{{ data.plans.personal.tagline }}</p>
-        <p class="pricing-card-description">Billed annually</p>
         <ul class="pricing-card-features">
           <li>All features included</li>
           <li>Unlimited notes</li>
@@ -46,8 +52,9 @@
         <div class="pricing-card-price">
           <span id="price-business"></span><span class="pricing-card-period">/month/user</span>
         </div>
-        <p class="pricing-card-description">{{ data.plans.business.tagline }}</p>
         <p class="pricing-card-description">Billed annually</p>
+        <hr class="pricing-card-divider">
+        <p class="pricing-card-description">{{ data.plans.business.tagline }}</p>
         <ul class="pricing-card-features">
           <li>All features included</li>
           <li>Unlimited notes</li>
@@ -165,6 +172,11 @@
     document.getElementById('price-personal').innerHTML =
       '<span class="price-from">from </span>' + formatPrice(pTier1.annual[currency] / 12, currency);
 
+    // Personal perpetual: one-off base (1-repo) price ("own forever" note supplies the cadence)
+    const perpBase = CONFIG.plans.personal_perpetual.options[0].price[currency];
+    document.getElementById('price-personal-perpetual').textContent =
+      formatPrice(perpBase, currency);
+
     // Business: "from {tier1 annual price per month}"
     const bTier1 = CONFIG.plans.business.tiers[0];
     document.getElementById('price-business').innerHTML =
@@ -208,6 +220,12 @@
 
     const callout = document.querySelector('.founder-callout');
     if (callout) callout.style.display = 'none';
+
+    // Perpetual isn't purchasable in-app yet (Phase 2) — hide the pay-once option.
+    ['perpetual-or', 'perpetual-price'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
 
     const subtitle = document.querySelector('.pricing-subtitle');
     if (subtitle) subtitle.textContent = 'Subscribe directly in the app to get started.';

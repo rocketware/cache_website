@@ -880,7 +880,7 @@ $features-2col: 2 * $feature-col-min + $feature-grid-gap + 2 * $features-pad-x; 
 .pricing-container {
   position: relative;
   width: 100%;
-  max-width: 800px;
+  max-width: 920px;
   margin: 0 auto;
   text-align: center;
 }
@@ -974,10 +974,37 @@ $features-2col: 2 * $feature-col-min + $feature-grid-gap + 2 * $features-pad-x; 
   color: var(--text-tertiary);
 }
 
+/* Personal card — "subscribe OR pay once" divider between the two prices */
+.pricing-or {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+}
+
+.pricing-or::before,
+.pricing-or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+}
+
 .pricing-card-description {
   font-size: 0.875rem;
   color: var(--text-tertiary);
   margin: 0 0 1rem 0;
+}
+
+/* Separates the price block from the description/features in each card */
+.pricing-card-divider {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 0.5rem 0 1rem;
 }
 
 .pricing-card-features {
@@ -988,12 +1015,7 @@ $features-2col: 2 * $feature-col-min + $feature-grid-gap + 2 * $features-pad-x; 
 
 .pricing-card-features li {
   padding: 0.5rem 0;
-  border-bottom: 1px solid var(--border-color);
   color: var(--text-secondary);
-}
-
-.pricing-card-features li:last-child {
-  border-bottom: none;
 }
 
 .pricing-note {
