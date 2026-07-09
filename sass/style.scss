@@ -1033,6 +1033,43 @@ $features-2col: 2 * $feature-col-min + $feature-grid-gap + 2 * $features-pad-x; 
   }
 }
 
+/* Longevity / peace-of-mind reassurance (esp. perpetual buyers) */
+.pricing-peace-of-mind {
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  padding: 1.5rem 1.75rem;
+  text-align: left;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.pricing-peace-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.pricing-peace-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      color: var(--text-primary);
+    }
+  }
+}
+
 .pricing-faq {
   text-align: left;
   max-width: 600px;
@@ -1700,6 +1737,16 @@ $features-2col: 2 * $feature-col-min + $feature-grid-gap + 2 * $features-pad-x; 
   font-size: 0.9375rem;
   color: var(--text-secondary);
   margin-top: 0.25rem;
+}
+
+/* Subtle offline/ownership reassurance under the purchase button */
+.purchase-reassurance {
+  max-width: 440px;
+  margin: 1rem auto 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-tertiary);
+  text-align: center;
 }
 
 @media (min-width: 768px) {
