@@ -76,6 +76,10 @@
           <span class="detail-label">Auto-renew</span>
           <span class="detail-value" id="detail-autorenew"></span>
         </div>
+        <div class="detail-row" id="detail-covers-row">
+          <span class="detail-label">Covers</span>
+          <span class="detail-value" id="detail-covers"></span>
+        </div>
       </div>
 
       <!-- License ID reminder (returning visits) -->
@@ -327,6 +331,15 @@
     document.getElementById('detail-created').textContent = d.created ? new Date(d.created).toLocaleDateString() : '-';
     document.getElementById('detail-expires').textContent = d.lifetime ? 'Never (lifetime)' : (d.expires ? new Date(d.expires).toLocaleDateString() : '-');
     document.getElementById('detail-autorenew').textContent = d.lifetime ? '-' : (d.auto_renew ? 'Yes' : 'No');
+
+    // Version coverage (perpetual licenses only)
+    const coversRow = document.getElementById('detail-covers-row');
+    if (d.app_version_max) {
+      document.getElementById('detail-covers').textContent = 'Cache ' + d.app_version_max + '.x';
+      coversRow.style.display = '';
+    } else {
+      coversRow.style.display = 'none';
+    }
 
     // Repo slots
     renderRepoSlots();
