@@ -1571,46 +1571,59 @@ $features-2col: 2 * $feature-col-min + $feature-grid-gap + 2 * $features-pad-x; 
   border-color: var(--brand-outlined);
 }
 
+/* Personal box: header + payment-mode radios share one bordered card */
 .plan-option-group {
   display: flex;
   flex-direction: column;
-  gap: 0;
-}
-
-.founder-suboption {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   border: 1px solid var(--border-color);
-  border-top: none;
-  border-radius: 0 0 6px 6px;
-  cursor: pointer;
-  font-size: 0.8125rem;
-  color: var(--text-secondary);
+  border-radius: 6px;
   transition: border-color 0.2s ease;
 }
 
-.plan-option-group.founder-visible .plan-option {
-  border-radius: 6px 6px 0 0;
-}
-
-.founder-suboption:has(input:checked) {
+.plan-option-group:has(input[name="plan"]:checked) {
   border-color: var(--brand-outlined);
 }
 
-.founder-suboption-text {
+.plan-option-head {
   display: flex;
-  flex-direction: column;
-  gap: 0.125rem;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
 }
 
-.founder-suboption-text strong {
-  color: var(--text-headings);
-  font-size: 0.8125rem;
+/* Payment-mode radios (Subscribe / Pay once / Founder) inside the Personal box */
+.payment-mode {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  margin-top: 0.75rem;
 }
 
-.plan-option input {
+.mode-option {
+  flex: 1 1 40%;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.mode-option-full {
+  flex-basis: 100%;
+}
+
+.mode-badge {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--brand-outlined);
+  margin-left: 0.25rem;
+}
+
+.plan-option input,
+.plan-option-head input {
   margin-top: 0.25rem;
 }
 
@@ -1627,11 +1640,6 @@ $features-2col: 2 * $feature-col-min + $feature-grid-gap + 2 * $features-pad-x; 
 .plan-tagline {
   font-size: 0.875rem;
   color: var(--text-secondary);
-}
-
-.plan-price {
-  font-size: 0.8125rem;
-  color: var(--text-tertiary);
 }
 
 .billing-options {
@@ -1656,7 +1664,7 @@ $features-2col: 2 * $feature-col-min + $feature-grid-gap + 2 * $features-pad-x; 
   border-color: var(--brand-outlined);
 }
 
-#quantity-config {
+#seats-config {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -1705,10 +1713,6 @@ $features-2col: 2 * $feature-col-min + $feature-grid-gap + 2 * $features-pad-x; 
 
   .plan-option-group {
     flex: 1;
-  }
-
-  .plan-option-group .plan-option {
-    flex: unset;
   }
 }
 
