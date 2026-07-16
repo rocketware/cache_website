@@ -154,6 +154,7 @@
   const CONFIG = {{ data | json_encode() | safe }};
   const SUPPORTED = CONFIG.currencies.supported;
   const DEFAULT_CURRENCY = CONFIG.currencies.default;
+  const API_BASE = CONFIG.domains.license_server;
 
   function detectCurrency(supported, fallback) {
     const saved = localStorage.getItem('cache_currency');
@@ -235,6 +236,26 @@
     localStorage.setItem('cache_currency', c);
     updatePrices(c);
   });
+
+  // Refresh prices/IDs from the live catalog; silently keep build-time data on
+  // any failure or malformed response. Currency picker stays build-time.
+  function applyCatalog(catalog) {
+    if (!catalog || !catalog.plans || !catalog.currencies) return false;
+    const p = catalog.plans;
+    if (!p.personal || !p.business || !p.founder || !p.personal_perpetual) {
+      return false;
+    }
+    CONFIG.plans = p;
+    CONFIG.currencies = catalog.currencies;
+    return true;
+  }
+
+  fetch(API_BASE + '/products')
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(json => {
+      if (applyCatalog(json && json.data)) updatePrices(select.value);
+    })
+    .catch(() => {});
 
   // Apple guideline 3.1.1: suppress purchase links for App Store users
   if (window.isAppStoreEdition) {
