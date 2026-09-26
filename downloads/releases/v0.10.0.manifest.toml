@@ -1,0 +1,79 @@
+version = "0.10.0"
+date = "2026-06-26"
+changelog = ["Added automatic repository optimization to keep frequently-synced repositories fast and reliable — optional in Sync settings", "Added an Optimize repository action to speed up syncing", "Added in-app recovery for an invalid license, plus safeguards against accidental edits", "Your license now keeps working even if the license server is unreachable", "Over the free-note limit, you can now edit conflicted notes and system files to recover", "Sync now flags when a repository needs optimization and pauses retries until it recovers", "Cleaner sync history — saving an unchanged note no longer commits it", "Improved battery life on mobile by pausing background activity when you switch away", "Fixed an open, empty note not showing content synced from another device until reopened"]
+
+[[artifacts]]
+platform = "linux"
+format = "tar.gz"
+arch = "flatpak"
+filename = "cache-0.10.0-linux-x64-flatpak.tar.gz"
+checksum_sha256 = "e38b7b37575712c9196b2c3753ebd4c981d4237e703a2a0fffe98658b862c825"
+filesize = "21.3.3 MB"
+
+[[artifacts]]
+platform = "linux"
+format = "tar.gz"
+arch = "x64"
+filename = "cache-0.10.0-linux-x64.tar.gz"
+checksum_sha256 = "4a1f3f40c53390204b9cdd0239a21d7587dd12a10a83e799ee29f06347436fe6"
+filesize = "21.4.4 MB"
+
+[[artifacts]]
+platform = "linux"
+format = "AppImage"
+arch = "x64"
+filename = "cache-0.10.0-linux-x64.AppImage"
+checksum_sha256 = "af5d893bb1cb6908c731084ca19b27e8b89e4ac807d49169ccf0fe7649c5cac7"
+filesize = "20.5.5 MB"
+
+[[artifacts]]
+platform = "linux"
+format = "deb"
+arch = "x64"
+filename = "cache-0.10.0-linux-x64.deb"
+checksum_sha256 = "ecdd2f3d57a8882bb18c6fcb4a302534ed8bb72a78d6eedfda55e0f5947074e7"
+filesize = "21.7.7 MB"
+
+[[artifacts]]
+platform = "linux"
+format = "rpm"
+arch = "x64"
+filename = "cache-0.10.0-linux-x64.rpm"
+checksum_sha256 = "7e9c000afb1e34313ac2d202bf52c24f211e859c80595f2ea9ab0b30c1b3a179"
+filesize = "22.4.4 MB"
+
+[[artifacts]]
+platform = "android"
+format = "apk"
+arch = "arm64"
+filename = "cache-0.10.0-android-arm64.apk"
+checksum_sha256 = "0ab858ab6cc690251e559ec53e7a6d8167b6440c1a335faf9949d9b9bcf9bc85"
+filesize = "35.9.9 MB"
+signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
+
+[[artifacts]]
+platform = "android"
+format = "apk"
+arch = "arm"
+filename = "cache-0.10.0-android-arm.apk"
+checksum_sha256 = "8f48d73bf76585adcab7d38428ac8860691ef44200434ec540d25df6f44e704d"
+filesize = "33.2.2 MB"
+signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
+
+[[artifacts]]
+platform = "android"
+format = "apk"
+arch = "x64"
+filename = "cache-0.10.0-android-x64.apk"
+checksum_sha256 = "4b1c86337cc2dcc8a713cfcc3db44942b4711ec74e2423173efc3681b18caa73"
+filesize = "37.5.5 MB"
+signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
+
+[[artifacts]]
+platform = "macos"
+format = "dmg"
+arch = "universal"
+filename = "cache-0.10.0-macos-universal.dmg"
+checksum_sha256 = "e354ef8791939a806562ea470c2ac3872a6621de0d6355e6d31f4ab133108394"
+filesize = "45.9.9 MB"
+apple_team_id = "U4KM65Y22D"
