@@ -1,0 +1,384 @@
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta content="width=device-width,initial-scale=1.0" name=viewport><title>Purchase - Cache</title><meta content="Purchase a Cache license" name=description><meta content=Cache property=og:title><meta content="Private notes & tasks, synced via Git. Privacy-first — no account, no tracking, your data stays yours." property=og:description><meta content=website property=og:type><meta content=https://www.cachenotes.app/license/purchase/ property=og:url><meta content=https://www.cachenotes.app/images/card.jpg property=og:image><meta content=Cache property=og:site_name><meta content=summary_large_image name=twitter:card><meta content=https://www.cachenotes.app/images/card.jpg name=twitter:image><link href=/images/icon.webp rel=icon type=image/webp><link title="Cache Changelog" href=/releases/atom.xml rel=alternate type=application/atom+xml><link href=/style.css rel=stylesheet><script>(function() {
+      const theme = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();</script><script>(function() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('edition') === 'appstore') {
+        document.cookie = 'cache_edition=appstore; max-age=600; path=/; SameSite=Lax; Secure';
+      }
+      window.isAppStoreEdition = document.cookie.split('; ').some(function(c) {
+        return c === 'cache_edition=appstore';
+      });
+    })();</script><body><svg style=display:none xmlns=http://www.w3.org/2000/svg><symbol viewbox="0 0 32 32" id=light><rect height=5 width=2 x=15 y=2 /><rect transform="translate(1.5191 19.3744) rotate(-45)" height=1.9998 width=4.958 x=21.6675 y=6.8536 /><rect height=2 width=5 x=25 y=15 /><rect transform="translate(-10.0018 24.1465) rotate(-45)" height=4.958 width=1.9998 x=23.1466 y=21.6675 /><rect height=5 width=2 x=15 y=25 /><rect transform="translate(-14.7739 12.6256) rotate(-45)" height=1.9998 width=4.958 x=5.3745 y=23.1466 /><rect height=2 width=5 x=2 y=15 /><rect transform="translate(-3.253 7.8535) rotate(-45)" height=4.958 width=1.9998 x=6.8536 y=5.3745 /><path d=M16,12a4,4,0,1,1-4,4,4.0045,4.0045,0,0,1,4-4m0-2a6,6,0,1,0,6,6,6,6,0,0,0-6-6Z /></symbol><symbol viewbox="0 0 32 32" id=asleep><path d=M13.5025,5.4136A15.0755,15.0755,0,0,0,25.096,23.6082a11.1134,11.1134,0,0,1-7.9749,3.3893c-.1385,0-.2782.0051-.4178,0A11.0944,11.0944,0,0,1,13.5025,5.4136M14.98,3a1.0024,1.0024,0,0,0-.1746.0156A13.0959,13.0959,0,0,0,16.63,28.9973c.1641.006.3282,0,.4909,0a13.0724,13.0724,0,0,0,10.702-5.5556,1.0094,1.0094,0,0,0-.7833-1.5644A13.08,13.08,0,0,1,15.8892,4.38,1.0149,1.0149,0,0,0,14.98,3Z /></symbol></svg><header class=header><div class=header-container><a class=header-brand href=/> <img alt="Cache logo" class=header-logo src=/images/icon.svg> <span class=header-title>Cache</span> <span class="badge badge-alpha">ALPHA</span> </a><nav class=header-nav><a class=header-link href=/download/>Download</a><a class=header-link href=/pricing/>Pricing</a><a class=header-link href=/docs/>Docs</a></nav><div class=header-actions><button aria-label="Toggle theme" class=theme-toggle onclick=toggleTheme()><span class="theme-icon theme-icon-light"> <svg aria-hidden=true focusable=false><use href=#light /></svg></span> <span class="theme-icon theme-icon-dark"> <svg aria-hidden=true focusable=false><use href=#asleep /></svg></span></button></div></div></header><main><section class=license-section><div class=license-container><h1 class=license-title>Purchase a License</h1><p class=license-subtitle>Choose a plan, configure it, and complete your purchase via Stripe.<div class=currency-picker><select aria-label=Currency id=currency-select></select></div><div class=license-error id=cancelled-banner style=display:none>Payment was cancelled. You can try again below.</div><div class=license-purchase-form><div class=purchase-step><h2>1. Choose a plan</h2><div class=plan-options><div class=plan-option-group><label class=plan-option-head><input checked name=plan type=radio value=personal> <div class=plan-option-content><strong>Personal</strong><span class=plan-tagline>Ideal for individuals and families</span></div></label><div class=payment-mode id=payment-mode><label class=mode-option><input checked name=mode type=radio value=subscribe> <span>Subscribe</span></label><label class=mode-option><input name=mode type=radio value=perpetual> <span>Pay once</span></label><label class="mode-option mode-option-full"><input name=mode type=radio value=founder> <span>Founder <span class=mode-badge>Limited offer</span></span></label></div></div><label class=plan-option><input name=plan type=radio value=business> <div class=plan-option-content><strong>Business</strong><span class=plan-tagline>For teams and organisations</span></div></label></div></div><div class=purchase-step id=config-step><h2>2. Configure</h2><div class=billing-options id=repos-config><label class=billing-option><input name=repos type=radio value=1> <span>1 repository</span></label><label class=billing-option><input checked name=repos type=radio value=3> <span>3 repositories</span></label><label class=billing-option><input name=repos type=radio value=5> <span>5 repositories</span></label></div><div id=seats-config><label for=quantity-input id=quantity-label>Number of seats</label><input class=quantity-input id=quantity-input max=100 min=1 type=number value=1></div></div><div class=purchase-step id=billing-step><h2>3. Billing period</h2><div class=billing-options><label class=billing-option><input name=billing type=radio value=monthly> <span>Monthly</span></label><label class=billing-option><input checked name=billing type=radio value=annual> <span>Annual</span> <span class=annual-savings id=annual-savings-badge></span></label></div></div><div class=purchase-step><div class=price-summary id=price-summary></div></div><div class=purchase-step style=text-align:center><button class="btn btn-primary btn-large" id=purchase-btn onclick=handlePurchase()>Purchase</button><div class=license-error id=purchase-error style=display:none></div><div class=license-loading id=purchase-loading style=display:none>Redirecting to checkout...</div></div><p class=purchase-reassurance>Your license is a signed file in your own repo — it works offline and stays yours. Your notes are always plain Markdown you own.</div></div></section><script>// Apple guideline 3.1.1: redirect App Store users away from web checkout
+  if (window.isAppStoreEdition) {
+    window.location.replace('/pricing/');
+  }
+
+  const CONFIG = {"currencies":{"default":"usd","eur":{"label":"EUR","position":"prefix","symbol":"€"},"gbp":{"label":"GBP","position":"prefix","symbol":"£"},"supported":["usd","gbp","eur"],"usd":{"label":"USD","position":"prefix","symbol":"$"}},"domains":{"license_server":"https://api.cachenotes.app","website":"https://www.cachenotes.app"},"plans":{"business":{"annual_id":"price_1TD8QqHAn6iWiQrYFli8F9Ub","display_name":"Business","max":100,"min":1,"monthly_id":"price_1TD8P5HAn6iWiQrYZEuccLYg","pricing_model":"graduated","product_id":"prod_UBSSY105M5P6y3","tagline":"For teams and organisations","tiers":[{"annual":{"eur":40,"gbp":36,"usd":45},"monthly":{"eur":4.0,"gbp":3.75,"usd":4.5},"up_to":10},{"annual":{"eur":27,"gbp":24,"usd":30},"monthly":{"eur":2.75,"gbp":2.5,"usd":3.0}}],"unit":"seat","units":"seats"},"founder":{"display_name":"Founder","price":{"eur":120,"gbp":100,"usd":130},"price_id":"price_1TD5Y4HAn6iWiQrYx78SoqiS","pricing_model":"fixed","product_id":"prod_UBSSAq3PeJTtZy","repositories":3,"tagline":"Lifetime license, limited availability"},"personal":{"annual_id":"price_1TH5tgHAn6iWiQrYzcm0fNL8","display_name":"Personal","max":5,"min":1,"monthly_id":"price_1TH5gpHAn6iWiQrYaaapmETX","pricing_model":"graduated","product_id":"prod_UBSSFOAN7sYVCo","tagline":"Ideal for individuals and families","tiers":[{"annual":{"eur":28,"gbp":24,"usd":30},"monthly":{"eur":2.75,"gbp":2.5,"usd":3.0},"up_to":1},{"annual":{"eur":8,"gbp":6,"usd":9},"monthly":{"eur":0.75,"gbp":0.5,"usd":0.75}}],"unit":"repository","units":"repositories"},"personal_perpetual":{"app_version_max":1,"display_name":"Personal — Perpetual","options":[{"price":{"eur":59,"gbp":49,"usd":64},"price_id":"price_1TqZDeHAn6iWiQrYdxsKySXZ","repositories":1},{"price":{"eur":94,"gbp":79,"usd":99},"price_id":"price_1TqZDXHAn6iWiQrYnf03IPq6","repositories":3},{"price":{"eur":129,"gbp":109,"usd":139},"price_id":"price_1TqZDNHAn6iWiQrYTcQWNk1W","repositories":5}],"pricing_model":"perpetual","tagline":"Own Cache 1.x forever"}}};
+  const API_BASE = CONFIG.domains.license_server;
+  const WEBSITE = CONFIG.domains.website;
+  const SUPPORTED = CONFIG.currencies.supported;
+  const DEFAULT_CURRENCY = CONFIG.currencies.default;
+
+  // -- Currency detection & formatting ----------------------------------------
+
+  function detectCurrency(supported, fallback) {
+    const saved = localStorage.getItem('cache_currency');
+    if (saved && supported.includes(saved)) return saved;
+
+    const langs = navigator.languages || [navigator.language || ''];
+    const lang = langs.find(l => l.includes('-')) || langs[0] || '';
+    const region = lang.split('-')[1]?.toUpperCase();
+
+    const map = {
+      US: 'usd', GB: 'gbp', UK: 'gbp',
+      IE: 'eur', FR: 'eur', DE: 'eur', ES: 'eur', IT: 'eur',
+      NL: 'eur', BE: 'eur', AT: 'eur', PT: 'eur', FI: 'eur', GR: 'eur',
+      LU: 'eur', SK: 'eur', SI: 'eur', EE: 'eur', LV: 'eur', LT: 'eur',
+      CY: 'eur', MT: 'eur', HR: 'eur',
+    };
+    const detected = map[region];
+    if (detected && supported.includes(detected)) return detected;
+    return fallback;
+  }
+
+  function formatPrice(amount, currency) {
+    return new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: currency.toUpperCase(),
+      currencyDisplay: 'narrowSymbol',
+      minimumFractionDigits: amount % 1 === 0 ? 0 : 2,
+    }).format(amount);
+  }
+
+  // -- Tier calculation -------------------------------------------------------
+
+  function calculateTotal(tiers, quantity, currency, billing, pricingModel) {
+    if (pricingModel === 'graduated') {
+      // Graduated: each tier's rate applies only to units within that range
+      let total = 0;
+      let remaining = quantity;
+      let prevUp = 0;
+      for (const tier of tiers) {
+        const tierEnd = tier.up_to !== undefined ? tier.up_to : Infinity;
+        const count = Math.min(remaining, tierEnd - prevUp);
+        total += count * tier[billing][currency];
+        remaining -= count;
+        prevUp = tierEnd;
+        if (remaining <= 0) break;
+      }
+      return { total, unitPrice: total / quantity };
+    }
+    // Volume: all units charged at the rate of the matching tier
+    let unitPrice = tiers[tiers.length - 1][billing][currency];
+    for (const tier of tiers) {
+      if (tier.up_to === undefined || quantity <= tier.up_to) {
+        unitPrice = tier[billing][currency];
+        break;
+      }
+    }
+    return { total: quantity * unitPrice, unitPrice };
+  }
+
+  // -- State ------------------------------------------------------------------
+
+  let activeCurrency;
+
+  function getBasePlan() {
+    return document.querySelector('input[name="plan"]:checked').value;
+  }
+
+  function getMode() {
+    const el = document.querySelector('input[name="mode"]:checked');
+    return el ? el.value : 'subscribe';
+  }
+
+  // Resolve the CONFIG.plans key from the plan + payment mode.
+  function getActivePlan() {
+    if (getBasePlan() === 'business') return 'business';
+    const mode = getMode();
+    if (mode === 'perpetual') return 'personal_perpetual';
+    if (mode === 'founder') return 'founder';
+    return 'personal';
+  }
+
+  function getPlanConfig(planName) {
+    return CONFIG.plans[planName];
+  }
+
+  // Discrete repo tier (1/3/5) for the Personal plan.
+  function getRepos() {
+    const el = document.querySelector('input[name="repos"]:checked');
+    return el ? parseInt(el.value) : 1;
+  }
+
+  // Seat count for the Business plan.
+  function getSeats() {
+    return Math.max(1, parseInt(document.getElementById('quantity-input').value) || 1);
+  }
+
+  // Config quantity: repos for Personal, seats for Business.
+  function getQuantity() {
+    return getBasePlan() === 'business' ? getSeats() : getRepos();
+  }
+
+  function getBilling() {
+    return document.querySelector('input[name="billing"]:checked').value;
+  }
+
+  // -- UI updates -------------------------------------------------------------
+
+  function updatePlanUI() {
+    const basePlan = getBasePlan();
+    const isPersonal = basePlan === 'personal';
+
+    // Payment-mode selector (Subscribe / Pay once / Founder) applies to Personal only.
+    document.getElementById('payment-mode').style.display = isPersonal ? '' : 'none';
+
+    const plan = getActivePlan();
+    const isFounder = plan === 'founder';
+    const isOneTime = isFounder || plan === 'personal_perpetual';
+
+    // Step 2 — repos (Personal, non-founder) / seats (Business) / hidden (Founder).
+    document.getElementById('config-step').style.display = isFounder ? 'none' : '';
+    document.getElementById('repos-config').style.display =
+      isPersonal && !isFounder ? '' : 'none';
+    document.getElementById('seats-config').style.display =
+      basePlan === 'business' ? '' : 'none';
+
+    // Step 3 — billing period only for recurring (subscription) plans.
+    document.getElementById('billing-step').style.display = isOneTime ? 'none' : '';
+
+    if (basePlan === 'business') {
+      const cfg = CONFIG.plans.business;
+      const input = document.getElementById('quantity-input');
+      input.min = cfg.min;
+      input.max = cfg.max;
+      const current = parseInt(input.value) || 1;
+      if (current < cfg.min || current > cfg.max) input.value = cfg.min;
+    }
+  }
+
+  function updateAnnualSavings() {
+    const cfg = getPlanConfig(getActivePlan());
+    const badge = document.getElementById('annual-savings-badge');
+    // Only recurring (graduated) plans have an annual saving.
+    if (!cfg.tiers) { badge.textContent = ''; return; }
+    const quantity = getQuantity();
+    const c = activeCurrency;
+
+    const monthly = calculateTotal(cfg.tiers, quantity, c, 'monthly', cfg.pricing_model);
+    const annual = calculateTotal(cfg.tiers, quantity, c, 'annual', cfg.pricing_model);
+    const saving = Math.round((1 - annual.total / (monthly.total * 12)) * 100);
+
+    badge.textContent = saving > 0 ? 'Save ' + saving + '%' : '';
+  }
+
+  function updatePriceSummary() {
+    const plan = getActivePlan();
+    const cfg = getPlanConfig(plan);
+    const c = activeCurrency;
+
+    const el = document.getElementById('price-summary');
+
+    // Perpetual (pay once) — discrete repo tier, covers Cache 1.x.
+    if (plan === 'personal_perpetual') {
+      const repos = getRepos();
+      const opt = cfg.options.find(o => o.repositories === repos) || cfg.options[0];
+      const label = repos === 1 ? 'repository' : 'repositories';
+      el.innerHTML = '<span class="price-amount">' + formatPrice(opt.price[c], c) + '</span>'
+        + '<div class="price-detail">' + repos + ' ' + label
+        + ' &middot; own Cache 1.x forever &middot; no account, works offline</div>';
+      return;
+    }
+
+    if (cfg.pricing_model === 'fixed') {
+      const price = cfg.price[c];
+      el.innerHTML = '<span class="price-amount">' + formatPrice(price, c) + '</span>'
+        + '<div class="price-detail">Launch offer &middot; ' + cfg.repositories + ' repositories &middot; Lifetime license &middot; Your name in the app</div>';
+      return;
+    }
+
+    const billing = getBilling();
+    const quantity = getQuantity();
+    const { total } = calculateTotal(cfg.tiers, quantity, c, billing, cfg.pricing_model);
+    const unitsLabel = quantity === 1 ? cfg.unit : cfg.units;
+    let html = '';
+
+    if (billing === 'monthly') {
+      html = '<span class="price-amount">' + formatPrice(total, c) + '/month</span>';
+      if (quantity > 1) {
+        html += '<div class="price-detail">' + quantity + ' ' + unitsLabel + '</div>';
+      }
+    } else {
+      const perMonth = total / 12;
+      html = '<span class="price-amount">' + formatPrice(perMonth, c) + '/month</span>';
+      let detail = formatPrice(total, c) + '/year';
+      if (quantity > 1) {
+        detail += ' &middot; ' + quantity + ' ' + unitsLabel;
+      }
+      html += '<div class="price-detail">' + detail + '</div>';
+    }
+
+    el.innerHTML = html;
+  }
+
+  function updateAll() {
+    updateAnnualSavings();
+    updatePriceSummary();
+  }
+
+  // -- Currency picker --------------------------------------------------------
+
+  const select = document.getElementById('currency-select');
+  SUPPORTED.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = CONFIG.currencies[c].label;
+    select.appendChild(opt);
+  });
+
+  // Resolve initial currency: query param > localStorage > auto-detect
+  const params = new URLSearchParams(window.location.search);
+  const paramCurrency = params.get('currency');
+  if (paramCurrency && SUPPORTED.includes(paramCurrency)) {
+    activeCurrency = paramCurrency;
+    localStorage.setItem('cache_currency', paramCurrency);
+  } else {
+    activeCurrency = detectCurrency(SUPPORTED, DEFAULT_CURRENCY);
+  }
+  select.value = activeCurrency;
+
+  select.addEventListener('change', () => {
+    activeCurrency = select.value;
+    localStorage.setItem('cache_currency', activeCurrency);
+    updateAll();
+  });
+
+  // -- Pre-select plan from query param ---------------------------------------
+
+  const paramPlan = params.get('plan');
+  const paramMode = params.get('mode');
+  if (paramPlan === 'founder') {
+    document.querySelector('input[name="plan"][value="personal"]').checked = true;
+    document.querySelector('input[name="mode"][value="founder"]').checked = true;
+  } else if (paramPlan === 'business') {
+    document.querySelector('input[name="plan"][value="business"]').checked = true;
+  } else if (paramPlan === 'personal') {
+    document.querySelector('input[name="plan"][value="personal"]').checked = true;
+    if (paramMode === 'perpetual') {
+      document.querySelector('input[name="mode"][value="perpetual"]').checked = true;
+    }
+  }
+  if (params.get('cancelled') === 'true') {
+    document.getElementById('cancelled-banner').style.display = 'block';
+  }
+
+  // -- Event listeners --------------------------------------------------------
+
+  document.querySelectorAll('input[name="plan"]').forEach(radio => {
+    radio.addEventListener('change', () => { updatePlanUI(); updateAll(); });
+  });
+  document.querySelectorAll('input[name="mode"]').forEach(radio => {
+    radio.addEventListener('change', () => { updatePlanUI(); updateAll(); });
+  });
+  document.querySelectorAll('input[name="repos"]').forEach(radio => {
+    radio.addEventListener('change', () => { updateAll(); });
+  });
+  document.querySelectorAll('input[name="billing"]').forEach(radio => {
+    radio.addEventListener('change', () => { updateAnnualSavings(); updatePriceSummary(); });
+  });
+  document.getElementById('quantity-input').addEventListener('input', () => {
+    updateAnnualSavings();
+    updatePriceSummary();
+  });
+
+  // -- Init -------------------------------------------------------------------
+
+  updatePlanUI();
+  updateAll();
+
+  // Refresh prices/IDs from the live catalog; silently keep build-time data on
+  // any failure or malformed response. Currency picker stays build-time.
+  function applyCatalog(catalog) {
+    if (!catalog || !catalog.plans || !catalog.currencies) return false;
+    const p = catalog.plans;
+    if (!p.personal || !p.business || !p.founder || !p.personal_perpetual) {
+      return false;
+    }
+    CONFIG.plans = p;
+    CONFIG.currencies = catalog.currencies;
+    return true;
+  }
+
+  fetch(API_BASE + '/products')
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(json => {
+      if (applyCatalog(json && json.data)) updateAll();
+    })
+    .catch(() => {});
+
+  // -- Checkout ---------------------------------------------------------------
+
+  function resolveProductId() {
+    const plan = getActivePlan();
+    const cfg = getPlanConfig(plan);
+    if (plan === 'personal_perpetual') {
+      const repos = getRepos();
+      const opt = cfg.options.find(o => o.repositories === repos) || cfg.options[0];
+      return opt.price_id;
+    }
+    if (cfg.price_id) return cfg.price_id; // founder (fixed one-time)
+    const billing = getBilling();
+    return billing === 'monthly' ? cfg.monthly_id : cfg.annual_id;
+  }
+
+  async function handlePurchase() {
+    const btn = document.getElementById('purchase-btn');
+    const errorEl = document.getElementById('purchase-error');
+    const loadingEl = document.getElementById('purchase-loading');
+
+    btn.disabled = true;
+    errorEl.style.display = 'none';
+    loadingEl.style.display = 'block';
+
+    const productId = resolveProductId();
+    const plan = getActivePlan();
+    const oneTime = plan === 'personal_perpetual'
+      || getPlanConfig(plan).pricing_model === 'fixed';
+    const quantity = oneTime ? 1 : getQuantity();
+
+    try {
+      const res = await fetch(API_BASE + '/checkout/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          product_id: productId,
+          quantity: quantity,
+          currency: activeCurrency,
+          success_url: WEBSITE + '/license/manage/?session_id={CHECKOUT_SESSION_ID}',
+          cancel_url: WEBSITE + '/license/purchase/?cancelled=true',
+        }),
+      });
+
+      const json = await res.json();
+      if (!res.ok) {
+        throw new Error(json.error?.message || 'Checkout failed');
+      }
+
+      localStorage.setItem('cache_license_id', json.data.license_id);
+      window.location.href = json.data.checkout_url;
+    } catch (err) {
+      errorEl.textContent = err.message;
+      errorEl.style.display = 'block';
+      loadingEl.style.display = 'none';
+      btn.disabled = false;
+    }
+  }</script></main><footer class=footer><div class=footer-container><p class=footer-text>© 2026 Rocketware<nav class=footer-links><a class=footer-link href=/docs/>Docs</a><a class=footer-link href=/releases/>Changelog</a><a class=footer-link href=/license/>License</a><a class=footer-link href=/docs/privacy-policy/>Privacy</a><a class=footer-link href=https://github.com/rocketware/cache rel=noopener target=_blank>GitHub</a></nav></div></footer><script>function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }</script>

@@ -1,0 +1,79 @@
+version = "0.4.0"
+date = "2026-04-26"
+changelog = ["macOS App Store Edition: add in-app purchase support for seamless upgrades", "macOS Direct Edition: builds are now notarized by Apple, removing the Gatekeeper warning when opening the app", "Add task badge to compact navigation home button — shows highest priority category", "Linux: Fix file watcher not detecting changes in subdirectories", "Fix false \"license expired\" notification appearing briefly when opening the app after a subscription renewal", "Fix journal entry not refreshing after syncing changes from another device", "Fix date bar task badges showing on incorrect dates when tasks have explicit due dates"]
+
+[[artifacts]]
+platform = "linux"
+format = "tar.gz"
+arch = "flatpak"
+filename = "cache-0.4.0-linux-x64-flatpak.tar.gz"
+checksum_sha256 = "10ff31d580535ff3b076e1c1122d727d57216d299854fbf5e9bfe26752849d0a"
+filesize = "21.0.0 MB"
+
+[[artifacts]]
+platform = "linux"
+format = "tar.gz"
+arch = "x64"
+filename = "cache-0.4.0-linux-x64.tar.gz"
+checksum_sha256 = "7fd17923b99deaaca2f5802b63a5b64c396cce07f7b8c4946f2bab3e49589701"
+filesize = "21.0.0 MB"
+
+[[artifacts]]
+platform = "linux"
+format = "AppImage"
+arch = "x64"
+filename = "cache-0.4.0-linux-x64.AppImage"
+checksum_sha256 = "b45e12269e8c50513b1728505519a488cc278d8aab68f3c0be01a9ac4613c497"
+filesize = "20.2.2 MB"
+
+[[artifacts]]
+platform = "linux"
+format = "deb"
+arch = "x64"
+filename = "cache-0.4.0-linux-x64.deb"
+checksum_sha256 = "73795f286dedb3e5776918910d014ef92cfe8710c539f91c9250a72d0b74bca8"
+filesize = "21.4.4 MB"
+
+[[artifacts]]
+platform = "linux"
+format = "rpm"
+arch = "x64"
+filename = "cache-0.4.0-linux-x64.rpm"
+checksum_sha256 = "27688db034aade140af33f2dec839eb923320c662b50fb25e5d8b4789fa505aa"
+filesize = "22.1.1 MB"
+
+[[artifacts]]
+platform = "android"
+format = "apk"
+arch = "x64"
+filename = "cache-0.4.0-android-x64.apk"
+checksum_sha256 = "7f290e00bd6ced502ec8291dbce46185c31141a410f0ab7188fb9c83a62a1ca4"
+filesize = "37.0.0 MB"
+signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
+
+[[artifacts]]
+platform = "android"
+format = "apk"
+arch = "arm"
+filename = "cache-0.4.0-android-arm.apk"
+checksum_sha256 = "1644b5d4a8aa3bbb16c13074895950479633cde4600a682e2cf383ed1fb41d06"
+filesize = "32.5.5 MB"
+signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
+
+[[artifacts]]
+platform = "android"
+format = "apk"
+arch = "arm64"
+filename = "cache-0.4.0-android-arm64.apk"
+checksum_sha256 = "691cbafa5b1a5808a3ac06c4d1bd20b2f6f73ef2b90e725958c936195e2ac8be"
+filesize = "35.4.4 MB"
+signing_key = "e0fb26d760323772b247b4d35d342fb0ef409b17227cdbcaa843d39a24fa431e"
+
+[[artifacts]]
+platform = "macos"
+format = "dmg"
+arch = "universal"
+filename = "cache-0.4.0-macos-universal.dmg"
+checksum_sha256 = "e04953039551177ed92ec01fbbe9ffb81564c8518ea2a29bcb60041b94fa305a"
+filesize = "45.0.0 MB"
+apple_team_id = "U4KM65Y22D"
